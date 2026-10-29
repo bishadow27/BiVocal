@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BiVocal M16.5 – Flashcard UI Demo (không đổi SRS)</title>
+<style>
+:root{
+  --bg:#090D16;--surface:#111726;--stroke:#334155;--cyan:#38BDF8;--blue:#2563EB;
+  --text:#F8FAFC;--muted:#94A3B8;--track:#1E293B;--green:#34D399;--orange:#F59E0B;
+  font-family:Roboto,"Segoe UI",Arial,sans-serif;color:var(--text);background:#060914
+}
+*{box-sizing:border-box}body{margin:0}.showcase{min-height:100vh;padding:24px;display:flex;align-items:center;flex-direction:column;gap:14px}
+.heading{width:min(740px,100%);display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.eyebrow{font-size:12px;color:var(--cyan);letter-spacing:1px;font-weight:700}.heading h1{margin:4px 0 0;font-size:21px}
+.note{font-size:12px;color:var(--muted);margin:5px 0 0;max-width:580px;line-height:1.5}
+.controls{display:flex;gap:10px;flex-wrap:wrap;width:min(740px,100%);align-items:center;justify-content:center}
+.control{display:flex;gap:4px;align-items:center;background:var(--surface);border:1px solid var(--stroke);border-radius:12px;padding:5px}
+.control button{font:500 12px Roboto,"Segoe UI",Arial,sans-serif;color:var(--muted);background:transparent;border:0;border-radius:9px;padding:9px 10px;cursor:pointer;white-space:nowrap}
+.control button.active{background:var(--cyan);color:var(--bg);font-weight:700}
+.phone{position:relative;width:412px;max-width:100%;height:915px;max-height:min(915px,calc(100dvh - 160px));min-height:640px;border:6px solid #1E293B;border-radius:46px;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 22px 75px #0008}
+.status{height:36px;flex:none;padding:9px 23px 0;display:flex;justify-content:space-between;font-size:13px;font-weight:700;position:relative}
+.camera{width:15px;height:15px;background:#020407;border:2px solid #182136;border-radius:100%;position:absolute;left:calc(50% - 7.5px);top:9px}
+.appbar{flex:none;padding:6px 24px 10px;border-bottom:1px solid #1E293B}
+.appbar-row{min-height:54px;display:flex;align-items:center;gap:10px;justify-content:space-between}
+.back{border:0;background:var(--surface);color:var(--text);width:40px;height:40px;border-radius:12px;cursor:pointer;font-size:24px}
+.topic-title{text-align:center;flex:1}.topic-title strong{display:block;font-size:17px}.topic-title small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.mode-chip{color:var(--cyan);font-size:10px;border:1px solid #225075;padding:6px;border-radius:8px;max-width:73px;text-align:center;line-height:1.25}
+.progress-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:8px}
+.progress-track{height:8px;background:var(--track);border-radius:20px;margin-top:7px;overflow:hidden}
+.progress-fill{width:0%;height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:width .25s}
+.view{padding:19px 24px 16px;min-height:0;flex:1;display:flex;flex-direction:column;gap:16px}
+.flashcard{background:var(--surface);border:1px solid var(--stroke);border-radius:20px;padding:24px;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow-y:auto;cursor:pointer}
+.word{font-weight:800;font-size:34px;line-height:1.13;overflow-wrap:anywhere;text-align:center;letter-spacing:-.4px}
+.ipa{color:var(--muted);font-size:17px;margin-top:13px;text-align:center}.speaker{border:1px solid #245171;color:var(--cyan);background:#0B2336;border-radius:50%;width:40px;height:40px;font-size:19px;cursor:pointer}
+.pos{border:1px solid var(--stroke);border-radius:12px;color:var(--muted);background:#17233B;font-size:12px;padding:7px 13px;margin-top:19px;display:inline-block}
+.hint{position:absolute;bottom:20px;text-align:center;font-size:12px;color:var(--muted);left:12px;right:12px}
+.flip-icon{font-size:15px;display:block;margin-bottom:6px}
+.acts{display:flex;align-items:center;gap:10px;flex:none}.btn{border:0;border-radius:14px;min-height:52px;padding:10px 16px;cursor:pointer;font-size:15px;font-weight:700}
+.btn.primary{background:linear-gradient(90deg,var(--cyan),var(--blue));color:white;flex:1}
+.btn.secondary{background:var(--surface);color:var(--text);border:1px solid var(--stroke)}
+.btn.round{width:52px;border-radius:50%;padding:0;font-size:25px}.btn:disabled{opacity:.32;cursor:not-allowed}
+.backcard{justify-content:flex-start;align-items:stretch;gap:12px;cursor:default}
+.back-head{display:flex;justify-content:space-between;gap:15px;align-items:center;border-bottom:1px solid #253246;padding-bottom:12px}
+.back-head .word{font-size:26px;text-align:left}.back-head .ipa{font-size:14px;margin-top:5px;text-align:left}
+.field-label{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.meaning{font-size:21px;font-weight:700;margin-top:5px;line-height:1.35}
+.example{background:#0C1321;border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-top:8px}
+.example .en{font-size:14px;line-height:1.55}.example .vi{color:var(--muted);font-size:13px;margin-top:7px;line-height:1.5}
+.back-small-note{text-align:center;color:var(--muted);font-size:12px;margin-top:auto}
+.review-bar{background:#0D1A2B;border:1px solid #22415D;border-radius:16px;padding:14px}
+.review-bar h3{font-size:14px;margin:0 0 10px;text-align:center}
+.rating-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rate{min-height:57px;border-radius:12px;background:var(--surface);cursor:pointer;font-weight:700;font-size:14px}
+.rate.yes{border:1.5px solid var(--green);color:var(--green)}.rate.no{border:1.5px solid var(--orange);color:var(--orange)}
+.review-caption{font-size:11px;color:var(--muted);text-align:center;margin-top:9px;line-height:1.4}
+.done{justify-content:center;text-align:center}
+.check{width:80px;height:80px;border-radius:50%;background:#0E293F;border:2px solid var(--cyan);color:var(--cyan);font-size:42px;margin:0 auto 14px;display:flex;justify-content:center;align-items:center}
+.done h2{font-size:26px;margin:0 0 5px}.done p{font-size:14px;color:var(--muted);line-height:1.5;margin:0 0 16px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left;margin:14px 0}
+.metric{background:var(--surface);border:1px solid var(--stroke);border-radius:14px;padding:16px 12px}
+.metric strong{font-size:24px;display:block}.metric small{font-size:11px;color:var(--muted)}
+.result-note{font-size:12px;color:var(--muted);border:1px solid var(--stroke);background:var(--surface);padding:12px;border-radius:12px;line-height:1.6;text-align:left;margin:10px 0 18px}
+.done .btn{width:100%;margin:5px 0}
+.gesture{height:22px;flex:none;display:flex;align-items:center;justify-content:center}.gesture div{width:114px;height:4px;border-radius:6px;background:#66758B}
+.panel{max-width:740px;width:100%;border:1px solid var(--stroke);border-radius:12px;padding:12px 16px;color:var(--muted);background:var(--surface);font-size:12px;line-height:1.55}
+.panel strong{color:var(--text)}.spec-on [data-spec]{outline:1px dashed var(--cyan);position:relative}
+.spec-on [data-spec]::after{content:attr(data-spec);color:var(--bg);background:var(--cyan);font-size:10px;font-weight:700;position:absolute;top:2px;right:2px;padding:3px 5px;border-radius:5px;z-index:4}
+@media(max-width:450px){.showcase{padding:8px}.phone{border-width:3px;border-radius:28px;max-height:calc(100dvh - 145px)}.heading h1{font-size:17px}.controls{gap:5px}.control button{padding:7px 6px;font-size:11px}.view{padding:14px 16px}.appbar{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<div class="showcase">
+  <header class="heading">
+    <div><span class="eyebrow">BiVocal · M16.5 · BẢN THIẾT KẾ ĐIỀU CHỈNH</span>
+    <h1>Flashcard — Không thay đổi nghiệp vụ SRS</h1>
+    <p class="note">Đây là demo HTML dùng dữ liệu minh họa, KHÔNG phải ứng dụng Android. Các nút đánh giá cuối cùng phải được đối chiếu với source hiện hành.</p></div>
+  </header>
+  <div class="controls" aria-label="Bộ điều khiển chỉ dùng để xem trước">
+    <div class="control" id="mode-control">
+      <button class="active" data-mode="NEW_TODAY">Học từ mới</button>
+      <button data-mode="REVIEW_TODAY">Ôn tập SRS</button>
+    </div>
+    <div class="control" id="preview-control">
+      <button class="active" data-view="front">Mặt trước</button>
+      <button data-view="back">Mặt sau</button>
+      <button data-view="review">Đánh giá trong thẻ</button>
+      <button data-view="done">Hoàn thành</button>
+    </div>
+    <div class="control"><button id="inspect">📐 Figma Spec</button></div>
+  </div>
+  <main class="phone" id="phone" aria-label="Mô phỏng giao diện Android">
+    <div class="status" data-spec="System status: 36dp">
+      <span>09:41</span><span class="camera"></span><span>◆ ▰ ▣</span>
+    </div>
+    <div class="appbar" data-spec="Header padding H:24dp">
+      <div class="appbar-row">
+        <button class="back" id="leave" title="Trở về chủ đề">‹</button>
+        <div class="topic-title"><strong id="topic-text">Food</strong><small id="session-counter">Từ 1 / 1 · Demo</small></div>
+        <div class="mode-chip" id="mode-chip">HỌC TỪ MỚI</div>
+      </div>
+      <div class="progress-top"><span>Tiến độ phiên học</span><span id="progress-caption">0/1</span></div>
+      <div class="progress-track" data-spec="Progress: 8dp"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <div class="view" id="view-container"></div>
+    <div class="gesture"><div></div></div>
+  </main>
+  <div class="panel">
+    <strong>Quy tắc:</strong> Mặt trước ↔ Mặt sau là một Flashcard, không phải hai Activity.
+    Trong <strong>REVIEW_TODAY</strong>, các lựa chọn ghi nhớ xuất hiện <strong>ngay bên dưới mặt sau</strong>, không có màn đánh giá thứ ba.
+    <strong>NEW_TODAY</strong> chỉ sử dụng hành động đã được mã nguồn hỗ trợ.
+    Màn hoàn thành chỉ xuất hiện sau khi xử lý hết phiên. Các thông số ở đây là dữ liệu mô phỏng để duyệt UI.
+  </div>
+</div>
+<script>
+const state = { mode:"NEW_TODAY", view:"front", rated:null, complete:false };
+const root = document.getElementById("view-container");
+const safeWord = "delicious";
+const ipa = "/dɪˈlɪʃəs/";
+function speak(text){
+ if ("speechSynthesis" in window) {
+   const utterance = new SpeechSynthesisUtterance(text);utterance.lang="en-US";
+   window.speechSynthesis.cancel();window.speechSynthesis.speak(utterance);
+ }
+}
+function setMode(mode){state.mode=mode;state.view="front";state.complete=false;state.rated=null;render()}
+function preview(view){
+ if(view==="review"){
+   state.mode="REVIEW_TODAY"; state.view="back"; state.complete=false; state.rated=null;
+ } else if(view==="done"){
+   state.complete=true; state.view="done";
+   state.rated=state.rated||(state.mode==="REVIEW_TODAY"?"Đã nhớ":"Đã hiểu");
+ } else {
+   state.view=view; state.complete=false; state.rated=null;
+ }
+ render();
+}
+function finish(rating){
+ state.rated=rating||null;state.complete=true;state.view="done";render();
+}
+function render(){
+  document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===state.mode));
+  const viewForButton = state.view==="back" && state.mode==="REVIEW_TODAY" ? "review" : state.view;
+  document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===viewForButton));
+  document.getElementById("mode-chip").textContent=state.mode==="NEW_TODAY"?"HỌC TỪ MỚI":"ÔN TẬP SRS";
+  document.getElementById("topic-text").textContent=state.view==="done"?"Hoàn thành phiên":"Food";
+  document.getElementById("session-counter").textContent=state.view==="done"?"Kết quả phiên demo":"Từ 1 / 1 · Demo";
+  document.getElementById("progress-caption").textContent=state.complete?"1/1":"0/1";
+  document.getElementById("progress-fill").style.width=state.complete?"100%":"0%";
+  if(state.view==="front"){
+    root.innerHTML=`
+      <article class="flashcard" id="flashcard" data-spec="Card: R20dp · P24dp">
+        <div class="word">${safeWord}</div>
+        <div class="ipa">${ipa}</div>
+        <button class="speaker" id="listen-word" title="Nghe phát âm">◖))</button>
+        <span class="pos">adjective</span>
+        <div class="hint"><span class="flip-icon">⌃</span>Nhấn vào thẻ hoặc nút bên dưới để xem nghĩa</div>
+      </article>
+      <div class="acts" data-spec="Buttons: 52dp">
+        <button class="btn secondary round" disabled aria-label="Từ trước">‹</button>
+        <button class="btn primary" id="flip">Lật thẻ</button>
+        <button class="btn secondary round" disabled aria-label="Từ sau">›</button>
+      </div>`;
+    document.getElementById("flashcard").onclick=()=>preview("back");
+    document.getElementById("flip").onclick=()=>preview("back");
+    document.getElementById("listen-word").onclick=e=>{e.stopPropagation();speak(safeWord)};
+  } else if(state.view==="back"){
+    root.innerHTML=`
+      <article class="flashcard backcard" data-spec="Back card: R20dp · P24dp">
+        <div class="back-head">
+          <div><div class="word">${safeWord}</div><div class="ipa">${ipa}</div></div>
+          <button class="speaker" id="listen-word" title="Nghe phát âm">◖))</button>
+        </div>
+        <div><div class="field-label">Nghĩa</div><div class="meaning">ngon, thơm ngon</div></div>
+        <div><div class="field-label">Loại từ</div><span class="pos" style="margin-top:7px">adjective</span></div>
+        <div><div class="field-label">Ví dụ</div><div class="example">
+          <div class="en">The food here is delicious. <button class="speaker" id="listen-example" style="width:29px;height:29px;font-size:13px;float:right" title="Nghe ví dụ">◖))</button></div>
+          <div class="vi">Đồ ăn ở đây rất ngon.</div></div>
+        </div>
+        <div class="back-small-note">Dữ liệu ví dụ chỉ hiển thị nếu Flashcard có sẵn</div>
+      </article>
+      ${state.mode==="REVIEW_TODAY"
+        ?`<section class="review-bar" data-spec="Review actions: 2 × ≥48dp">
+            <h3>Bạn có nhớ từ này không?</h3>
+            <div class="rating-row">
+              <button class="rate no" id="forgot">Chưa nhớ</button>
+              <button class="rate yes" id="remembered">Đã nhớ</button>
+            </div>
+            <div class="review-caption">Mẫu bố cục dựa trên thao tác từng xuất hiện trong BiVocal; tên và nghiệp vụ cuối cùng phải khớp code.</div>
+          </section>`
+        :`<div class="acts"><button class="btn secondary" id="turnback">Xem mặt trước</button>
+             <button class="btn primary" id="understood">Đã hiểu · Tiếp tục</button></div>`}
+    `;
+    document.getElementById("listen-word").onclick=()=>speak(safeWord);
+    document.getElementById("listen-example").onclick=()=>speak("The food here is delicious.");
+    if(state.mode==="REVIEW_TODAY"){
+      document.getElementById("forgot").onclick=()=>finish("Chưa nhớ");
+      document.getElementById("remembered").onclick=()=>finish("Đã nhớ");
+    } else {
+      document.getElementById("turnback").onclick=()=>preview("front");
+      document.getElementById("understood").onclick=()=>finish("Đã hiểu");
+    }
+  } else {
+    const result=(state.rated===null)?"Chưa thao tác · Chỉ xem trước":state.rated;
+    const processed=state.complete?"1":"—";
+    root.innerHTML=`
+      <section class="done" data-spec="Completion: only after session finishes">
+        <div class="check">✓</div>
+        <h2>Hoàn thành phiên!</h2>
+        <p>Hãy tiếp tục duy trì thói quen học từ vựng mỗi ngày.</p>
+        <div class="metrics">
+          <div class="metric"><strong>${processed}</strong><small>Thẻ đã xử lý trong phiên demo</small></div>
+          <div class="metric"><strong>${state.complete?"1/1":"—"}</strong><small>Tiến độ phiên demo</small></div>
+        </div>
+        <div class="result-note"><strong>Thao tác cuối:</strong> ${result}. Không hiển thị XP, thời gian, số từ thành thạo nếu chưa có nguồn dữ liệu thực. Không tự đặt lịch ôn.</div>
+        <button class="btn primary" id="restart">Xem lại demo</button>
+        <button class="btn secondary" id="home">Quay lại danh sách chủ đề</button>
+      </section>`;
+    document.getElementById("restart").onclick=()=>setMode(state.mode);
+    document.getElementById("home").onclick=()=>setMode("NEW_TODAY");
+  }
+}
+document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>preview(b.dataset.view)));
+document.getElementById("leave").onclick=()=>setMode("NEW_TODAY");
+document.getElementById("inspect").onclick=()=>document.getElementById("phone").classList.toggle("spec-on");
+render();
+</script>
+</body></html>
