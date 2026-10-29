@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home16_greeting">Xin chào trở lại,</string>
+    <string name="home16_goal_title">🎯 MỤC TIÊU HÔM NAY</string>
+    <string name="home16_learn">Học từ mới hôm nay</string>
+    <string name="home16_learn_more">Học thêm từ mới</string>
+    <string name="home16_goal_value">%1$d / %2$d từ mới</string>
+    <string name="home16_goal_percent">%1$d%% hoàn thành</string>
+    <string name="home16_goal_remaining">Còn %1$d từ nữa để hoàn thành mục tiêu ngày!</string>
+    <string name="home16_goal_done">Bạn đã hoàn thành mục tiêu hôm nay!</string>
+    <string name="home16_no_data">Chưa có dữ liệu</string>
+    <string name="home16_loading">Đang tải dữ liệu…</string>
+    <string name="home16_goal_unavailable">Chưa tải được mục tiêu. Hãy thử lại.</string>
+    <string name="home16_streak_badge">🔥 %1$s ngày</string>
+    <string name="home16_srs_title">Tiến độ ghi nhớ SRS</string>
+    <string name="home16_srs_subtitle">%1$d từ đã ôn · %2$d từ đến hạn</string>
+    <string name="home16_srs_empty">Chưa có từ đã ôn. Bắt đầu học để theo dõi ghi nhớ.</string>
+    <string name="home16_srs_mastered">THÀNH THẠO</string>
+    <string name="home16_srs_remembering">ĐANG NHỚ</string>
+    <string name="home16_srs_new">MỚI HỌC</string>
+    <string name="home16_srs_level_mastered">Mức 5</string>
+    <string name="home16_srs_level_remembering">Mức 2–4</string>
+    <string name="home16_srs_level_new">Mức 0–1</string>
+    <string name="home16_accuracy_label">Độ chính xác các lượt ôn</string>
+    <string name="home16_accuracy">%1$.1f%% đúng</string>
+    <string name="home16_details">Chi tiết ›</string>
+    <string name="home16_all">Tất cả ›</string>
+    <string name="home16_leaderboard">Bảng xếp hạng XP</string>
+    <string name="home16_leaderboard_scope">Xếp theo tổng XP tích lũy</string>
+    <string name="home16_leaderboard_empty">Bảng xếp hạng đang được cập nhật</string>
+    <string name="home16_leaderboard_user_missing">Bạn chưa có trong danh sách %1$d người có XP cao nhất.</string>
+    <string name="home16_leaderboard_self">Bạn · %1$s</string>
+    <string name="home16_leaderboard_meta">🔥 %1$d ngày · Cấp %2$d</string>
+    <string name="home16_xp_value">%1$s XP</string>
+    <string name="home16_motivation">Mỗi ngày 15 phút, bứt phá vốn từ cùng <font color="#38BDF8"><b>BiVocal!</b></font></string>
+    <string name="home16_tab_home">Trang chủ</string>
+    <string name="home16_tab_topics">Chủ đề</string>
+    <string name="home16_tab_review">Ôn tập</string>
+    <string name="home16_tab_quiz">Trắc nghiệm</string>
+    <string name="home16_tab_profile">Hồ sơ</string>
+    <string name="home16_profile_description">Mở hồ sơ cá nhân</string>
+    <style name="Home16Card">
+        <item name="android:layout_width">match_parent</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item><item name="cardCornerRadius">20dp</item>
+        <item name="cardBackgroundColor">#111726</item><item name="strokeColor">#334155</item>
+        <item name="strokeWidth">1dp</item><item name="cardElevation">0dp</item>
+    </style>
+    <style name="Home16Text">
+        <item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#94A3B8</item><item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif</item><item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="Home16Title" parent="Home16Text">
+        <item name="android:textColor">#F8FAFC</item><item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Home16Action" parent="Home16Text">
+        <item name="android:minHeight">48dp</item><item name="android:gravity">center</item>
+        <item name="android:textColor">#38BDF8</item><item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">8dp</item><item name="android:paddingEnd">0dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+    <style name="Home16Stat">
+        <item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item><item name="android:minHeight">100dp</item>
+        <item name="android:orientation">vertical</item><item name="android:gravity">center</item>
+        <item name="android:padding">12dp</item><item name="android:background">@drawable/home16_stat</item>
+    </style>
+    <style name="Home16StatValue" parent="Home16Title">
+        <item name="android:textSize">17sp</item><item name="android:gravity">center</item><item name="android:layout_marginTop">4dp</item>
+    </style>
+    <style name="Home16StatLabel" parent="Home16Text">
+        <item name="android:textSize">11sp</item>
+        <item name="android:layout_width">match_parent</item><item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">2dp</item>
+    </style>
+    <style name="Home16SrsCell">
+        <item name="android:minHeight">80dp</item>
+        <item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item><item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item><item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/home16_srs_cell</item>
+    </style>
+    <style name="Home16Tab">
+        <item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item><item name="android:minHeight">64dp</item>
+        <item name="android:paddingTop">8dp</item><item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">center</item><item name="android:orientation">vertical</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item><item name="android:focusable">true</item>
+    </style>
+    <style name="Home16TabLabel" parent="Home16Text">
+        <item name="android:textSize">10sp</item><item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+    <style name="Theme.BiVoca.Home" parent="Theme.BiVoca">
+        <item name="android:windowBackground">#090D16</item>
+        <item name="android:statusBarColor">#090D16</item>
+        <item name="android:navigationBarColor">#090D16</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+</resources>

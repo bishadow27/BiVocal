@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_srs_title">Độ thuộc từ vựng (SRS)</string>
+    <string name="home_srs_detail">Chi tiết →</string>
+    <string name="home_srs_caption">từ đã học · %1$d%% thuần thục</string>
+    <string name="home_srs_fresh">Biết mới</string>
+    <string name="home_srs_practicing">Đang ôn</string>
+    <string name="home_srs_good">Nhớ tốt</string>
+    <string name="home_srs_mastered">Thuần thục</string>
+    <string name="home_srs_due">Ôn %1$s từ đến hạn</string>
+    <string name="home_srs_no_due">Chưa có từ đến hạn</string>
+    <string name="home_srs_chevron" translatable="false">›</string>
+    <string name="home_srs_help_description">Giải thích mức độ thuộc từ vựng</string>
+    <string name="home_srs_help">Chỉ thống kê các từ đã có lượt ôn.\n\nBiết mới: mức 0–1\nĐang ôn: mức 2–3\nNhớ tốt: mức 4\nThuần thục: mức 5\n\nTỷ lệ thuần thục = số từ mức 5 / tổng từ đã ôn. Số cần ôn lấy theo lịch đến hạn từ máy chủ.</string>
+    <string name="home_srs_help_close">Đã hiểu</string>
+    <style name="HomeSrsText" parent="Home16Text">
+        <item name="android:textColor">#94A3B8</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="HomeSrsCell">
+        <item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item><item name="android:minHeight">36dp</item>
+        <item name="android:orientation">horizontal</item><item name="android:gravity">center_vertical</item>
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="HomeSrsDot">
+        <item name="android:layout_width">6dp</item><item name="android:layout_height">6dp</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+    <style name="HomeSrsLabel" parent="HomeSrsText">
+        <item name="android:layout_width">0dp</item><item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">8dp</item><item name="android:layout_marginEnd">4dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="HomeSrsValue" parent="HomeSrsText">
+        <item name="android:textSize">14sp</item><item name="android:textStyle">bold</item>
+        <item name="android:gravity">end</item>
+    </style>
+</resources>

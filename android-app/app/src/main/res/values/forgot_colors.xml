@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="forgot_error">#FFB4AB</color>
+    <color name="forgot_notice">#F8D997</color>
+</resources>

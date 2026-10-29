@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="topics16_title">Kho từ vựng</string>
+    <string name="topics16_subtitle">%1$d chủ đề · %2$d nhóm loại từ</string>
+    <string name="topics16_search_hint">Tìm kiếm chủ đề...</string>
+    <string name="topics16_empty_search">Không tìm thấy chủ đề phù hợp.\nHãy thử từ khóa hoặc bộ lọc khác.</string>
+    <string name="topics16_empty_catalog">Chưa có chủ đề nào.</string>
+    <string name="topics16_semantic_heading">CHỦ ĐỀ</string>
+    <string name="topics16_pos_heading">LOẠI TỪ</string>
+    <string name="topics16_group_count">%1$d nhóm</string>
+    <string name="topics16_word_count">%1$s từ vựng</string>
+    <string name="topics16_chip_all">Tất cả (%1$d)</string>
+    <string name="topics16_chip_semantic">Chủ đề (%1$d)</string>
+    <string name="topics16_chip_pos">Loại từ (%1$d)</string>
+    <string name="topics16_chip_life">Đời sống</string>
+    <string name="topics16_chip_work">Công việc &amp; Số</string>
+    <string name="topics16_chip_nature">Thiên nhiên</string>
+    <style name="Topics16Chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/topics16_chip_background</item>
+        <item name="chipStrokeColor">#334155</item><item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">16dp</item><item name="chipMinHeight">32dp</item>
+        <item name="ensureMinTouchTargetSize">true</item><item name="checkedIconVisible">false</item>
+        <item name="android:textColor">@color/topics16_chip_text</item><item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="Topics16SectionFrame">
+        <item name="android:layout_width">match_parent</item><item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">@android:color/transparent</item><item name="strokeColor">#334155</item>
+        <item name="strokeWidth">1dp</item><item name="cardCornerRadius">20dp</item><item name="cardElevation">0dp</item>
+    </style>
+    <style name="Topics16SectionCount" parent="Home16Text">
+        <item name="android:textSize">11sp</item><item name="android:background">@drawable/topics16_group_badge</item>
+        <item name="android:paddingStart">8dp</item><item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">4dp</item><item name="android:paddingBottom">4dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+    </style>
+</resources>

@@ -1,0 +1,23 @@
+<resources>
+    <string name="fc16_metadata">LOẠI TỪ / THÔNG TIN</string>
+    <string name="fc16_not_remembered">Chưa nhớ</string><string name="fc16_remembered">Đã nhớ</string>
+    <string name="fc16_favorite">Yêu thích</string><string name="fc16_unfavorite">Bỏ yêu thích</string><string name="fc16_quiz">Luyện tập Quiz</string>
+    <string name="fc16_flip">Lật thẻ</string><string name="fc16_front">Xem mặt trước</string>
+    <string name="fc16_new">HỌC TỪ MỚI</string><string name="fc16_review">ÔN TẬP SRS</string><string name="fc16_browse">KHÁM PHÁ</string>
+    <string name="fc16_new_title">Học từ mới hôm nay</string><string name="fc16_progress">Tiến độ phiên học</string><string name="fc16_browse_progress">Vị trí trong chủ đề</string>
+    <string name="fc16_fraction">%1$d / %2$d</string><string name="fc16_counter">Thẻ %1$d / %2$d</string>
+    <string name="fc16_menu">Tùy chọn Flashcard</string><string name="fc16_question">Bạn có nhớ từ này không?</string>
+    <string name="fc16_pending">Đang lưu kết quả, vui lòng chờ.</string><string name="fc16_example_audio">Nghe câu ví dụ tiếng Anh</string>
+    <string name="fc16_word_audio">Nghe phát âm từ tiếng Anh</string><string name="fc16_example">VÍ DỤ</string>
+    <string name="fc16_done">Hoàn thành phiên!</string><string name="fc16_done_note">Hãy tiếp tục duy trì thói quen học từ vựng mỗi ngày.</string>
+    <string name="fc16_processed">Thẻ đã xử lý trong phiên</string><string name="fc16_session_progress">Tiến độ phiên học</string>
+    <string name="fc16_done_detail">Kết quả đã được máy chủ xác nhận. Hoàn thành phiên không đồng nghĩa đã thuộc tất cả các từ.</string>
+    <string name="fc16_learn_more">Học tiếp</string><string name="fc16_review_more">Ôn tiếp</string><string name="fc16_topics">Quay lại kho từ vựng</string>
+    <string name="fc16_check" translatable="false">✓</string><string name="fc16_previous" translatable="false">‹</string><string name="fc16_next" translatable="false">›</string>
+    <string name="fc16_saved">Kết quả chỉ ghi nhận sau khi máy chủ xác nhận.</string>
+    <style name="Fc16Text"><item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item><item name="android:textColor">#94A3B8</item><item name="android:textSize">12sp</item><item name="android:fontFamily">sans-serif</item></style>
+    <style name="Fc16Title" parent="Fc16Text"><item name="android:textColor">#F8FAFC</item><item name="android:textStyle">bold</item></style>
+    <style name="Fc16Button" parent="Widget.MaterialComponents.Button"><item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item><item name="android:minHeight">52dp</item><item name="android:textAllCaps">false</item><item name="android:textSize">15sp</item><item name="android:insetTop">0dp</item><item name="android:insetBottom">0dp</item><item name="cornerRadius">14dp</item><item name="backgroundTint">#111726</item><item name="strokeColor">#334155</item><item name="strokeWidth">1dp</item><item name="android:textColor">#F8FAFC</item></style>
+    <style name="Fc16Primary" parent="Fc16Button"><item name="android:background">@drawable/home16_primary</item><item name="backgroundTint">@null</item><item name="strokeWidth">0dp</item></style>
+    <style name="Fc16Audio" parent="Fc16Button"><item name="android:layout_width">48dp</item><item name="android:layout_height">48dp</item><item name="android:minHeight">48dp</item><item name="android:minWidth">48dp</item><item name="android:padding">0dp</item><item name="cornerRadius">24dp</item><item name="icon">@drawable/ic_flashcard_speaker</item><item name="iconTint">#38BDF8</item><item name="iconSize">20dp</item><item name="iconPadding">0dp</item><item name="iconGravity">textStart</item><item name="backgroundTint">#0B2336</item><item name="strokeColor">#245171</item></style>
+</resources>

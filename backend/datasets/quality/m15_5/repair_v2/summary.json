@@ -1,0 +1,54 @@
+{
+  "input": {
+    "approvedCandidates": 22000,
+    "stagingAdditions": 15000,
+    "approvedSha256": "c0e257dc43541f57408169438ad8b7b5abf663bed754eb9e2a8bfd53afc8ed5e",
+    "stagingSha256": "a1ca8b52a677093de508331575939248142fea684d529b317c5f2ba4c89689ef"
+  },
+  "currentQa": {
+    "qg_needs_review": 24,
+    "datafix_overrides": 137
+  },
+  "additionalSpotcheckFlags": 7,
+  "decisions": {
+    "BLOCK": 57,
+    "AUTO_PREFLIGHT_ONLY": 19048,
+    "REVIEW": 2895
+  },
+  "commonFlags": {
+    "SHORT_AMBIGUOUS_VNEDICT_SUBSTRING": 2563,
+    "LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT": 217,
+    "POS_GLOSS_VERB_STYLE": 74,
+    "DICTIONARY_USAGE_LABEL": 34,
+    "BROKEN_GLOSS_BOUNDARY": 30,
+    "LATEST_500_QG_CONFIRMED_NEEDS_REVIEW": 24,
+    "NATIONALITY_ACRONYM_OR_NAME_CAPITALIZATION": 23,
+    "PROPER_NOUN_CAPITALIZATION": 22,
+    "VI_TRANSLATION_NO_DIACRITICS_VERIFY_LANGUAGE": 18,
+    "LONG_MULTI_SENSE_GLOSS_REQUIRES_EDITING": 17,
+    "AI_SPOTCHECK_SEMANTIC_UNCERTAINTY": 4,
+    "AI_SPOTCHECK_STRONG_MISMATCH": 3,
+    "POS_GLOSS_ADJECTIVE_STYLE": 3,
+    "PLURAL_SENSE_NUMBER_MISMATCH": 2,
+    "POS_GLOSS_NOUN_STYLE": 1,
+    "WHO_ACRONYM_CASE": 1
+  },
+  "currentQaBadRowsFoundInApproved": 24,
+  "currentQaBadRowsBlocked": 24,
+  "proposedNewTotal": 20000,
+  "proposedAdditionCount": 15000,
+  "proposalSufficientFor20000": true,
+  "eligiblePoolAfterDeterministicFlags": 19048,
+  "replacementsFromUnused7000": 2513,
+  "removedFromCurrent15000": 2513,
+  "suggestedAction": "NEEDS_INDEPENDENT_SEMANTIC_REVIEW_BEFORE_PRODUCTION",
+  "importantWarnings": [
+    "The proposed selection is NOT verified for semantic correctness. Do not bulk publish based only on this output.",
+    "VNEDICT independentMeaningConfirmed is lexical substring overlap, not semantic verification.",
+    "The 5,000 existing production Flashcard rows are absent from this ZIP; dedup against them must occur in Codex preflight.",
+    "No users, PostgreSQL connection or production data was accessed.",
+    "CEFR tags may describe headword+POS but not this particular sense.",
+    "Run Quiz Quality Guard again after any candidate selection changes.",
+    "This script never changes 22,000 source candidate objects or inserts into PostgreSQL."
+  ]
+}

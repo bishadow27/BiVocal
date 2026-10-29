@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homeTopBar" android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:minHeight="64dp" android:orientation="horizontal" android:gravity="center_vertical"
+    android:paddingStart="24dp" android:paddingEnd="16dp" android:paddingTop="8dp" android:paddingBottom="8dp">
+    <ImageView android:id="@+id/homeHeaderMascot" android:layout_width="32dp" android:layout_height="40dp"
+        android:scaleType="fitCenter" android:contentDescription="@string/login_logo_description"/>
+    <TextView android:id="@+id/textHomeSlogan" style="@style/Home16Text" android:layout_width="0dp"
+        android:layout_weight="1" android:layout_marginStart="10dp" android:layout_marginEnd="8dp"
+        android:text="@string/home16_motivation" android:textSize="12sp" android:maxLines="2" android:textColor="#CBD5E1"/>
+    <include layout="@layout/view_home_header_actions"/>
+</LinearLayout>

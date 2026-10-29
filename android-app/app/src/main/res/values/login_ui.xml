@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="login_ui_background">#090D16</color>
+    <color name="login_ui_input">#111726</color>
+    <color name="login_ui_border">#334155</color>
+    <string name="login_brand">BiVocal</string>
+    <string name="login_slogan">Học từ vựng mỗi ngày</string>
+    <string name="login_account_label">Tài khoản</string>
+    <string name="login_footer">Chưa có tài khoản? <font color="#38BDF8" face="sans-serif-medium">Đăng ký ngay</font></string>
+    <style name="Theme.BiVoca.Login.Reference" parent="Theme.BiVoca.Login">
+        <item name="android:statusBarColor">@color/login_ui_background</item>
+        <item name="android:navigationBarColor">@color/login_ui_background</item>
+        <item name="android:windowBackground">@color/login_ui_background</item>
+        <item name="android:colorAccent">@color/bivocal_cyan</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+</resources>

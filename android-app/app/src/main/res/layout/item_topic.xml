@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+    <LinearLayout android:id="@+id/topicGroupHeading" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="4dp" android:paddingBottom="12dp">
+        <TextView android:id="@+id/textTopicGroupHeader" style="@style/Home16Title" android:layout_width="0dp" android:layout_weight="1" android:textColor="#38BDF8" android:textSize="12sp"/>
+        <TextView android:id="@+id/textTopicGroupCount" style="@style/Home16Text" android:background="@drawable/topics16_group_badge" android:paddingHorizontal="8dp" android:paddingVertical="4dp" android:textSize="11sp" android:layout_marginStart="8dp"/>
+    </LinearLayout>
+    <com.google.android.material.card.MaterialCardView android:id="@+id/cardTopic" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardBackgroundColor="#111726" app:cardCornerRadius="18dp" app:cardElevation="0dp" app:strokeColor="#334155" app:strokeWidth="1dp" app:rippleColor="#2638BDF8" android:clickable="true" android:focusable="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="84dp" android:paddingHorizontal="16dp" android:paddingVertical="12dp" android:orientation="horizontal" android:gravity="center_vertical">
+            <FrameLayout android:id="@+id/topicIconBox" android:layout_width="48dp" android:layout_height="48dp" android:importantForAccessibility="noHideDescendants">
+                <ImageView android:id="@+id/imageTopicIcon" android:layout_width="26dp" android:layout_height="26dp" android:layout_gravity="center"/>
+                <TextView android:id="@+id/textTopicPosGlyph" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:textSize="14sp" android:textStyle="bold" android:visibility="gone"/>
+            </FrameLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="14dp" android:layout_marginEnd="8dp">
+                <TextView android:id="@+id/textTopicName" style="@style/Home16Title" android:layout_width="match_parent" android:textSize="16sp"/>
+                <TextView android:id="@+id/textTopicDescription" style="@style/Home16Text" android:layout_width="match_parent" android:layout_marginTop="2dp" android:maxLines="1" android:ellipsize="end"/>
+                <TextView android:id="@+id/textFlashcardCount" style="@style/Home16Text" android:layout_width="match_parent" android:textSize="12sp" android:textStyle="bold" android:textColor="#38BDF8" android:layout_marginTop="4dp"/>
+            </LinearLayout>
+            <ImageView android:layout_width="16dp" android:layout_height="20dp" android:src="@drawable/topics16_chevron" android:importantForAccessibility="no"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

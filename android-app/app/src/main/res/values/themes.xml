@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.BiVoca" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.BiVoca" parent="Base.Theme.BiVoca" />
+    <style name="Theme.BiVoca.Login" parent="Theme.BiVoca">
+        <item name="android:statusBarColor">#0B1325</item>
+        <item name="android:navigationBarColor">#060A15</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+    <style name="Theme.BiVoca.TimePicker" parent="Theme.Material3.Dark.Dialog.Alert">
+        <item name="android:windowBackground">@color/bivocal_surface</item>
+        <item name="android:colorAccent">@color/bivocal_cyan</item>
+        <item name="colorAccent">@color/bivocal_cyan</item>
+        <item name="colorPrimary">@color/bivocal_cyan</item>
+        <item name="colorSecondary">@color/bivocal_cyan</item>
+        <item name="colorControlActivated">@color/bivocal_cyan</item>
+        <item name="android:colorControlActivated">@color/bivocal_cyan</item>
+        <item name="android:textColorPrimary">@color/bivocal_text_primary</item>
+        <item name="android:textColorSecondary">@color/bivocal_text_secondary</item>
+        <item name="android:navigationBarColor">@color/bivocal_night</item>
+    </style>
+</resources>

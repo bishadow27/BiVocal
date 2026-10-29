@@ -1,0 +1,288 @@
+BACKEND MILESTONE 6A - VERIFICATION
+
+Application:
+BIPASSION
+Admin frontend branding:
+BIPASSION Admin (NOT IMPLEMENTED)
+Date: 2026-10-05 (Asia/Saigon)
+Runtime: Node.js24.19.0 / npm11.17.0
+
+npm install:
+PASS exit0; dependencies up to date, no new dependencies, package-lock unchanged
+TypeScript:
+PASS npm run typecheck (production, scripts, unit tests and integration source)
+Build:
+PASS npm run build
+Existing M1-M5 regression:
+PASS 210/210, all pre-existing test source files and assertions byte-for-byte unchanged
+M1: PASS17/17
+M2: PASS28/28
+M3: PASS43/43
+M4: PASS57/57
+M5: PASS65/65
+M6 tests:
+PASS101/101 (88 HTTP/service +5 CLI argument validation +8 repository SQL contracts)
+Combined npm test:
+PASS311/311, 13 suites, 0 fail, 0 cancelled, 0 skipped, 0 todo
+
+Migration source:
+READY
+Migration:
+1791072004000_add_admin_authorization.sql
+Migration applied:
+NO
+Admin PostgreSQL integration:
+NOT TESTED
+Admin role CLI:
+SOURCE READY / NOT RUN
+Database modified:
+NO
+Dataset modified:
+NO
+
+DATABASE MIGRATION NOT APPLIED
+ADMIN DATABASE INTEGRATION NOT TESTED
+These refer to M6A. No PostgreSQL connection, migration, integration, role promotion
+or demotion was performed. Actual .env was not read/copied/printed/bundled.
+
+PRIOR STATE (USER-REPORTED)
+M1-M5 CLOSED/PASS on real PostgreSQL.
+M1 integration5/5; Auth1/1; Progress1/1; Quiz1/1; Gamification1/1.
+Manual M3/M4/M5 PASS. Four prior migrations APPLIED.
+These database suites were NOT rerun in this source task.
+
+Files created:
+backend/migrations/1791072004000_add_admin_authorization.sql
+backend/scripts/set-user-role.ts
+backend/src/modules/admin/admin.controller.ts
+backend/src/modules/admin/admin.repository.ts
+backend/src/modules/admin/admin.route.ts
+backend/src/modules/admin/admin.schema.ts
+backend/src/modules/admin/admin.service.ts
+backend/src/modules/admin/admin.types.ts
+backend/src/modules/admin/require-admin.ts
+backend/tests/admin-repository.test.ts
+backend/tests/admin.database.integration.ts
+backend/tests/admin.test.ts
+backend/tests/support/admin-double.ts
+backend/tests/support/admin-integration.repository.ts
+backend_milestone6a_review.txt
+backend_milestone6a_source_report.zip
+chatgpt_web_prompt_milestone6a.txt
+
+Files modified:
+backend/README.md
+backend/package.json
+backend/src/routes.ts
+backend/src/server.ts
+backend/verification-report.txt
+No pre-existing M1-M5 module, test, script, migration or dataset file changed.
+Only routes/server wiring, package scripts, README/report changed among existing files.
+Package name and /api/v1 prefix unchanged.
+
+MIGRATION
+UP only adds users.role VARCHAR(20) NOT NULL DEFAULT 'USER',
+named CHECK users_role_check restricting USER/ADMIN.
+Existing users become USER; no default admin, username/email/ID hardcoding or ENUM.
+No role index added without evidence for a low-cardinality index.
+DOWN only drops role and its owned constraint, no CASCADE.
+No tables dropped/altered besides the new users column.
+Baseline already enforces unique topics.code/topics.name and global flashcard
+LOWER(english),LOWER(vietnamese) via idx_flashcards_unique_word_meaning.
+No duplicate index or baseline migration edit.
+
+AUTHORIZATION
+Every /api/v1/admin request passes existing JWT verification then fresh repository
+lookup of users.role. Deleted user401 AUTH_USER_NOT_FOUND; non-admin403
+ADMIN_FORBIDDEN / Administrator access required. Role never stored/trusted in JWT,
+never cached or accepted from spoofed header/query. Demotion affects subsequent
+requests on the same token. Already-authorized in-flight requests are not cancelled.
+Regular auth/register/login/me DTOs and minimal JWT sub/iat/exp unchanged.
+Authorization happens before JSON parsing; malformed/oversized bodies use existing
+safe errors. Unexpected DB errors are generic500 without SQL/credentials/hash/stack.
+
+16 ADMIN ROUTES
+GET /admin/me: own id/username/email/fullName/avatarUrl/role.
+GET /admin/dashboard: inventory, XP, scoped quiz totals/chart, top5 users/topics.
+GET/POST /admin/topics; PUT /admin/topics/:id.
+GET/POST /admin/flashcards; PUT /admin/flashcards/:id;
+PATCH /admin/flashcards/:id/status.
+GET /admin/users; GET /admin/users/:id;
+GET /admin/users/:id/progress; GET /admin/users/:id/quiz-history;
+PATCH /admin/users/:id/role.
+GET /admin/stats/quiz; GET /admin/leaderboard.
+All prefixed /api/v1. Create201, successful reads/updates200.
+No DELETE endpoints, no admin mutation of progress/history.
+
+CONTRACT DECISIONS
+- Pagination {items,page,limit,total,totalPages}; default1/20, limit<=100,
+  page<=2147483647; canonical decimal only; repeated known query fields rejected.
+  Out-of-range page empty with retained total; totalPages0 when empty.
+- Search trimmed<=200, literal case-insensitive substring; LIKE %,_,backslash escaped.
+  Fixed stable ordering; all request values parameterized, no request SQL/sort fragments.
+- Topic code ^[A-Z][A-Z0-9_]*$ max50 matching existing DB CHECK; this intentionally
+  rejects leading digit/underscore rather than allowing input the baseline rejects.
+  Name required<=100, description nullable<=5000, imageUrl HTTP(S) nullable<=2048.
+  Duplicate code409 TOPIC_CODE_EXISTS, name409 TOPIC_NAME_EXISTS.
+- Card English/Vietnamese required trimmed<=150/255, pronunciation nullable<=150,
+  partOfSpeech nullable baseline whitelist, examples nullable<=5000, level A1/A2/B1/B2.
+  Create isActive defaulttrue; PUT rejects isActive; PATCH strict boolean.
+  Duplicate pair global including inactive409 FLASHCARD_EXISTS; missing topic404.
+  Nullable omitted PUT fields reset NULL (full replacement); status preserved.
+- Missing resources ADMIN_TOPIC_NOT_FOUND/ADMIN_FLASHCARD_NOT_FOUND/ADMIN_USER_NOT_FOUND.
+  FK race409 ADMIN_REFERENCE_CONFLICT. Other unexpected driver errors generic500.
+- Disable keeps all references/history; existing M1/M3/M4 active-card behavior untouched.
+  Admin progress lists include inactive; detail progress summary reuses active-only M3.
+- Admin user list/detail may expose management email/lastLogin/role; never password_hash.
+  Detail {user,progress,quiz,gamification}, reuses established summary semantics.
+- API self-demotion409 ADMIN_SELF_ROLE_CHANGE_FORBIDDEN; own ADMIN no-op allowed.
+  Other accounts can be promoted/demoted. No complex last-admin policy.
+- CLI source scripts/set-user-role.ts, admin:set-role script: exact normalized email,
+  only USER/ADMIN, existing account required, no account creation or live-secret output.
+  Argument parsing is unit-tested without importing/executing the CLI or opening a pool.
+- Dashboard users/cards/XP/topUsers all-time/current; quiz/topTopics/chart scoped by range.
+  range7d default or30d includes today in UTC; all unbounded. 7d/30d zero-fill daily chart.
+  Only server numeric range constants are bound, not client SQL intervals.
+  Accuracy percent rounded2 decimals, NULL on zero answers. No new quiz type.
+- Existing TIMESTAMP answers interpreted via current DB TimeZone then grouped in UTC;
+  preserve historical DB timezone configuration. Not changing M1-M5 timestamps.
+- Leaderboard XP>0, full RANK by XP DESC before pagination, userId tie-break only in
+  output ORDER BY; tie rank1/1/3 preserved across pages; no private fields; derived level.
+- Explicit projections/DTO mapping. Numeric aggregates reject unsafe integer conversion.
+  Count/page and dashboard reads use separate SELECT snapshots under concurrent writes.
+
+TEST EVIDENCE / LIMITS
+All311 tests PASS. M6 covers all-route missing/invalid/expired JWT rejection, USER403
+including spoofed signed role claim, live promotion/demotion using same token,
+deleted users, safe failures, admin/me projection, self-demotion, dashboard aggregates/
+empty DB/ranges, CRUD/status/search/filter/page/validation/duplicates/missing resources,
+admin user inspection, strict body/enum/ID/query limits, stats, tied leaderboard pages,
+absence of delete/progress writes, CLI argument validation and parameterized SQL contracts.
+Real Express/JWT and M1-M5 bcrypt tests run; M6 repository doubles do not evaluate SQL.
+No claim of actual PostgreSQL migration syntax/constraint/query/cleanup PASS.
+Old M1-M5 SQL/business logic and tests are unchanged; regression tests all pass.
+
+ADMIN POSTGRESQL INTEGRATION SOURCE (NOT RUN)
+tests/admin.database.integration.ts
+tests/support/admin-integration.repository.ts
+npm run test:admin:integration
+Requires ADMIN_INTEGRATION_ALLOW_WRITES=1 before Pool creation; not part of npm test.
+Typechecked; not executed, including without flag.
+
+Source verifies role column, old tables/migration table and baseline unique index;
+snapshots dataset; creates UUID A/B; default USER then exact-owned SQL promotion of A.
+Production Admin APIs create unique ADM_<24hex> topic and5 flashcards. Tests cover
+filter/search/page, duplicate/update/status, public learning and Quiz exclude inactive,
+normal B creates real Progress/Quiz/XP, admin detail/progress/history/stats/leaderboard.
+B same JWT gains/loses admin access on role API changes; A self-demotion fails.
+Disabling a learned card keeps admin history/XP while M3 active-only views hide it.
+Baseline rows checked during run and after cleanup.
+
+Cleanup closes HTTP first, deletes users by ID AND exact UUID username AND email,
+verifies progress/quiz/scores/XP cascade gone, then deletes cards by exact ID AND
+topic ID AND generated code; verifies no cards before deleting exact topic ID/code.
+Recovers committed-but-unparsed created IDs through exact owned identities/topic.
+Attempts both user cleanups despite failure, collects errors, verifies snapshot,
+closes pool. No prefix/broad delete, no FOOD/baseline deletion, no seed/schema hacks.
+Sequences can advance normally. Run on quiet development DB; avoid UTC midnight.
+
+PRESERVATION SHA-256 BEFORE / AFTER
+13 dataset files and all4 applied migrations MATCH.
+dataset/README.md
+  BEFORE 60520E188A186A354594B88CCF48E347467ED20B65CCC6E06E5932379AC0A0D1
+  AFTER  60520E188A186A354594B88CCF48E347467ED20B65CCC6E06E5932379AC0A0D1
+  MATCH
+dataset/additions/README.md
+  BEFORE F434D41227C0979A5CB63BD56BBEF162F95FFA028B94938309EC6925CE71F5AC
+  AFTER  F434D41227C0979A5CB63BD56BBEF162F95FFA028B94938309EC6925CE71F5AC
+  MATCH
+dataset/additions/example_addition.csv
+  BEFORE 4F028DF80E127C86B43CE5157983CECFBE684643600DB8EB56D64F008D6BD640
+  AFTER  4F028DF80E127C86B43CE5157983CECFBE684643600DB8EB56D64F008D6BD640
+  MATCH
+dataset/flashcards.csv
+  BEFORE 49E7FA31C26FF06FD70E3C38022397D587D26DB8583A6AE75CCE5AF1054448B5
+  AFTER  49E7FA31C26FF06FD70E3C38022397D587D26DB8583A6AE75CCE5AF1054448B5
+  MATCH
+dataset/generate_seed_sql.py
+  BEFORE D08F04E9ABA60FED5E56A00BC2ADF7F0CD4CB6BBBCB688F946B493291019F22A
+  AFTER  D08F04E9ABA60FED5E56A00BC2ADF7F0CD4CB6BBBCB688F946B493291019F22A
+  MATCH
+dataset/import_flashcards.py
+  BEFORE 55D105244D25713B1FCC5AE26FD6372FD5B03F9BBF2C798635D84AB9C332A92F
+  AFTER  55D105244D25713B1FCC5AE26FD6372FD5B03F9BBF2C798635D84AB9C332A92F
+  MATCH
+dataset/schema.sql
+  BEFORE 63AC33C4102EAFAC61728830C6C8248E5D8F001ED8BAAED6844A101CE6FF3B66
+  AFTER  63AC33C4102EAFAC61728830C6C8248E5D8F001ED8BAAED6844A101CE6FF3B66
+  MATCH
+dataset/seed_flashcards.sql
+  BEFORE B29E6702FD19F547AA10ADB820667E533DC9D018AC95E23101240E1130B0792F
+  AFTER  B29E6702FD19F547AA10ADB820667E533DC9D018AC95E23101240E1130B0792F
+  MATCH
+dataset/seed_topics.sql
+  BEFORE F98B076D1C45248E656A11E017A2234E3249FA48AA028085771E45AC6B65DC81
+  AFTER  F98B076D1C45248E656A11E017A2234E3249FA48AA028085771E45AC6B65DC81
+  MATCH
+dataset/test_dataset.py
+  BEFORE 9F8AAFFB30D9BC9AF262C06296A0D0EB20B57586368073514517A2712557EE57
+  AFTER  9F8AAFFB30D9BC9AF262C06296A0D0EB20B57586368073514517A2712557EE57
+  MATCH
+dataset/topics.csv
+  BEFORE 10151CF270914BF870EA4B1CDC48B695B8416C1AAA6F984575CC23AE0DBCE0C2
+  AFTER  10151CF270914BF870EA4B1CDC48B695B8416C1AAA6F984575CC23AE0DBCE0C2
+  MATCH
+dataset/validate_dataset.py
+  BEFORE A3BB8C62B93D5FF5E516DDDDDC6F8A3E0C132C6F17FE73A49F13EB4C897A40D9
+  AFTER  A3BB8C62B93D5FF5E516DDDDDC6F8A3E0C132C6F17FE73A49F13EB4C897A40D9
+  MATCH
+dataset/validation_report.txt
+  BEFORE D3CE971C0634BF2D9EC4B2203C4D9A88FF4E889ADC915B529A57FBE716CE871E
+  AFTER  D3CE971C0634BF2D9EC4B2203C4D9A88FF4E889ADC915B529A57FBE716CE871E
+  MATCH
+backend/migrations/1791072000000_create_users.sql
+  BEFORE CDE72123255794B7342B99C646A2FF7FE06571553CAB3A21F24DD2199A39E660
+  AFTER  CDE72123255794B7342B99C646A2FF7FE06571553CAB3A21F24DD2199A39E660
+  MATCH
+backend/migrations/1791072001000_create_user_progress.sql
+  BEFORE 217D9302BA2ABBC3062DD49D2882A1350376F3D0FF29A30849866BE7AE613475
+  AFTER  217D9302BA2ABBC3062DD49D2882A1350376F3D0FF29A30849866BE7AE613475
+  MATCH
+backend/migrations/1791072002000_create_quiz_results.sql
+  BEFORE 560B93D8065A88796B732D0989464F9CBE74320E8EB75CD496ECDA1F824A5914
+  AFTER  560B93D8065A88796B732D0989464F9CBE74320E8EB75CD496ECDA1F824A5914
+  MATCH
+backend/migrations/1791072003000_create_gamification.sql
+  BEFORE 4B0A46A2EA40D81F965DDF51B9D529A92350CA4388F2A416EFE408AFFF7790C1
+  AFTER  4B0A46A2EA40D81F965DDF51B9D529A92350CA4388F2A416EFE408AFFF7790C1
+  MATCH
+All 18 pre-existing test/support/integration source files also match SHA-256.
+
+Known issues:
+1. DATABASE MIGRATION NOT APPLIED; ADMIN DATABASE INTEGRATION NOT TESTED.
+   CLI is source only, not run; no admin account promoted.
+2. Topic code retains existing leading-letter CHECK, stricter than unrestricted
+   leading A-Z/0-9/underscore. No baseline schema change.
+3. Dashboard/page counts are not a multi-query transactional snapshot under writes.
+4. Quiz timestamps have no stored timezone. UTC chart conversion assumes historical
+   records were written under the same DB TimeZone. Keep that configuration stable.
+5. Existing M4 history uses current referenced text, so editing card/topic content
+   changes displayed historical text; M6 does not introduce immutable snapshots.
+6. M5 Quiz-ID answer inference and INTEGER XP limits remain unchanged.
+7. No last-admin policy, audit log or frontend/settings write API added.
+8. npm install exit0 warns bcrypt/esbuild install scripts pending allowScripts.
+   Existing bindings work, tests/build PASS; script approval policy unchanged.
+
+REVIEW BUNDLE
+TXT: review prompt + verification + SHA-256 manifest + complete readable source,
+package-lock omitted only from TXT.
+ZIP: backend src/migrations/scripts/tests/config/docs including package-lock and
+blank .env.example, plus ChatGPT prompt and MANIFEST.sha256.
+Actual .env, node_modules, dist, coverage, logs and live secrets/tokens excluded.
+Synthetic test credentials and credential variable names in source are not live secrets.
+Older milestone bundles preserved.
+
+STOP AT M6A
+No migrate up/down, no DB integration, no admin:set-role execution.
+No M6B Admin Web, Android or frontend.
+

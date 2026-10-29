@@ -1,0 +1,3 @@
+interface:
+  display_name: "BiVoca QA & Handoff"
+  short_description: "Kiểm thử và bàn giao BiVoca giữa Codex và Antigravity"

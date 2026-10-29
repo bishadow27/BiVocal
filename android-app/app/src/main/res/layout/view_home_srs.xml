@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardHomeSrs" style="@style/Home16Card" app:cardBackgroundColor="#111726" app:strokeColor="#334155" app:strokeWidth="1dp" app:cardCornerRadius="20dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:orientation="vertical">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+<TextView style="@style/Home16Title" android:layout_width="0dp" android:layout_weight="1" android:text="@string/home_srs_title" android:textSize="16sp" android:fontFamily="sans-serif-medium" android:textStyle="normal"/>
+<ImageButton android:id="@+id/buttonHomeSrsInfo" android:layout_width="48dp" android:layout_height="48dp" android:padding="13dp" android:src="@drawable/auth_info" android:contentDescription="@string/home_srs_help_description" android:background="?attr/selectableItemBackgroundBorderless"/>
+<TextView android:id="@+id/buttonProgress" style="@style/Home16Action" android:text="@string/home_srs_detail" android:textColor="#38BDF8"/>
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:minHeight="36dp" android:orientation="horizontal" android:gravity="center_vertical">
+<TextView android:id="@+id/textHomeSrsTotal" style="@style/Home16Title" android:text="@string/home_placeholder" android:textSize="28sp" android:textColor="#FFB020"/>
+<TextView android:id="@+id/textHomeSrsCaption" style="@style/HomeSrsText" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="8dp" android:text="@string/home16_loading"/>
+</LinearLayout>
+<LinearLayout android:id="@+id/homeSrsBar" android:layout_width="match_parent" android:layout_height="10dp" android:layout_marginTop="8dp" android:orientation="horizontal" android:background="@drawable/home16_track" android:clipToOutline="true">
+<View android:id="@+id/homeSrsNewSegment" android:layout_width="0dp" android:layout_height="match_parent" android:layout_marginEnd="3dp" android:background="@drawable/home_srs_color_fresh"/>
+<View android:id="@+id/homeSrsRememberingSegment" android:layout_width="0dp" android:layout_height="match_parent" android:layout_marginEnd="3dp" android:background="@drawable/home_srs_color_practicing"/>
+<View android:id="@+id/homeSrsGoodSegment" android:layout_width="0dp" android:layout_height="match_parent" android:layout_marginEnd="3dp" android:background="@drawable/home_srs_color_good"/>
+<View android:id="@+id/homeSrsMasteredSegment" android:layout_width="0dp" android:layout_height="match_parent" android:background="@drawable/home_srs_color_mastered"/>
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal" android:baselineAligned="false">
+<LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_fresh">
+<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_fresh"/>
+<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_fresh"/>
+<TextView android:id="@+id/textHomeNew" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#1677FF"/>
+</LinearLayout><Space android:layout_width="8dp" android:layout_height="1dp"/><LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_practicing">
+<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_practicing"/>
+<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_practicing"/>
+<TextView android:id="@+id/textHomeRemembering" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#7B5BC7"/>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:orientation="horizontal" android:baselineAligned="false">
+<LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_good">
+<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_good"/>
+<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_good"/>
+<TextView android:id="@+id/textHomeGood" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#58C400"/>
+</LinearLayout><Space android:layout_width="8dp" android:layout_height="1dp"/><LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_mastered">
+<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_mastered"/>
+<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_mastered"/>
+<TextView android:id="@+id/textHomeMastered" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#FFB020"/>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout android:id="@+id/buttonHomeSrsReview" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52dp" android:layout_marginTop="12dp" android:padding="12dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/home_srs_due_row" android:foreground="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/home16_icon_bolt" app:tint="#F8FAFC" android:importantForAccessibility="no"/>
+<TextView android:id="@+id/textHomeSrsDueLabel" style="@style/HomeSrsLabel" android:text="@string/home_srs_no_due" android:textSize="14sp" android:textColor="#F8FAFC"/>
+<TextView android:id="@+id/textHomeSrsDue" style="@style/HomeSrsValue" android:text="@string/home_srs_chevron" android:textSize="22sp" android:textColor="#F8FAFC" android:importantForAccessibility="no"/>
+</LinearLayout>
+</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

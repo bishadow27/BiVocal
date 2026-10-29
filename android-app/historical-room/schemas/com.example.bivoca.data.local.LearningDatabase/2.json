@@ -1,0 +1,168 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "d08d890ef8711e998c722d8d35e7b2bd",
+    "entities": [
+      {
+        "tableName": "cached_topics",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `code` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT, `imageUrl` TEXT, `flashcardCount` INTEGER NOT NULL, `position` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "flashcardCount",
+            "columnName": "flashcardCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_cached_topics_code",
+            "unique": true,
+            "columnNames": [
+              "code"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_cached_topics_code` ON `${TABLE_NAME}` (`code`)"
+          }
+        ]
+      },
+      {
+        "tableName": "cached_flashcards",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`topicCode` TEXT NOT NULL, `id` INTEGER NOT NULL, `english` TEXT NOT NULL, `vietnamese` TEXT NOT NULL, `pronunciation` TEXT, `partOfSpeech` TEXT, `example` TEXT, `exampleVi` TEXT, `level` TEXT, `position` INTEGER NOT NULL, PRIMARY KEY(`topicCode`, `id`))",
+        "fields": [
+          {
+            "fieldPath": "topicCode",
+            "columnName": "topicCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "english",
+            "columnName": "english",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vietnamese",
+            "columnName": "vietnamese",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pronunciation",
+            "columnName": "pronunciation",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "partOfSpeech",
+            "columnName": "partOfSpeech",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "example",
+            "columnName": "example",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "exampleVi",
+            "columnName": "exampleVi",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "topicCode",
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "cache_sync",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scope` TEXT NOT NULL, `syncedAt` INTEGER NOT NULL, PRIMARY KEY(`scope`))",
+        "fields": [
+          {
+            "fieldPath": "scope",
+            "columnName": "scope",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "syncedAt",
+            "columnName": "syncedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "scope"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd08d890ef8711e998c722d8d35e7b2bd')"
+    ]
+  }
+}

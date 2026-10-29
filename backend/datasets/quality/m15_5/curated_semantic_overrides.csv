@@ -1,0 +1,138 @@
+﻿sample_id,english,part_of_speech,original_vietnamese,suggested_vietnamese,action,reason,review_status,requires_source_check
+5317,you,pronoun,"Ai, người ta.",,BLOCK_REVIEW,You generic-person sense obscures ordinary pronoun use; needs source and pedagogical review.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+5392,animal,noun,Người đầy tính thú.,Động vật; con vật.,SUGGEST_REPLACE,Nghĩa xúc phạm/nghĩa bóng không phù hợp flashcard nền tảng.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+5531,fair-maid,noun,Cá xacddin hun khói.,,BLOCK_REVIEW,Fair-maid may be a smoked fish; weird spelling and example; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+5668,rich,adjective,"Giàu, giàu có.",Giàu có.,SUGGEST_REPLACE,Loại trùng lặp không cần thiết; đây là đề xuất biên tập.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+5776,whip,verb,"Xông, lao, chạy vụt.",,BLOCK_REVIEW,Whip as rush verb obscure; verify sense and usage.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+5919,objective,noun,"Cách mục tiêu, cách mục đích, cách đối tượng.",Mục tiêu; mục đích.,SUGGEST_REPLACE,"Đầu nghĩa có chuỗi sai ""Cách mục tiêu"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+6185,sprang,noun,Sự co dãn; tính đàn hồi; sự bật lại.,,BLOCK_REVIEW,Sprang as noun vs spring past tense/form; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+6592,feel,verb,Sờ mó.,"Sờ, chạm; cảm nhận.",SUGGEST_REPLACE,"Từ feel trong ngữ cảnh hiện đại thường là cảm nhận, nghĩa cũ thiếu khái quát.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+6762,fetch,verb,"Đấm thụi, thoi.",,BLOCK_REVIEW,Fetch as punch is dialect/archaic; not a safe default for learners.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+7033,secretly,adverb,"Thích giữ bí mật, hay giấu giếm; kín mồm kín miệng.",Một cách bí mật; lén lút.,SUGGEST_REPLACE,Nghĩa gốc diễn giải tính cách thay vì phó từ secretly.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+7255,stroke,verb,Vuốt ve.,,BLOCK_REVIEW,Original source sense uncommon; verify if it matches headword and intended topic.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+7334,litigious,adjective,"Kiện tụng; có thể kiện, có thể tranh chấp.",Hay kiện tụng; thích tranh chấp pháp lý.,BLOCK_REVIEW,"Litigious nhấn mạnh khuynh hướng kiện tụng.; Litigious example unnatural; block example, not necessarily headword.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+7785,fluid,adjective,"Lỏng, dễ cháy.","Lỏng; linh hoạt, dễ thay đổi.",SUGGEST_REPLACE,"Bỏ nghĩa ""dễ cháy"" không thuộc fluid (tính từ).",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+7808,conversation,noun,"Sự nói chuyện; cuộc nói chuyện, cuộc chuyện trò, cuộc đàm luận.",Cuộc trò chuyện; cuộc đàm thoại.,SUGGEST_REPLACE,Chuẩn hóa từ conversation.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+7847,disembarkment,noun,Giải nạn.,Việc xuống tàu; việc rời tàu/máy bay.,BLOCK_REVIEW,"Disembarkment nghĩa rời phương tiện, không phải ""giải nạn"".; Disembarkment spelling uncommon; prefer disembarkation with provenance.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+8127,spot,noun,Bồ câu đốm.,,BLOCK_REVIEW,Spot as a species of pigeon is obscure; use topic-specific evidence or replace candidate.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+8418,diastase,noun,Điastaza.,,BLOCK_REVIEW,Diastase is not explained; specialist definition needed.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+8833,sport,noun,"Anh chàng ăn diện, công tử bột.",,BLOCK_REVIEW,Sport obscure dated meaning; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9056,centennial,adjective,Lễ kỷ niệm một trăm năm.,Thuộc lễ kỷ niệm 100 năm; một trăm năm.,BLOCK_REVIEW,"Centennial tính từ không thể dịch thành danh từ ""lễ kỷ niệm"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9058,wrist,noun,Cổ tay áo.,Cổ tay.,BLOCK_REVIEW,"Wrist là cổ tay của cơ thể, không phải cổ tay áo (cuff).; Correct wrist may conflict with production wrist entry; check uniqueness before publishing.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9117,game,noun,Dụng cụ để chơi (các trò chơi).,,BLOCK_REVIEW,Game as equipment is unusual; check source/meaning sense.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9142,to,preposition,"Cho, với.","Cho; tới, đến.",SUGGEST_REPLACE,Giữ hai nghĩa giới từ phổ biến; cần xác nhận ngữ cảnh.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9540,quiz,verb,"Nhìn chòng chọc, nhìn tọc mạch; nhìn chế giễu.",Đố; hỏi để kiểm tra kiến thức.,BLOCK_REVIEW,"Quiz động từ nghĩa hiện đại, không phải ""nhìn chòng chọc"".; Quiz verb obsolete meaning; block original context and verify replacement.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9572,examine,verb,"Khám xét, xem xét, thẩm tra, khảo sát, nghiên cứu.",Khám xét; kiểm tra; xem xét.,SUGGEST_REPLACE,Rút gọn danh sách đồng nghĩa để học thuận tiện hơn.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9594,terrorist,adjective,Khủng bố.,Mang tính khủng bố; thuộc khủng bố.,SUGGEST_REPLACE,Từ terrorist dùng như tính từ cần ngữ cảnh.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9773,phrase,noun,Thành ngữ.,Cụm từ; thành ngữ (tùy trường hợp).,BLOCK_REVIEW,Phrase có nghĩa rộng hơn thành ngữ.; The word phrase is broader than idiom; proposed correction needs source confirmation.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9822,an,conjunction,Nếu.,,BLOCK_REVIEW,An as conjunction if is archaic; block for learner use.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+9927,bolt,verb,"Ngốn, nuốt chửng, ăn vội.",Nuốt vội; ăn ngấu nghiến.,SUGGEST_REPLACE,Bolt động từ có nghĩa ăn nuốt vội (nghĩa hiện tại đúng nhưng vụng).,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+10088,heart-whole,adjective,Heart-free.,,BLOCK_REVIEW,Heart-whole meaning English-only; block pending source.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+10194,bureaucracy,noun,"Quan lại, công chức (nói chung); bọn quan liêu.",,BLOCK_REVIEW,Bureaucracy definition describes officials rather than system; review semantic fit.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+10657,clog,noun,Chiếc guốc.,Guốc gỗ.,SUGGEST_REPLACE,"Dùng diễn đạt ngắn gọn, chính xác với clog (danh từ).",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+10944,label,verb,"Ngoại động từ. Dán, đính nhãn vào vật nào đó.",Dán nhãn; gắn nhãn.,SUGGEST_REPLACE,"Bỏ metadata từ điển ""Ngoại động từ"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+10986,fresh,adjective,Vừa mới có sữa (bò cái sau khi đẻ).,,BLOCK_REVIEW,Fresh as recently calved dairy cow is specialized; hold for source review.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+10992,gamble,noun,"Cuộc đánh bạc, cuộc may rủi.",Sự đánh bạc; trò may rủi.,SUGGEST_REPLACE,Gamble danh từ không phải lúc nào cũng là một cuộc đánh bạc.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+11248,groom,noun,Chú rể ((viết tắt) của bridegroom).,Một cách miễn cưỡng; không tự nguyện.,SUGGEST_REPLACE,Nghĩa phó từ cần thể hiện tính chất cách thức.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+11285,symbol,verb,"Biểu hiện, tượng trưng.",,BLOCK_REVIEW,"Symbol labeled verb; modern verb symbolize, not symbol; block or correct headword.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+11290,through,adjective,"Suốt, thẳng.",Xuyên suốt; liên tục; thẳng qua.,SUGGEST_REPLACE,Dịch through tính từ cần rõ ngữ cảnh.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+11455,floriation,adjective,Sự trang trí bằng hoa.,,BLOCK_REVIEW,Floriation labeled adjective but definition is noun; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+11594,hyphen,conjunction,Dùng để nhấn mạnh chức kết hợp thường được viết bằng dấu nối “-”.,,BLOCK_REVIEW,Hyphen labeled conjunction but meaning describes noun; quarantine.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+11759,sewing,noun,"Sự may vá, sự khâu cá.",Việc khâu vá; may vá.,SUGGEST_REPLACE,"Sửa lỗi ""sự khâu cá"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+12225,ought,verb,Nên.,Nên; phải (động từ khuyết thiếu).,SUGGEST_REPLACE,Ought cần đi cùng to để tạo ought to; ghi chú ngữ pháp.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+12270,mulmull,noun,Lụa tơ nhân đạo.,,BLOCK_REVIEW,Mulmull meaning silk suspect; muslin type needs verification.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+12407,deign,verb,"Rủ lòng, đoái đến, chiếu, hạ cố.",,BLOCK_REVIEW,Deign Vietnamese meanings are old literary phrases but possible; verify rarity.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+12671,platform,verb,"Nói trên bục, diễn thuyết trên diễn đàn.",,BLOCK_REVIEW,Platform as a verb is rare; verify source and do not conflate with platform noun.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+12678,diffused,adjective,Lộn xộn; rối rắm; tản mạn; thiếu chặt chẽ.,,BLOCK_REVIEW,Diffused adjective unclear sense; check against diffuse spelling/context.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+12717,lived,verb,Dạng quá khứ đơn và phân từ quá khứ của live,,BLOCK_REVIEW,Lived inflection-only definition; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+13202,faction,noun,"Óc bè phái, tư tưởng bè phái.",Phe phái; nhóm có cùng lợi ích.,SUGGEST_REPLACE,"Faction không phải ""óc bè phái"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+13419,boiler,noun,"Supze, nồi hơi.",Nồi hơi.,SUGGEST_REPLACE,"Loại chuỗi nhiễu ""Supze"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+13522,trod,noun,Đế ủng.,,BLOCK_REVIEW,Trod as noun old and POS suspect; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+13861,embroidery,noun,Đồ thêu.,Đồ thêu; nghệ thuật thêu.,SUGGEST_REPLACE,Embroidery có cả nghề/kỹ thuật thêu.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+13888,saw,verb,"Cưa thành, cưa ra, làm hoặc chế tạo ra (bằng cách dùng cưa)",,BLOCK_REVIEW,Saw past of see vs saw to cut; original may refer to sawing wood; verify headword/POS.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+13916,hexametrical,adjective,Thơ sáu âm tiết.,Thuộc thể thơ sáu nhịp.,BLOCK_REVIEW,"Hexametrical là six metrical feet, không phải sáu âm tiết.; Hexametrical inaccurate 6-syllable explanation; block until source verification.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14100,life-office,noun,Sở bảo hiểm nhân th.,Công ty bảo hiểm nhân thọ.,BLOCK_REVIEW,"Sửa từ bị cắt ""nhân th."".; Life-office truncated; corrected proposal requires source checking.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14159,ferment,noun,Con men.,Men; quá trình lên men.,SUGGEST_REPLACE,"Ferment danh từ không nên chỉ hiểu thành ""con men"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14176,vault,verb,Che phủ bằng vòm.,,BLOCK_REVIEW,Vault as a verb is rare but valid; source review required for technical sense.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14254,kamikaze,noun,Phi đội Thần phong của Nhật Bản thời Đệ nhị thế chiến.,Phi công cảm tử Nhật Bản trong Thế chiến II.,SUGGEST_REPLACE,Kamikaze không đồng nghĩa phi đội Thần phong trong mọi ngữ cảnh.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14324,hood,noun,Huy hiệu học vị (gắn trên áo hay mũ trùm đầu để cho học vị ở trường đại học).,,BLOCK_REVIEW,Hood academic regalia is specialized; verify source/context.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14424,any,pronoun,"Một, một người nào đó, một vật nào đó (trong câu hỏi).",Bất kỳ ai; bất kỳ cái nào (tùy ngữ cảnh).,SUGGEST_REPLACE,"Any (đại từ) cần nghĩa tổng quát, lưu ý câu hỏi.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14525,discharge,noun,"Sự đuổi ra, sự thải hồi (người làm); sự tha, sự thả (người tù); sự cho ra, sự cho về (người bệnh); sự giải tán, sự giải ngũ (quân đội).",Cổ (bộ phận cơ thể); phần cổ.,SUGGEST_REPLACE,"Nghĩa ""thịt cổ cừu"" quá hẹp cho bài học cơ bản.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14711,quadratus,noun,Cờ vuông.,,BLOCK_REVIEW,Quadratus Latin term meaning unexpected; block for source review.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14898,political,adjective,Chính trị.,,BLOCK_REVIEW,Political adjective translated only as noun-like fragment; require context.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+14930,slavery,noun,Sự chiếm hữu nô lệ.,Chế độ nô lệ; tình trạng bị nô dịch.,SUGGEST_REPLACE,"Slavery không tương đương hoàn toàn với ""sự chiếm hữu nô lệ"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15045,archdeaconry,noun,Chức phó chủ giáo.,,BLOCK_REVIEW,Archdeaconry IPA suspect; block until pronunciation checked.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15052,clip,noun,Cái nạp đạn.,Tinh thần đồng đội; hoạt động làm việc nhóm.,SUGGEST_REPLACE,Teamwork không chỉ là tinh thần đồng đội.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15157,isolation,noun,Sự cách.,Sự cô lập; cách ly.,SUGGEST_REPLACE,"Nghĩa hiện tại ""Sự cách"" là mảnh câu hỏng.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15241,irritating,adjective,Kích thích.,,BLOCK_REVIEW,Irritating as stimulating may be wrong register; modern sense often gây khó chịu.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15269,brainstorm,noun,Sự náo động tâm tư bất thần dữ dội; sự xúc động mãnh liệt.,Sự động não; buổi cùng nhau đưa ra ý tưởng.,SUGGEST_REPLACE,"Nguồn đang dùng nghĩa cổ hiếm, không phù hợp học từ thông thường.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15284,trend,noun,Phương hướng.,Xu hướng; khuynh hướng.,SUGGEST_REPLACE,"Trend là xu hướng, khác với phương hướng chung.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15308,extraordinarily,adverb,"Lạ thường, phi thường.",Một cách khác thường; cực kỳ.,SUGGEST_REPLACE,Bổ sung cấu trúc phó từ.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15378,neurotic,noun,Người loạn thần kinh chức năng.,,BLOCK_REVIEW,Neurotic learner-facing definition stigmatizing/outdated; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15462,empire,noun,"Empire (thuộc) kiểu đế chế Na-po-lê-ông I (quần áo, đồ đạc).",Đế chế; đế quốc.,BLOCK_REVIEW,"Nghĩa gốc lẫn mô tả kiểu trang phục Empire, không giải thích từ thường dùng.; Prior correction must be verified against original source before approval.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15468,unusual,adjective,Tuyệt vời.,Bất thường; khác thường; hiếm gặp.,BLOCK_REVIEW,"Unusual không có nghĩa phổ biến là ""tuyệt vời"".; Unusual meaning seriously wrong; patch proposal must be verified.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15496,medical,adjective,Khoa nội.,Thuộc y học; thuộc y tế.,SUGGEST_REPLACE,"Medical tính từ không phải ""khoa nội"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15703,body,verb,"+ forth) thể hiện, tượng trưng.","Thể hiện, hiện thân (trong cụm ""body forth"").",BLOCK_REVIEW,"Động từ body cần ngữ cảnh phrasal, phải xác minh trước xuất bản.; Malformed source + forth); exclude candidate unless correct phrasal headword and source verified.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15754,communicative,adjective,"Cởi mở, hay thổ lộ tâm sự; thích chuyện trò.",Cởi mở; thích giao tiếp.,SUGGEST_REPLACE,Sửa mô tả dài và gần nghĩa chính communicative.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15777,alum,noun,(thuộc) phèn,Phèn chua.,BLOCK_REVIEW,"Alum (danh từ) không phải ""(thuộc) phèn"".; Alum as noun metadata malformed; verify proposed correct meaning.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15888,smoke,noun,"Điếu thuốc lá, điếu xì gà.",Khói; làn khói.,BLOCK_REVIEW,"Smoke danh từ, nghĩa ""điếu thuốc"" chỉ là tiếng lóng cần ngữ cảnh.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15912,sponsor,noun,"Cha đỡ đầu, mẹ đỡ đầu.",Người tài trợ; nhà bảo trợ; người đỡ đầu (tùy ngữ cảnh).,BLOCK_REVIEW,Sponsor có nhiều nghĩa; ví dụ cần đúng nghĩa được dạy.; Sponsor original meaning may be valid godparent but example mismatch; remove example or split sense.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+15967,cats,noun,Hệ thống treo điện tử tự động điều chỉnh độ cứng theo điều kiện vận hành.,,BLOCK_REVIEW,CATS is an ambiguous acronym; block without expansion/source.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16011,floor,noun,Phòng họp (quốc hội).,Sàn nhà; tầng nhà.,BLOCK_REVIEW,Nghĩa floor là phòng họp quốc hội chỉ dùng trong ngữ cảnh riêng.; Floor as parliament floor uncommon; verify before replacing with regular sense.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16040,scandal,noun,việc xúc phạm đến công chúng; việc làm cho công chúng phẫn nộ; việc xấu xa; việc nhục nhã.,Vụ bê bối; tai tiếng.,SUGGEST_REPLACE,"Scandal là danh từ, bản dịch hiện quá dài và thiếu nghĩa trọng tâm.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16079,ferry,noun,Phà.,Phà; tàu phà.,SUGGEST_REPLACE,Ferry danh từ là phà.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16083,differently,adverb,In a different way.,Theo cách khác; khác đi.,BLOCK_REVIEW,Bản dịch tiếng Việt hiện là câu tiếng Anh.; English-only Vietnamese meaning; patch proposal must be verified.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16202,grub,verb,Lục tím.,Đào bới; lục tìm.,BLOCK_REVIEW,"Sửa lỗi chính tả ""Lục tím"" và giải thích nghĩa grub.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16324,partner,noun,Người cùng chung phần; người cùng công ty.,Bạn đồng hành; đối tác.,SUGGEST_REPLACE,Partner không chỉ là người cùng công ty.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16362,anything,noun,"Bất cứ việc gì, bất cứ vật gì (trong câu khẳng định).",,BLOCK_REVIEW,"Anything labeled noun, but generally an indefinite pronoun; review POS.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16452,amber,noun,Bằng hổ phách; (có) màu hổ phách.,Hổ phách; màu hổ phách.,BLOCK_REVIEW,Nghĩa gốc có cấu trúc tính từ dù POS là danh từ.; Amber as noun metadata POS mismatched; verify proposed meaning.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16521,ephemeron,noun,Ephemera.,,BLOCK_REVIEW,Ephemeron meaning is a transliteration/English-only; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16645,full-fledged,adjective,Đủ lông đủ cánh ((nghĩa đen) & (nghĩa bóng)).,,BLOCK_REVIEW,Full-fledged literal/idiomatic; review style before publication.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16710,chasuble,noun,Áo lễ.,Áo lễ (trong phụng vụ Kitô giáo).,SUGGEST_REPLACE,Bổ sung bối cảnh chuyên ngành.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16727,knitting-machine,noun,"Máy đan (len, sợi), máy dệt kim.",Máy dệt kim; máy đan len.,SUGGEST_REPLACE,Chuẩn hóa nghĩa.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16741,capitulate,verb,Đầu hàng ((thường) là có điều kiện).,Đầu hàng (thường kèm điều kiện).,SUGGEST_REPLACE,Capitulate là đầu hàng.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16943,instant,adverb,Lập tức.,,BLOCK_REVIEW,Instant labeled adverb may be rare/nonstandard; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+16995,high,noun,"Nơi cao, trời cao.",,BLOCK_REVIEW,High as noun place high may be archaic; verify.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17141,phlegmatic,adjective,"Tiết ra, dẫn đến, hay đầy đờm dãi.","Điềm tĩnh, bình thản; ít thể hiện cảm xúc.",BLOCK_REVIEW,"Phlegmatic trong nghĩa thông dụng không phải ""tiết ra đờm"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17222,zincograph,noun,Zincography.,,BLOCK_REVIEW,"Zincograph not explanatory, IPA suspect; block.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17281,reading,noun,Phiên họp để thông qua (một dự án tại hai viện ở Anh trước khi được nhà vua phê chuẩn).,,BLOCK_REVIEW,Reading as parliamentary reading is specialist sense; label domain.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17310,graduate,noun,Cốc chia độ.,Người tốt nghiệp; sinh viên tốt nghiệp.,SUGGEST_REPLACE,"Nghĩa ""cốc chia độ"" là nghĩa hiếm và dễ làm sai định hướng học.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17370,reasonably,adverb,hợp lý; tương đối,Một cách hợp lý; tương đối.,SUGGEST_REPLACE,Biểu đạt rõ tính chất phó từ.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17380,runway,noun,Lối dẫn vật nuôi đi uống nước.,Đường băng (sân bay); sàn diễn thời trang.,SUGGEST_REPLACE,Nghĩa cũ quá hẹp cho mục từ runway thông dụng.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17382,moral,noun,"Sự giống hệt, hình ảnh.",Bài học đạo đức; bài học rút ra từ một câu chuyện.,BLOCK_REVIEW,"Moral (danh từ) không có nghĩa ""sự giống hệt, hình ảnh"".; Moral original sense appears wrong; patch proposal must be verified.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17479,therapist,noun,"Nhà trị liệu, bác sĩ chuyên khoa về một phép chữa bệnh nào đó.",Chuyên gia trị liệu; nhà trị liệu.,SUGGEST_REPLACE,Rút gọn nghĩa không giả định nhà trị liệu là bác sĩ.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17493,slate,noun,"Đá bảng, đá.",Đá phiến.,SUGGEST_REPLACE,Slate danh từ trong ngữ cảnh vật liệu.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17509,pillage,verb,"Cướp bóc, cướp phá.",Cướp bóc; cướp phá.,SUGGEST_REPLACE,Loại trùng không cần thiết.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17515,homicide,noun,Kẻ giết người.,Hành vi giết người; vụ án giết người.,BLOCK_REVIEW,"Homicide không có nghĩa ""kẻ giết người"".; Homicide original meaning is murderer; patch proposal must be verified.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17554,destroyer,noun,Tàu khu trục.,Tàu khu trục.,SUGGEST_REPLACE,Giữ nghĩa chuyên ngành đúng.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17580,portion,noun,"Số phận, số mệnh.",Phần; phần chia; khẩu phần.,BLOCK_REVIEW,"Portion trong nghĩa thông thường không phải ""số phận"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17609,pendulum-clock,noun,Đồng hồ quả lắc.,Ủy quyền; sự cho phép.,SUGGEST_REPLACE,Authorization nên được diễn đạt như quyền cho phép/ủy quyền.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17626,ream,noun,", ((thường) số nhiều) rất nhiều giấy, hàng tập.",Ram giấy (thường gồm 500 tờ).,BLOCK_REVIEW,"Nghĩa gốc bị hỏng dấu câu và bỏ mất số lượng đặc trưng.; Malformed formatting; ream size can vary by standard, confirm intended sense.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17632,slate,noun,Bảng đá (của học sinh).,Đá phiến; tấm bảng đá.,BLOCK_REVIEW,"Slate danh từ có nhiều nghĩa, bổ sung nghĩa chung.; Potential duplicate English+Vietnamese with existing slate card after correction; check constraint.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17663,realism,noun,Thuyết duy thực.,Chủ nghĩa hiện thực.,SUGGEST_REPLACE,"Realism có nghĩa chủ nghĩa hiện thực; ""thuyết duy thực"" có thể khác bối cảnh.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17694,reporting,verb,hiện tại phân từ của report,,BLOCK_REVIEW,Reporting inflection-only definition; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17743,gainful,adjective,"Có lợi, có lời.",Mang lại lợi ích; sinh lợi.,SUGGEST_REPLACE,Gainful là tính từ (thường dùng với employment).,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17883,sun,verb,"Phơi, phơi nắng.",Phơi nắng; tắm nắng.,SUGGEST_REPLACE,Sun động từ là phơi/tắm nắng.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17897,ecocide,noun,Thuốc hủy diệt sinh thái.,Hành vi hủy hoại môi trường trên diện rộng.,BLOCK_REVIEW,"Ecocide là hành vi gây hủy hoại môi trường, không phải thuốc.; Ecocide original meaning seriously wrong; patch proposal must be verified.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+17904,extravagantly,adverb,Mắc quá đáng.,Một cách xa hoa; hoang phí; quá mức.,BLOCK_REVIEW,"Extravagantly không mặc nhiên nghĩa ""mắc quá đáng"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18127,enquiry,noun,Câu hỏi.,"Câu hỏi; sự thắc mắc, điều tra.",SUGGEST_REPLACE,Enquiry danh từ thường là câu hỏi/yêu cầu thông tin.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18135,jewelry,noun,Nghệ thuật làm đồ kim hoàn.,Đồ trang sức; nữ trang.,BLOCK_REVIEW,"Jewelry là đồ trang sức, không phải nghệ thuật làm đồ kim hoàn.; Jewelry correction likely but source verification and duplicate check required.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18245,less,preposition,"Bớt đi, lấy đi, trừ đi, kém đi.",,BLOCK_REVIEW,"Less as preposition usually minus; rare usage, quarantine for learner-facing vocabulary.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18387,swim,noun,Vực sâu nhiều cá (ở sông).,,BLOCK_REVIEW,Swim noun sense of pool of river fish is rare; verify.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18410,virgin,noun,Sâu bọ đồng trinh (sâu bọ cái có thể tự đẻ trứng thụ tinh không cần đực).,,BLOCK_REVIEW,Virgin as parthenogenetic insect is unsuitable/obscure; hold for specialist review.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18530,vacation,noun,"Sự bỏ, sự thôi.",Kỳ nghỉ; thời gian nghỉ.,SUGGEST_REPLACE,"Nghĩa ""sự bỏ, sự thôi"" không phù hợp với cách dùng hiện đại phổ biến.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18749,ulsterman,noun,"Người gốc tỉnh Ulser, người ở tỉnh Ulser.",Người vùng Ulster (Bắc Ireland).,BLOCK_REVIEW,Sửa chính tả Ulser thành Ulster.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18920,utility,noun,công dụng; tiện ích; dịch vụ công cộng,Công dụng; tính hữu ích; tiện ích.,SUGGEST_REPLACE,Làm rõ utility thay vì liệt kê lẫn dạng dịch vụ.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+18977,primary,noun,Hành tinh sơ cấp (hành tinh xoay quanh mặt trời).,,BLOCK_REVIEW,Primary as a noun for a primary planet is obsolete/specialized.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19015,secondary,adjective,Chuyển hoá.,Thứ cấp; phụ; thứ yếu.,BLOCK_REVIEW,"Secondary tính từ không được dịch đơn lẻ thành ""chuyển hóa"".",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19024,cohomology,noun,Cubic c. đối đồng điều lập phương.,Đối đồng điều (toán học).,BLOCK_REVIEW,Nguồn nghĩa hiện tại lẫn các từ tiếng Anh và mảnh bị cắt.; Cohomology specialist and corrupted source; block until checked.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19029,evidence,verb,Làm chứng.,Chứng minh; làm bằng chứng cho.,SUGGEST_REPLACE,Evidence như động từ cần có nội dung đúng hướng.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19040,scooter,noun,"Xe hẩy (thứ xe hai bánh của trẻ con có chỗ đứng một chân, còn một chân để hẩy).",,BLOCK_REVIEW,Scooter meaning appears old child kick scooter; distinguish modern motor scooter.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19088,traveling,noun,"Sự dời chỗ, sự di chuyển.",,BLOCK_REVIEW,Traveling noun example unnatural; example should be omitted/verified.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19169,monarchy,noun,the monarchy Nền quân chủ; chế độ quân chủ.,Chế độ quân chủ; nền quân chủ.,SUGGEST_REPLACE,"Bỏ cụm nguồn tiếng Anh ""the monarchy"" lẫn trong nghĩa Việt.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19238,submultiple,noun,Ước số.,Ước số.,SUGGEST_REPLACE,Giữ nghĩa toán học rõ ràng.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19439,killer,noun,Dụng cụ giết thịt (súc vật).,Kẻ giết người; thứ gây chết người.,SUGGEST_REPLACE,Killer không chỉ là dụng cụ giết thịt gia súc.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19714,ligroin,noun,Ligroin.,,BLOCK_REVIEW,"Ligroin is a borrowing, requires explanatory definition.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19799,comparative,adjective,Tương đối.,,BLOCK_REVIEW,"Examinee meaning likely should be examinee/test taker; source gives person investigated, review sense.",AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19801,outpass,noun,Thắng; vượt xa.,,BLOCK_REVIEW,Outpass POS noun vs verb meanings; block.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true
+19995,examinee,noun,"Người bị khám xét, người bị thẩm tra.",,BLOCK_REVIEW,Examinee from source may mean a person undergoing examination; ordinary use test taker.,AI_PROPOSED_NOT_HUMAN_VERIFIED,true

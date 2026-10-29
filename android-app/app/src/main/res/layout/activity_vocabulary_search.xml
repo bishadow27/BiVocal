@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/login_night_background" android:orientation="vertical"
+    android:padding="20dp">
+    <TextView android:id="@+id/buttonVocabularyBack" android:layout_width="48dp" android:layout_height="48dp"
+        android:gravity="center" android:text="@string/nav_back_symbol" android:textColor="#38BDF8" android:textSize="24sp" />
+    <TextView android:id="@+id/textVocabularySearchTitle" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="TÌM TỪ VỰNG" android:textColor="#F8FAFC" android:textSize="28sp" android:textStyle="bold" />
+    <EditText android:id="@+id/inputVocabularySearch" android:layout_width="match_parent" android:layout_height="52dp"
+        android:layout_marginTop="16dp" android:background="#17233B" android:hint="English hoặc nghĩa tiếng Việt"
+        android:imeOptions="actionSearch" android:inputType="text" android:paddingHorizontal="16dp"
+        android:singleLine="true" android:textColor="#F8FAFC" android:textColorHint="#94A3B8" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" android:gravity="center_vertical" android:orientation="horizontal">
+        <Spinner android:id="@+id/spinnerVocabularyLevel" android:layout_width="0dp" android:layout_height="48dp"
+            android:layout_weight="1" android:background="#17233B" android:popupBackground="#17233B" />
+        <Button android:id="@+id/buttonVocabularySearch" android:layout_width="wrap_content" android:layout_height="48dp"
+            android:layout_marginStart="10dp" android:backgroundTint="@color/bivocal_blue"
+            android:text="Tìm" android:textColor="@color/bivocal_text_primary" />
+    </LinearLayout>
+    <ProgressBar android:id="@+id/progressVocabularySearch" android:layout_width="32dp" android:layout_height="32dp"
+        android:layout_gravity="center_horizontal" android:layout_margin="8dp" android:visibility="gone" />
+    <TextView android:id="@+id/textVocabularySearchStatus" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:paddingVertical="10dp" android:textColor="#94A3B8" android:textSize="14sp" android:visibility="gone" />
+    <Button android:id="@+id/buttonVocabularyRetry" android:layout_width="match_parent" android:layout_height="48dp"
+        android:layout_marginBottom="8dp" android:backgroundTint="@color/bivocal_blue"
+        android:text="@string/online_retry" android:textColor="@color/bivocal_text_primary"
+        android:visibility="gone" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerVocabularySearch"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:clipToPadding="false" android:paddingBottom="12dp" />
+    <Button android:id="@+id/buttonVocabularyNext" android:layout_width="match_parent" android:layout_height="48dp"
+        android:backgroundTint="@color/bivocal_blue" android:text="Trang tiếp"
+        android:textColor="@color/bivocal_text_primary" android:visibility="gone" />
+</LinearLayout>

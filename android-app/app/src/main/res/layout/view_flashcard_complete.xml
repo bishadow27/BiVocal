@@ -1,0 +1,18 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/flashcardComplete" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:visibility="gone">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:paddingTop="16dp" android:paddingBottom="16dp">
+        <TextView style="@style/Fc16Title" android:layout_width="80dp" android:layout_height="80dp" android:background="@drawable/fc16_check" android:gravity="center" android:text="@string/fc16_check" android:textColor="#38BDF8" android:textSize="42sp"/>
+        <TextView style="@style/Fc16Title" android:layout_width="match_parent" android:gravity="center" android:text="@string/fc16_done" android:textSize="26sp" android:layout_marginTop="14dp"/>
+        <TextView style="@style/Fc16Text" android:layout_width="match_parent" android:gravity="center" android:text="@string/fc16_done_note" android:textSize="14sp" android:layout_marginTop="6dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="20dp" android:baselineAligned="false">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="5dp" android:minHeight="100dp" android:padding="12dp" android:orientation="vertical" android:background="@drawable/fc16_metric">
+                <TextView android:id="@+id/textSessionProcessed" style="@style/Fc16Title" android:textSize="24sp"/><TextView style="@style/Fc16Text" android:text="@string/fc16_processed" android:layout_marginTop="8dp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="5dp" android:minHeight="100dp" android:padding="12dp" android:orientation="vertical" android:background="@drawable/fc16_metric">
+                <TextView android:id="@+id/textSessionFinalProgress" style="@style/Fc16Title" android:textSize="24sp"/><TextView style="@style/Fc16Text" android:text="@string/fc16_session_progress" android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView style="@style/Fc16Text" android:layout_width="match_parent" android:background="@drawable/fc16_metric" android:padding="12dp" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" android:text="@string/fc16_done_detail"/>
+        <com.google.android.material.button.MaterialButton android:id="@+id/buttonSessionContinue" style="@style/Fc16Primary" android:layout_width="match_parent" android:text="@string/fc16_learn_more"/>
+        <com.google.android.material.button.MaterialButton android:id="@+id/buttonSessionTopics" style="@style/Fc16Button" android:layout_width="match_parent" android:layout_marginTop="10dp" android:text="@string/fc16_topics"/>
+    </LinearLayout>
+</ScrollView>

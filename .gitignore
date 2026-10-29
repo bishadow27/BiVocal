@@ -1,0 +1,60 @@
+# Bộ nhập dự thảo, chưa lọc thông tin cá nhân; dùng bản đã ghép tại gốc.
+/_codex_import/
+
+# Xác thực và cấu hình riêng trên máy. Chỉ cho phép mẫu môi trường đã lọc.
+**/.env
+**/.env.*
+!**/.env.example
+**/local.properties
+*.jks
+*.keystore
+
+# Bằng chứng có thể chứa tài khoản, dữ liệu test, log hoặc ảnh riêng.
+**/.m*-verification/
+**/runtime-evidence/
+**/runtime-evidence.rar
+**/runtime-evidence.zip
+/maintenance/.runtime/
+**/backups/
+*.log
+
+# File khóa tạm của ứng dụng văn phòng.
+# Dependencies, build and IDE cache
+**/node_modules/
+**/build/
+**/dist/
+**/.gradle/
+**/.kotlin/
+**/.idea/
+**/.venv/
+**/__pycache__/
+**/coverage/
+
+# Private configuration and signing
+**/.env
+**/.env.*
+!**/.env.example
+**/local.properties
+*.jks
+*.keystore
+*.pem
+*.p12
+*.pfx
+
+# Database backups and generated dataset
+*.dump
+*.backup
+*.db
+*.db-shm
+*.db-wal
+/backend/.m*/
+/backend/datasets/processed/
+
+# Exports and historical captures
+*.zip
+*.rar
+*.7z
+/docs/exports/
+/android-app/*.png
+/android-app/*.xml
+~$*

@@ -1,0 +1,19 @@
+<resources>
+    <string name="flashcard_title">Flashcard</string>
+    <string name="flashcard_back">←  Quay lại</string>
+    <string name="flashcard_position">%1$d / %2$d</string>
+    <string name="flashcard_loading">Đang tải từ vựng</string>
+    <string name="flashcard_retry">Thử lại</string>
+    <string name="flashcard_empty">Chưa có từ vựng trong chủ đề này.</string>
+    <string name="flashcard_example">VÍ DỤ</string>
+    <string name="flashcard_previous">Trước</string>
+    <string name="flashcard_next">Tiếp</string>
+    <string name="flashcard_speak">Phát âm</string>
+    <string name="flashcard_speech_initializing">Đang chuẩn bị giọng đọc…</string>
+    <string name="flashcard_speech_ready">Bấm Phát âm để nghe từ tiếng Anh.</string>
+    <string name="flashcard_speech_speaking">Đang phát âm…</string>
+    <string name="flashcard_speech_done">Đã phát âm.</string>
+    <string name="flashcard_speech_failed">Không phát âm được. Hãy kiểm tra giọng đọc trong cài đặt thiết bị rồi thử lại.</string>
+    <string name="flashcard_speech_unavailable">Thiết bị chưa có công cụ đọc. Hãy kiểm tra cài đặt Chuyển văn bản thành giọng nói.</string>
+    <string name="flashcard_speech_missing_english">Thiết bị chưa có giọng tiếng Anh. Hãy cài dữ liệu giọng đọc trong cài đặt thiết bị.</string>
+</resources>

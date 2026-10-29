@@ -1,0 +1,58 @@
+﻿candidate_id,english,pos,vietnamese,current_staging,decision,severity,risk_rules,cefr,topic,quiz_eligible,source_independent_match,source_independent_lexical_overlap_only
+bivoca-envi-00015e05e758e1d10272293c,technically,adverb,Một cách nghiêm túc.,True,BLOCK,HARD_BLOCK,AI_SPOTCHECK_STRONG_MISMATCH,B2,GENERAL_VOCABULARY,False,,False
+bivoca-envi-00446a510d09bb8fd1e86691,discontinuity,noun,; (toán học) điểm gián đoạn.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,False,gián đoạn,True
+bivoca-envi-004fb5d37683d895c62040ae,barracks,noun,"Mọi người bị trừng phạt, không được phép ra khỏi doanh trại.",True,BLOCK,HARD_BLOCK,AI_SPOTCHECK_STRONG_MISMATCH,,GENERAL_VOCABULARY,False,doanh trại,True
+bivoca-envi-068815d13de22ba91ce85120,depart,verb,"; (từ cổ, nghĩa cổ) rời khỏi, cáo biệt, ra về.",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B1,GENERAL_VOCABULARY,False,rời khỏi,True
+bivoca-envi-07fa90a56f2e93654a27d805,holy,adjective,Holy Writ kinh thánh.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT,B1,GENERAL_VOCABULARY,False,thánh,True
+bivoca-envi-0f57a24707d5dca3682ae631,subconscious,adjective,Tiềm thức.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;POS_GLOSS_NOUN_STYLE,B1,GENERAL_VOCABULARY,True,,False
+bivoca-envi-140eaf0d299364f39516acd9,australian,adjective,(thuộc) Úc.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;NATIONALITY_ACRONYM_OR_NAME_CAPITALIZATION;SHORT_AMBIGUOUS_VNEDICT_SUBSTRING,,GENERAL_VOCABULARY,True,úc,True
+bivoca-envi-14989f837f17c0ab265f3d81,pill,noun,"; (đùa cợt) quả bóng đá, quả bóng quần vợt; đạn đại bác.",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,A2,TRAVEL,False,,False
+bivoca-envi-14ec9194ed309150d206e42f,vietnam,noun,"Việt Nam (quốc gia nằm phía đông của bán đảo Đông Dương, thuộc khu vực Đông Nam Á, giáp giới với nước Trung Quốc ở phía bắc, Biển Đông ở phía đông và nam, Vịnh Thái Lan ở phía tây nam, với lại Campuchia và Lào ở phía tây)",True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;LONG_MULTI_SENSE_GLOSS_REQUIRES_EDITING;NATIONALITY_ACRONYM_OR_NAME_CAPITALIZATION,,GENERAL_VOCABULARY,False,việt nam,True
+bivoca-envi-152e91dd8d2e06654f5e5b5b,deceive,verb,Làm thất vọng.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW,B2,GENERAL_VOCABULARY,False,,False
+bivoca-envi-1c172029254439beb018ef25,node,noun,; (vật lý) giao điểm; nút.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY;SHORT_AMBIGUOUS_VNEDICT_SUBSTRING,,GENERAL_VOCABULARY,True,nút,True
+bivoca-envi-1d769608da5482efddc2b2e9,and,conjunction,Càng.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW,A1,GENERAL_VOCABULARY,False,càng,True
+bivoca-envi-221b8bf9b72cc632ced146cc,unfriendly,adjective,Cừu địch.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW,B1,GENERAL_VOCABULARY,False,,False
+bivoca-envi-28f9daf3c3c37ff8af51d713,journal,noun,; (thương nghiệp) nhật ký.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B1,HOME,False,nhật ký,True
+bivoca-envi-304198d6ddb2ae0b05618232,deviation,noun,; (vật lý) độ lệch.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,độ lệch,True
+bivoca-envi-39570367974604e12c1ab5ed,polish,noun,Tiếng Ba Lan.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;NATIONALITY_ACRONYM_OR_NAME_CAPITALIZATION,B2,GENERAL_VOCABULARY,False,tiếng ba lan,True
+bivoca-envi-3ef2595b6f118b63cc8b9859,pasteboard,noun,"Bằng bìa cứng, bằng giấy bồi; (nghĩa bóng) không bền, không chắc chắn, mỏng mảnh.",True,BLOCK,HARD_BLOCK,DICTIONARY_USAGE_LABEL;LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;POS_GLOSS_ADJECTIVE_STYLE,,GENERAL_VOCABULARY,False,giấy bồi,True
+bivoca-envi-46e3bf3ee7f60fa6b7f1aea2,thai,noun,Người Thái.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;NATIONALITY_ACRONYM_OR_NAME_CAPITALIZATION,,GENERAL_VOCABULARY,False,thái,True
+bivoca-envi-47898c4ab1fc29ab97017e2d,phase,noun,; (sinh vật học) pha.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY;SHORT_AMBIGUOUS_VNEDICT_SUBSTRING,B2,GENERAL_VOCABULARY,False,pha,True
+bivoca-envi-5056b51d1011c6d97154ddff,endogenous,adjective,"; (địa lý, địa chất) sinh trong, nội sinh.",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,nội sinh,True
+bivoca-envi-51820869bece383252c7a82c,puritan,noun,(Purian) người theo Thanh giáo.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT,,GENERAL_VOCABULARY,True,thanh giáo,True
+bivoca-envi-524dc217769fa0f0965441c4,optimistic,adjective,Lạc quan chủ nghĩa.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW,B2,GENERAL_VOCABULARY,True,lạc quan,True
+bivoca-envi-55b90766be352fec72fef119,tunic,noun,"; (thực vật học) áo, vỏ.",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY;SHORT_AMBIGUOUS_VNEDICT_SUBSTRING,,GENERAL_VOCABULARY,False,áo,True
+bivoca-envi-6d109253911b58941a82ed06,busy,verb,Động từ phãn thân bận rộn với.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT,,GENERAL_VOCABULARY,True,bận rộn,True
+bivoca-envi-72fe4be8874ebd2d5ce0e31c,negative,adjective,; ; Âm.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY;SHORT_AMBIGUOUS_VNEDICT_SUBSTRING,A2,GENERAL_VOCABULARY,False,âm,True
+bivoca-envi-7620c36390feb14a349c55fb,regulation,noun,"Theo quy tắc, theo quy định, đúng phép, hợp lệ; thông thường, thường lệ.",True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;POS_GLOSS_ADJECTIVE_STYLE;SHORT_AMBIGUOUS_VNEDICT_SUBSTRING,B1,GENERAL_VOCABULARY,False,lệ,True
+bivoca-envi-789912a54b9a2a433c93fe64,thai,noun,Tiếng Thái.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;NATIONALITY_ACRONYM_OR_NAME_CAPITALIZATION,,GENERAL_VOCABULARY,False,thái,True
+bivoca-envi-7b9f3b02e58f2ff2494e8d63,who,noun,Tổ chức Y tế Thế giới,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;NATIONALITY_ACRONYM_OR_NAME_CAPITALIZATION;WHO_ACRONYM_CASE,,GENERAL_VOCABULARY,True,tổ chức y tế thế giới,True
+bivoca-envi-7fc42e3c4750147f73e3a768,monday,noun,Ngày thứ hai.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;PROPER_NOUN_CAPITALIZATION,A1,GENERAL_VOCABULARY,True,ngày thứ hai,True
+bivoca-envi-81204c0b97a91971a7aac82d,mean,noun,"Phương tiện, kế, biện pháp, cách.",True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;PLURAL_SENSE_NUMBER_MISMATCH,B2,GENERAL_VOCABULARY,False,phương tiện,True
+bivoca-envi-84dcf73ba31428f08c729762,learn,verb,"; (đùa cợt), guộc duỵu âm phâng nội động từ.",False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY;DICTIONARY_USAGE_LABEL,A1,GENERAL_VOCABULARY,False,,False
+bivoca-envi-8b89eae8cd1ea0f33ab293dc,final,adjective,; (ngôn ngữ học) (thuộc) mục đích.,False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,A2,GENERAL_VOCABULARY,False,,False
+bivoca-envi-8eac33a83d3b1534ff6f27c6,unto,preposition,; (th ca) (xem) to.,False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY;LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT;VI_TRANSLATION_NO_DIACRITICS_VERIFY_LANGUAGE,B2,GENERAL_VOCABULARY,True,,False
+bivoca-envi-9aae439d148a452bc3b40c45,mamma,noun,Uây khyếm mẹ.,False,BLOCK,HARD_BLOCK,AI_SPOTCHECK_STRONG_MISMATCH,B2,FAMILY,False,,False
+bivoca-envi-9e6639a4f2fcd0594d59ebdf,wondrous,adjective,"; (văn học) kỳ lạ, phi thường; kỳ diệu, thần kỳ.",False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B2,GENERAL_VOCABULARY,True,,False
+bivoca-envi-a68cd3b6c6d65aa61a38c570,zero,noun,"; (vật lý) zêrô, số không.",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,số không,True
+bivoca-envi-a92b607da5226ef14e12d53e,over,noun,"Trên khắp, ở khắp.",True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW,,GENERAL_VOCABULARY,False,trên khắp,True
+bivoca-envi-acaf3f9196a844d86180ae0f,unfit,adjective,; (quân sự) không đủ sức khoẻ.,False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B1,GENERAL_VOCABULARY,False,,False
+bivoca-envi-b101bf993f7dcc909a7be68c,vast,noun,; (văn học) khoảng rộng bao la.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,bao la,True
+bivoca-envi-b2a406caad93fd14472a4dd3,reader,noun,Người đọc và sửa bản in thử ((cũng) proot reader).,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT,A1,LEISURE,False,người đọc,True
+bivoca-envi-b2a680ccaf17c3e8f83a78ed,fussy,adjective,"Hay om sòm, hay rối rít; hay nhắng nhít, hay nhặng xị;",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,nhặng,True
+bivoca-envi-b4912927778b4039d1bfaeec,gun,noun,Lóng súng lục.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW,A2,GENERAL_VOCABULARY,False,súng,True
+bivoca-envi-ba36aaa020b3d4cbb8a4284d,reaction,noun,; (hoá học) phản ứng.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B2,GENERAL_VOCABULARY,False,phản ứng,True
+bivoca-envi-bf7a46413fc3d13eb03a4ad9,period,noun,; (vật lý); (thiên văn học) chu kỳ.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,A1,GENERAL_VOCABULARY,False,chu kỳ,True
+bivoca-envi-c1f024337084697b53ae567f,admiration,noun,"Người được khâm phục, người được hâm mộ, người được ca tụng; vật được hâm mô, vật được ca tụng.",True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT,B1,GENERAL_VOCABULARY,False,hâm mộ,True
+bivoca-envi-c732ffe204a4cf55acd6edc7,shrill,verb,"; (văn học) la, kêu the thé, rít lên in tai nhức óc; hát the thé; nói nheo nhéo.",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,the thé,True
+bivoca-envi-cfa9e5d9a03587ace04771d6,value,noun,"; (tài chính) giá cả, giá.",False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,A2,GENERAL_VOCABULARY,False,,False
+bivoca-envi-d2c439fd5d7ffd60e69333c0,need,verb,Cần thiết.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;POS_GLOSS_ADJECTIVE_STYLE;SHORT_AMBIGUOUS_VNEDICT_SUBSTRING,A2,GENERAL_VOCABULARY,False,cần,True
+bivoca-envi-dc30ab11f5247784a7feb9d0,plus,preposition,cộng: (về toán học) sự đọc của dấu +,False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,A2,GENERAL_VOCABULARY,True,,False
+bivoca-envi-de55c28f8bd8a9b1b05f723a,thee,noun,"; (tôn giáo) ngươi, anh, người.",True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,ngươi,True
+bivoca-envi-e01cb38bf14fbfe9824a5e74,fashion,noun,; (đùa cợt) tập tục phong lưu đài các.,False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,A2,SHOPPING,False,,False
+bivoca-envi-e660911763927c8c1ab85617,marmalade,verb,(ngoại động từ) Phết mứt cam lên.,True,BLOCK,HARD_BLOCK,LATEST_500_QG_CONFIRMED_NEEDS_REVIEW;LEAKED_DICTIONARY_METADATA_OR_CORRUPTED_TEXT,,GENERAL_VOCABULARY,True,mứt cam,True
+bivoca-envi-f69c7775ce0f987d869feb23,react,verb,; (hoá học) phản ứng.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B1,GENERAL_VOCABULARY,False,phản ứng,True
+bivoca-envi-f74dcef2ea60db98045aab2a,positive,adjective,; (toán học); (nhiếp ảnh) dương.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B1,GENERAL_VOCABULARY,False,dương,True
+bivoca-envi-f8a8035d3b5658f4a58288ea,commonwealth,noun,Khối cộng đồng như trong Commonwealth of Nations là Khối thịnh vượng chung gồm nước Anh và các cựu thuộc địa của nó;,False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B2,CULTURE,False,,False
+bivoca-envi-fb3d049a81203afa7bd4210b,converge,verb,; (vật lý) hội tụ (tia sáng); đồng quy.,True,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,,GENERAL_VOCABULARY,True,hội tụ,True
+bivoca-envi-fcbe8e79cbcbd0277a81781c,strand,noun,"; (văn học) bờ (biển, sông, hồ).",False,BLOCK,HARD_BLOCK,BROKEN_GLOSS_BOUNDARY,B2,GENERAL_VOCABULARY,False,,False

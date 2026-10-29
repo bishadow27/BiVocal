@@ -1,0 +1,133 @@
+FINAL VERIFICATION - 2026-10-04 (Asia/Saigon)
+PostgreSQL 18.6; isolated local test cluster; UUID test schema
+
+COMMAND: python dataset/validate_dataset.py --seed
+DATASET VALIDATION
+
+Topics: 10 PASS
+Flashcards: 300 PASS
+Seed distribution: 30/topic PASS
+Duplicate word + meaning: 0 PASS
+Missing fields: 0 PASS
+Invalid topic codes: 0 PASS
+Invalid CEFR levels: 0 PASS
+Invalid part of speech: 0 PASS
+Invalid IPA format: 0 PASS
+CSV / UTF-8 errors: 0 PASS
+
+A1: 102 (34.0%)
+A2: 84 (28.0%)
+B1: 81 (27.0%)
+B2: 33 (11.0%)
+
+Per topic:
+  ANIMALS: 30
+  FAMILY: 30
+  FOOD: 30
+  HEALTH: 30
+  SCHOOL: 30
+  SHOPPING: 30
+  TECHNOLOGY: 30
+  TRAVEL: 30
+  WEATHER: 30
+  WORK: 30
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=145 english='generation' error=Example does not contain exact headword; check inflection/context
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=149 english='ancestor' error=Example does not contain exact headword; check inflection/context
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=198 english='earn' error=Example does not contain exact headword; check inflection/context
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=199 english='employ' error=Example does not contain exact headword; check inflection/context
+
+Warnings: 4
+DATASET STATUS: PASS
+Grammar, translation, dictionary IPA and CEFR require editorial review.
+
+EXIT CODE: 0
+
+COMMAND: python dataset/validate_dataset.py
+DATASET VALIDATION
+
+Topics: 10 PASS
+Flashcards: 300 PASS
+Duplicate word + meaning: 0 PASS
+Missing fields: 0 PASS
+Invalid topic codes: 0 PASS
+Invalid CEFR levels: 0 PASS
+Invalid part of speech: 0 PASS
+Invalid IPA format: 0 PASS
+CSV / UTF-8 errors: 0 PASS
+
+A1: 102 (34.0%)
+A2: 84 (28.0%)
+B1: 81 (27.0%)
+B2: 33 (11.0%)
+
+Per topic:
+  ANIMALS: 30
+  FAMILY: 30
+  FOOD: 30
+  HEALTH: 30
+  SCHOOL: 30
+  SHOPPING: 30
+  TECHNOLOGY: 30
+  TRAVEL: 30
+  WEATHER: 30
+  WORK: 30
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=145 english='generation' error=Example does not contain exact headword; check inflection/context
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=149 english='ancestor' error=Example does not contain exact headword; check inflection/context
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=198 english='earn' error=Example does not contain exact headword; check inflection/context
+WARNING file=C:\Users\phuc\OneDrive\Documents\New project\dataset\flashcards.csv row=199 english='employ' error=Example does not contain exact headword; check inflection/context
+
+Warnings: 4
+DATASET STATUS: PASS
+Grammar, translation, dictionary IPA and CEFR require editorial review.
+
+EXIT CODE: 0
+
+COMMAND: python dataset/validate_dataset.py --flashcards dataset/additions/example_addition.csv
+DATASET VALIDATION
+
+Topics: 10 PASS
+Flashcards: 3 PASS
+Duplicate word + meaning: 0 PASS
+Missing fields: 0 PASS
+Invalid topic codes: 0 PASS
+Invalid CEFR levels: 0 PASS
+Invalid part of speech: 0 PASS
+Invalid IPA format: 0 PASS
+CSV / UTF-8 errors: 0 PASS
+
+A1: 1 (33.3%)
+A2: 2 (66.7%)
+B1: 0 (0.0%)
+B2: 0 (0.0%)
+
+Per topic:
+  FOOD: 1
+  SCHOOL: 1
+  TRAVEL: 1
+WARNING file=dataset\additions\example_addition.csv row=4 english='book' error=Repeated English word: manually review distinct sense
+
+Warnings: 1
+DATASET STATUS: PASS
+Grammar, translation, dictionary IPA and CEFR require editorial review.
+
+EXIT CODE: 0
+
+COMMAND: python dataset/test_dataset.py --integration
+test_bad_header_and_utf8 (__main__.ValidationTests.test_bad_header_and_utf8) ... ok
+test_distinct_senses (__main__.ValidationTests.test_distinct_senses) ... ok
+test_empty_dataset (__main__.ValidationTests.test_empty_dataset) ... ok
+test_extension_301_and_seed_rejection (__main__.ValidationTests.test_extension_301_and_seed_rejection) ... ok
+test_inflection_warning_does_not_fail (__main__.ValidationTests.test_inflection_warning_does_not_fail) ... ok
+test_malformed_csv (__main__.ValidationTests.test_malformed_csv) ... ok
+test_missing_and_invalid_enums (__main__.ValidationTests.test_missing_and_invalid_enums) ... ok
+test_new_topic_without_changing_old_topics (__main__.ValidationTests.test_new_topic_without_changing_old_topics) ... ok
+test_normalized_duplicate (__main__.ValidationTests.test_normalized_duplicate) ... ok
+test_seed (__main__.ValidationTests.test_seed) ... ok
+test_full_incremental_lifecycle (__main__.PostgreSQLTests.test_full_incremental_lifecycle) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 4.895s
+
+OK
+
+EXIT CODE: 0

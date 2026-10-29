@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.BiVoca.Login" parent="Theme.BiVoca">
+        <item name="android:statusBarColor">#0D1A3A</item>
+        <item name="android:navigationBarColor">#050A1B</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>

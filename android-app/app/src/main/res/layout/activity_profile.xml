@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profileRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login_night_background">
+
+    <!-- Header Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/buttonProfileBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/nav_open_description"
+            android:text="@string/nav_back_symbol"
+            android:textColor="#0284C7"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textProfileTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hồ sơ cá nhân"
+            android:textColor="#F8FAFC"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp" />
+    </LinearLayout>
+
+    <!-- Trạng thái Loading -->
+    <ProgressBar
+        android:id="@+id/progressProfile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:contentDescription="Đang tải thông tin"
+        android:visibility="gone" />
+
+    <!-- Trạng thái Lỗi -->
+    <LinearLayout
+        android:id="@+id/errorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textProfileError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#DC2626"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonProfileRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Thử lại"
+            app:backgroundTint="#2563EB" />
+    </LinearLayout>
+
+    <!-- Nội dung chính -->
+    <ScrollView
+        android:id="@+id/scrollProfileContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Card Thông tin cá nhân -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#111C31"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeColor="#334155"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="24dp">
+
+                    <FrameLayout
+                        android:layout_width="72dp"
+                        android:layout_height="72dp">
+                        <ImageView
+                            android:id="@+id/imageProfileAvatar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/avatar_circle_background"
+                            android:clipToOutline="true"
+                            android:contentDescription="Ảnh đại diện"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
+                        <TextView
+                            android:id="@+id/textAvatarLetter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/avatar_circle_background"
+                            android:gravity="center"
+                            android:text="U"
+                            android:textColor="#FFFFFF"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonChooseAvatar"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Đổi ảnh đại diện"
+                        android:textColor="#38BDF8" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonResetAvatar"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dùng avatar mặc định"
+                        android:textColor="#94A3B8"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/avatarPreviewContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/dark_card_background"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:visibility="gone">
+                        <ImageView
+                            android:id="@+id/imageAvatarPreview"
+                            android:layout_width="112dp"
+                            android:layout_height="112dp"
+                            android:background="@drawable/avatar_circle_background"
+                            android:clipToOutline="true"
+                            android:contentDescription="Xem trước ảnh đại diện"
+                            android:scaleType="centerCrop" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonCancelAvatar"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hủy" />
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonConfirmAvatar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lưu ảnh"
+                                app:backgroundTint="#2563EB" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Ảnh chỉ lưu trên thiết bị này"
+                        android:textColor="#64748B"
+                        android:textSize="12sp" />
+
+                    <!-- Họ và tên -->
+                    <TextView
+                        android:id="@+id/textFullName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textColor="#F8FAFC"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <!-- Username -->
+                    <TextView
+                        android:id="@+id/textUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="#94A3B8"
+                        android:textSize="14sp" />
+
+                    <!-- Email -->
+                    <TextView
+                        android:id="@+id/textEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="#CBD5E1"
+                        android:textSize="14sp" />
+
+                    <!-- Cấp độ người học -->
+                    <TextView
+                        android:id="@+id/textLevelBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="#172B4D"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:textColor="#38BDF8"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tiêu đề phần Gamification -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Thành tích học tập"
+                android:textColor="#F8FAFC"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Khối Gamification: 3 thẻ xếp ngang -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Thẻ 1: Tổng XP -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="#111C31"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⭐"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/textTotalXp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="0"
+                            android:textColor="#F8FAFC"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Tổng XP"
+                            android:textColor="#94A3B8"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Thẻ 2: Chuỗi Streak hiện tại -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    app:cardBackgroundColor="#111C31"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🔥"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/textCurrentStreak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="0"
+                            android:textColor="#EA580C"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Streak ngày"
+                            android:textColor="#94A3B8"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Thẻ 3: Kỷ lục Streak -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="#111C31"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🏆"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/textLongestStreak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="0"
+                            android:textColor="#F8FAFC"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Kỷ lục"
+                            android:textColor="#94A3B8"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonLinkGoogle"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:minHeight="56dp"
+                android:text="@string/profile_link_google"
+                android:textColor="#E2E8F0"
+                android:textSize="16sp"
+                app:strokeColor="#64748B" />
+
+            <!-- Nút Đăng xuất -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonProfileLogout"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp"
+                android:minHeight="56dp"
+                android:text="Đăng xuất"
+                android:textColor="#DC2626"
+                android:textSize="16sp"
+                app:strokeColor="#FCA5A5" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+

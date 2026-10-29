@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="#111C31"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="1dp"
+    app:strokeColor="#334155"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="14dp">
+
+        <!-- Rank badge / number -->
+        <TextView
+            android:id="@+id/textRank"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#F8FAFC"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- User avatar letter circle -->
+        <TextView
+            android:id="@+id/textUserAvatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:background="@drawable/ic_launcher_background"
+            android:text="U"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- User info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textDisplayName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên người học"
+                android:textColor="#F8FAFC"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@username"
+                    android:textColor="#94A3B8"
+                    android:textSize="12sp"
+                    android:maxWidth="100dp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:text="•"
+                    android:textColor="#CBD5E1"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textUserLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#172B4D"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="1dp"
+                    android:text="Lv. 1"
+                    android:textColor="#38BDF8"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textUserStreak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="🔥 0"
+                    android:textColor="#EA580C"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Total XP -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/textUserXp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 XP"
+                android:textColor="#38BDF8"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tổng điểm"
+                android:textColor="#94A3B8"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+

@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/progressRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login_night_background">
+
+    <!-- Header Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/buttonProgressBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/nav_open_description"
+            android:text="@string/nav_back_symbol"
+            android:textColor="#0284C7"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tiến độ học tập"
+            android:textColor="#F8FAFC"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp" />
+    </LinearLayout>
+
+    <!-- Trạng thái Loading -->
+    <ProgressBar
+        android:id="@+id/progressLoading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:contentDescription="Đang tải dữ liệu tiến độ"
+        android:visibility="gone" />
+
+    <!-- Trạng thái Lỗi -->
+    <LinearLayout
+        android:id="@+id/errorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textProgressError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#DC2626"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonProgressRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Thử lại"
+            app:backgroundTint="#2563EB" />
+    </LinearLayout>
+
+    <!-- Nội dung chính -->
+    <ScrollView
+        android:id="@+id/scrollProgressContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:cardBackgroundColor="#111C31" app:cardCornerRadius="16dp" app:strokeColor="#334155" app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HOẠT ĐỘNG 7 NGÀY" android:textColor="#7DD3FC" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="■ Từ mới   ■ Lượt ôn" android:textColor="#94A3B8" android:textSize="12sp"/>
+                    <com.example.bivoca.ui.progress.WeeklyActivityChartView android:id="@+id/weeklyChart" android:layout_width="match_parent" android:layout_height="190dp" android:layout_marginTop="8dp"/>
+                    <TextView android:id="@+id/textGoalHistory" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="#CBD5E1" android:textSize="13sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Hero Card: Tỉ lệ ghi nhớ chính xác -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="#2563EB"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TỶ LỆ GHI NHỚ"
+                        android:textColor="#BFDBFE"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05" />
+
+                    <TextView
+                        android:id="@+id/textAccuracy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="0%"
+                        android:textColor="#FFFFFF"
+                        android:textSize="44sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textAccuracySubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Dựa trên các lượt ôn tập từ vựng"
+                        android:textColor="#E0E7FF"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Lịch ôn tập"
+                android:textColor="#F8FAFC"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textScheduleStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#DC2626"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Đến hạn"
+                    android:textColor="#CBD5E1" />
+                <TextView
+                    android:id="@+id/textDueNow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textColor="#F8FAFC"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sắp đến hạn trong 24 giờ"
+                    android:textColor="#CBD5E1" />
+                <TextView
+                    android:id="@+id/textUpcoming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textColor="#F8FAFC"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Đã ôn hôm nay (UTC)"
+                    android:textColor="#CBD5E1" />
+                <TextView
+                    android:id="@+id/textReviewedToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textColor="#F8FAFC"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Tiêu đề Từ vựng -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Kho từ của bạn"
+                android:textColor="#F8FAFC"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Hàng 1: Đã theo dõi & Đã ôn tập -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="#111C31"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📖"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/textTrackedCards"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="0"
+                            android:textColor="#F8FAFC"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Từ đã học"
+                            android:textColor="#94A3B8"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="#111C31"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🔄"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/textReviewedCards"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="0"
+                            android:textColor="#F8FAFC"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Từ đã ôn tập"
+                            android:textColor="#94A3B8"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Hàng 2: Đã thuộc lòng & Yêu thích -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="#111C31"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🎯"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/textMasteredCards"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="0"
+                            android:textColor="#16A34A"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Đã thuộc lòng"
+                            android:textColor="#94A3B8"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="#111C31"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="❤️"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/textFavoriteCards"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="0"
+                            android:textColor="#DC2626"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Từ yêu thích"
+                            android:textColor="#94A3B8"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Tiêu đề Thống kê lượt ôn tập -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Chi tiết ôn tập"
+                android:textColor="#F8FAFC"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#111C31"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="1dp"
+                app:strokeColor="#334155"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tổng số lượt ôn tập"
+                            android:textColor="#CBD5E1"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/textTotalReviews"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="#F8FAFC"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="#17233B" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Số lần đã nhớ"
+                            android:textColor="#CBD5E1"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/textCorrectAnswers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="#16A34A"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="#17233B" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Số lần chưa nhớ"
+                            android:textColor="#CBD5E1"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/textWrongAnswers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="#EA580C"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+

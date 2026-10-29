@@ -1,0 +1,8 @@
+english,part_of_speech,original_vietnamese,action,reason,review_method
+technically,adverb,Một cách nghiêm túc.,BLOCK,"Technically means from a technical perspective; seriously is not equivalent.",AI_ASSISTED_SEMANTIC_SPOT_CHECK_NOT_HUMAN_VERIFIED
+mamma,noun,Uây khyếm mẹ.,BLOCK,"Vietnamese phrase appears corrupted and does not teach the noun clearly.",AI_ASSISTED_SEMANTIC_SPOT_CHECK_NOT_HUMAN_VERIFIED
+barracks,noun,"Mọi người bị trừng phạt, không được phép ra khỏi doanh trại.",BLOCK,"Describes a punishment/confinement sentence, not the standalone noun barracks.",AI_ASSISTED_SEMANTIC_SPOT_CHECK_NOT_HUMAN_VERIFIED
+squat,verb,"Gánh tạ, nguồi xổm.",REVIEW,"Vietnamese nguồi appears misspelled; ambiguous gym sense.",AI_ASSISTED_SEMANTIC_SPOT_CHECK_NOT_HUMAN_VERIFIED
+t-shirt,noun,May ô.,REVIEW,"May-ô commonly means undershirt/tank top, not necessarily T-shirt.",AI_ASSISTED_SEMANTIC_SPOT_CHECK_NOT_HUMAN_VERIFIED
+ferry,noun,Bến phà.,REVIEW,"Ferry usually denotes the boat/service; bến phà is terminal or landing.",AI_ASSISTED_SEMANTIC_SPOT_CHECK_NOT_HUMAN_VERIFIED
+itinerary,adjective,"Hành trình, (thuộc) đường đi.",REVIEW,"Headword is ordinarily a noun; adjective meaning and POS require verification.",AI_ASSISTED_SEMANTIC_SPOT_CHECK_NOT_HUMAN_VERIFIED
