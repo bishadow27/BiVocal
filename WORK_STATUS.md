@@ -1,5 +1,29 @@
 # WORK_STATUS.md — Trạng thái Thực tế và Kế hoạch Phát triển BiVoca
 
+## Nghiệm thu Home Phase A và Login Phase B — 2026-10-29 — USER_ACCEPTED_PASS
+
+- Người dùng xác nhận trực tiếp nghiệm thu PASS cả Home (Phase A) và Login (Phase B) sau khi xem kết quả/ảnh. Thay thế trạng thái chờ duyệt của các bản ghi bàn giao bên dưới; giữ nguyên lịch sử và kết quả test.
+- Giới hạn kỹ thuật không đổi: Google/password success/SMTP E2E chưa chạy trong Phase B; màn nhỏ dùng measurement instrumentation, chưa có AVD nhỏ riêng. Nghiệm thu UI không nâng các kiểm tra chưa chạy thành PASS.
+- Đã rà soát 37 file (33 Android source/resource/test + 4 tài liệu), đối chiếu hash với bản kiểm thử cuối, kiểm tra diff/secret và loại runtime-evidence/build/APK/Skill untracked khỏi phạm vi. Không sửa thêm giao diện hoặc nghiệp vụ.
+- Người dùng duyệt danh sách 37 file, cập nhật ghi nhận nghiệm thu và cho phép commit/push lên `origin/feature/initial-import`. Không đổi sang main, không reset/clean hoặc gom thay đổi khác. Kết quả Git được bàn giao trong chat; các mục CHƯA COMMIT/CHƯA PUSH bên dưới thuộc thời điểm báo cáo cũ.
+
+## Login theo thiết kế đã duyệt — Phase B — 2026-10-29 — READY_FOR_ACCEPTANCE
+
+- Người dùng đã nghiệm thu Home Phase A trực tiếp trong chat ngày2026-10-29; đã ghi bổ sung vào báo cáo Home, giữ nguyên hồ sơ bàn giao ban đầu. Tiếp tục Phase B đúng kế hoạch được duyệt, không chỉnh lại Home.
+- Chỉ XML Login/theme entry và resource riêng: mascot/wordmark/slogan trái, divider, title Đăng nhập phải cùng hàng; thêm subtitle; form màu navy/blue/cyan, input min56dp, CTA52dp, Google→footer32dp; cuộn khi hẹp/ngang/IME. Không sửa Java app, LoginViewModel/AuthApi/Repository/SessionManager/Credential Manager hoặc Register/Forgot/Backend/DB.
+- APK-r giữ dữ liệu; build cuối14s PASS (7 executed/71 up-to-date). Unit84/84 đã executed ở lượt đầu Phase B, lượt cuối UP-TO-DATE; lint0 lỗi/428 warnings. Instrumentation cuối bàn phím gắn đáy4/4 PASS23.219s; font1.3 Login1/1 PASS10.567s. Resource Login28 cấu hình, hồi quy Home layout14 cấu hình; chưa AVD nhỏ riêng.
+- Ảnh phát hiện Gboard nổi che form dù isDisplayed PASS; đã tăng test IME bottom>0 và tọa độ control trên mép bàn phím, chạy lại PASS/đọc ảnh. Font trả1.0, Gboard trả chế độ nổi ban đầu, AVD size/density/config hash không đổi. Người dùng tự đăng xuất trước test; cuối phiên đã có session nên giữ nguyên, không logout để chụp lại.
+- Không gửi POST auth/challenge/reset hoặc ghi học/SQL để kiểm thử. Google/password success/SMTP E2E NOT_RUN; không suy từ ảnh Home thành Google E2E PASS. Source so với Home đã duyệt2 sửa/4 mới,421/423 file gốc giữ hash. Git feature/initial-import; giữ toàn bộ Phase A/Skill untracked, CHƯA COMMIT/CHƯA PUSH.
+- [Báo cáo Login](docs/reports/LOGIN_APPROVED_PHASE_B_REPORT.md), evidence local `android-app/runtime-evidence/login-approved-20261029/` có comparison và ảnh font10-docked/font13-docked. Login chờ người dùng duyệt UI; không mở rộng sang màn khác.
+
+## Home theo demo cuối đã duyệt — Phase A — 2026-10-29 — READY_FOR_ACCEPTANCE
+
+- Người dùng duyệt Home trước, Login sau; chỉ triển khai Home Java/XML với theme/resource riêng. Header mascot/wordmark/slogan, streak `N Day`, avatar mở Drawer phải; Daily Goal gọn/CTA blue; SRS bốn nhóm màu thật/Info48dp; leaderboard Top3 và hàng riêng khi tài khoản không ở Top3; bốn tab cố định. Không sửa Login/Backend/DB/Topics/Flashcard/auth/nghiệp vụ.
+- Home gọi endpoint leaderboard hiện có với limit100, màn bảng xếp hạng riêng giữ50. Dùng rank API; không có rank thì `—` và tên/XP thật, đúng phương án đã được duyệt. Không ghi dữ liệu học để tạo ảnh.
+- Build cuối PASS25s (24 executed/54 up-to-date), unit84/84 executed, lint0 lỗi/425 warnings. Instrumentation cuối4/4 PASS83.474s (Home+Topics), font1.3 Home1/1 PASS30.961s. Resource measurement14 tổ hợp có320/360dp và landscape; không chạy AVD nhỏ riêng. APK-r giữ dữ liệu/session; font trả1.0, size/density/config AVD giữ nguyên.
+- Giữ log FAIL do mất focus/Launcher ANR/app khác và ADB ngắt khi Emulator tắt; sau khi người dùng tạm ngừng thao tác và khởi động lại AVD, các lượt cuối PASS. Không bỏ assertion hoặc sửa nghiệp vụ để né lỗi. Đã xem ảnh thật font1.0/1.3 và tạo comparison; chưa tuyên bố UI giống100% hay được người dùng nghiệm thu.
+- Source14 sửa/14 resource mới,395/409 file gốc giữ hash; Backend/Admin/Auth/Topics/Flashcard không đổi. Git hiện có: `feature/initial-import`, base7dabeae; không stage/commit/push, giữ các Skill untracked. [Báo cáo](docs/reports/HOME_APPROVED_PHASE_A_REPORT.md); evidence local `android-app/runtime-evidence/home-approved-20261029/`. Chờ duyệt Home; Phase B Login chưa triển khai.
+
 ## Gói full source gửi AI khác — 2026-10-28
 
 - Theo yêu cầu bàn giao: tạo `docs/exports/BiVocal_FULL_PROJECT_2026-10-28.zip` (75.750.597 byte, 664 entries), gồm source/test/resources/config mẫu của Android, Backend, Admin, dataset/quality/license, tài liệu và design. Có START_HERE.md, PROMPT_FOR_GEMINI.txt, MANIFEST.json và danh sách loại trừ; giữ Java/XML/MVVM và Online-Only, ghi đúng UI M16 mới nhất. Snapshot tài liệu trong ZIP được lấy trước bản ghi đóng gói này.

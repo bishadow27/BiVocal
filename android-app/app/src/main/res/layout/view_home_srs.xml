@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardHomeSrs" style="@style/Home16Card" app:cardBackgroundColor="#111726" app:strokeColor="#334155" app:strokeWidth="1dp" app:cardCornerRadius="20dp">
-<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:orientation="vertical">
-<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
-<TextView style="@style/Home16Title" android:layout_width="0dp" android:layout_weight="1" android:text="@string/home_srs_title" android:textSize="16sp" android:fontFamily="sans-serif-medium" android:textStyle="normal"/>
-<ImageButton android:id="@+id/buttonHomeSrsInfo" android:layout_width="48dp" android:layout_height="48dp" android:padding="13dp" android:src="@drawable/auth_info" android:contentDescription="@string/home_srs_help_description" android:background="?attr/selectableItemBackgroundBorderless"/>
-<TextView android:id="@+id/buttonProgress" style="@style/Home16Action" android:text="@string/home_srs_detail" android:textColor="#38BDF8"/>
+    android:id="@+id/cardHomeSrs" style="@style/ApprovedHomeCard" app:cardCornerRadius="20dp" app:strokeWidth="1dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+<TextView style="@style/ApprovedHomeTitle" android:layout_width="0dp" android:layout_weight="1" android:text="@string/home_approved_srs_title" android:textSize="15sp"/>
+<ImageButton android:id="@+id/buttonHomeSrsInfo" android:layout_width="48dp" android:layout_height="48dp" android:padding="14dp" android:src="@drawable/home_approved_info" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/home_srs_help_description"/>
+<TextView android:id="@+id/buttonProgress" style="@style/ApprovedHomeAction" android:text="@string/home_approved_details"/>
 </LinearLayout>
-<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:minHeight="36dp" android:orientation="horizontal" android:gravity="center_vertical">
-<TextView android:id="@+id/textHomeSrsTotal" style="@style/Home16Title" android:text="@string/home_placeholder" android:textSize="28sp" android:textColor="#FFB020"/>
-<TextView android:id="@+id/textHomeSrsCaption" style="@style/HomeSrsText" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="8dp" android:text="@string/home16_loading"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+<TextView android:id="@+id/textHomeSrsTotal" style="@style/ApprovedHomeTitle" android:textSize="24sp" android:text="@string/home_placeholder"/>
+<TextView android:id="@+id/textHomeSrsCaption" style="@style/ApprovedHomeText" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="10dp" android:text="@string/home16_loading"/>
 </LinearLayout>
-<LinearLayout android:id="@+id/homeSrsBar" android:layout_width="match_parent" android:layout_height="10dp" android:layout_marginTop="8dp" android:orientation="horizontal" android:background="@drawable/home16_track" android:clipToOutline="true">
-<View android:id="@+id/homeSrsNewSegment" android:layout_width="0dp" android:layout_height="match_parent" android:layout_marginEnd="3dp" android:background="@drawable/home_srs_color_fresh"/>
-<View android:id="@+id/homeSrsRememberingSegment" android:layout_width="0dp" android:layout_height="match_parent" android:layout_marginEnd="3dp" android:background="@drawable/home_srs_color_practicing"/>
-<View android:id="@+id/homeSrsGoodSegment" android:layout_width="0dp" android:layout_height="match_parent" android:layout_marginEnd="3dp" android:background="@drawable/home_srs_color_good"/>
-<View android:id="@+id/homeSrsMasteredSegment" android:layout_width="0dp" android:layout_height="match_parent" android:background="@drawable/home_srs_color_mastered"/>
+<LinearLayout android:id="@+id/homeSrsBar" android:layout_width="match_parent" android:layout_height="8dp" android:layout_marginTop="12dp" android:layout_marginBottom="8dp" android:orientation="horizontal" android:background="@drawable/home_approved_track" android:clipToOutline="true">
+<View android:id="@+id/homeSrsNewSegment" android:layout_width="0dp" android:layout_height="match_parent" android:background="@color/home_approved_fresh"/>
+<View android:id="@+id/homeSrsRememberingSegment" android:layout_width="0dp" android:layout_height="match_parent" android:background="@color/home_approved_practicing"/>
+<View android:id="@+id/homeSrsGoodSegment" android:layout_width="0dp" android:layout_height="match_parent" android:background="@color/home_approved_good"/>
+<View android:id="@+id/homeSrsMasteredSegment" android:layout_width="0dp" android:layout_height="match_parent" android:background="@color/home_approved_mastered"/>
 </LinearLayout>
-<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal" android:baselineAligned="false">
-<LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_fresh">
-<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_fresh"/>
-<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_fresh"/>
-<TextView android:id="@+id/textHomeNew" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#1677FF"/>
-</LinearLayout><Space android:layout_width="8dp" android:layout_height="1dp"/><LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_practicing">
-<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_practicing"/>
-<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_practicing"/>
-<TextView android:id="@+id/textHomeRemembering" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#7B5BC7"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:baselineAligned="false" android:layout_marginTop="4dp">
+<LinearLayout style="@style/ApprovedHomeSrsCell">
+<View android:layout_width="8dp" android:layout_height="8dp" android:background="@drawable/home_approved_dot" android:backgroundTint="@color/home_approved_fresh"/>
+<TextView style="@style/ApprovedHomeSrsLabel" android:text="@string/home_srs_fresh"/>
+<TextView android:id="@+id/textHomeNew" style="@style/ApprovedHomeSrsValue" android:text="@string/home_placeholder"/>
 </LinearLayout>
-</LinearLayout>
-<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:orientation="horizontal" android:baselineAligned="false">
-<LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_good">
-<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_good"/>
-<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_good"/>
-<TextView android:id="@+id/textHomeGood" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#58C400"/>
-</LinearLayout><Space android:layout_width="8dp" android:layout_height="1dp"/><LinearLayout style="@style/HomeSrsCell" android:background="@drawable/home_srs_cell_mastered">
-<View style="@style/HomeSrsDot" android:background="@drawable/home_srs_color_mastered"/>
-<TextView style="@style/HomeSrsLabel" android:text="@string/home_srs_mastered"/>
-<TextView android:id="@+id/textHomeMastered" style="@style/HomeSrsValue" android:text="@string/home_placeholder" android:textColor="#FFB020"/>
+<Space android:layout_width="16dp" android:layout_height="1dp"/>
+<LinearLayout style="@style/ApprovedHomeSrsCell">
+<View android:layout_width="8dp" android:layout_height="8dp" android:background="@drawable/home_approved_dot" android:backgroundTint="@color/home_approved_practicing"/>
+<TextView style="@style/ApprovedHomeSrsLabel" android:text="@string/home_srs_practicing"/>
+<TextView android:id="@+id/textHomeRemembering" style="@style/ApprovedHomeSrsValue" android:text="@string/home_placeholder"/>
 </LinearLayout>
 </LinearLayout>
-<LinearLayout android:id="@+id/buttonHomeSrsReview" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52dp" android:layout_marginTop="12dp" android:padding="12dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/home_srs_due_row" android:foreground="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
-<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/home16_icon_bolt" app:tint="#F8FAFC" android:importantForAccessibility="no"/>
-<TextView android:id="@+id/textHomeSrsDueLabel" style="@style/HomeSrsLabel" android:text="@string/home_srs_no_due" android:textSize="14sp" android:textColor="#F8FAFC"/>
-<TextView android:id="@+id/textHomeSrsDue" style="@style/HomeSrsValue" android:text="@string/home_srs_chevron" android:textSize="22sp" android:textColor="#F8FAFC" android:importantForAccessibility="no"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:baselineAligned="false" android:layout_marginTop="4dp">
+<LinearLayout style="@style/ApprovedHomeSrsCell">
+<View android:layout_width="8dp" android:layout_height="8dp" android:background="@drawable/home_approved_dot" android:backgroundTint="@color/home_approved_good"/>
+<TextView style="@style/ApprovedHomeSrsLabel" android:text="@string/home_srs_good"/>
+<TextView android:id="@+id/textHomeGood" style="@style/ApprovedHomeSrsValue" android:text="@string/home_placeholder"/>
+</LinearLayout>
+<Space android:layout_width="16dp" android:layout_height="1dp"/>
+<LinearLayout style="@style/ApprovedHomeSrsCell">
+<View android:layout_width="8dp" android:layout_height="8dp" android:background="@drawable/home_approved_dot" android:backgroundTint="@color/home_approved_mastered"/>
+<TextView style="@style/ApprovedHomeSrsLabel" android:text="@string/home_srs_mastered"/>
+<TextView android:id="@+id/textHomeMastered" style="@style/ApprovedHomeSrsValue" android:text="@string/home_placeholder"/>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout android:id="@+id/buttonHomeSrsReview" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52dp" android:layout_marginTop="12dp" android:padding="12dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/home_approved_due" android:foreground="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/home_approved_clock" android:importantForAccessibility="no"/>
+<TextView android:id="@+id/textHomeSrsDueLabel" style="@style/ApprovedHomeSrsLabel" android:textSize="14sp" android:text="@string/home_srs_no_due" android:textColor="@color/home_approved_text"/>
+<TextView android:id="@+id/textHomeSrsDue" style="@style/ApprovedHomeSrsValue" android:text="@string/home_srs_chevron" android:textSize="22sp" android:importantForAccessibility="no"/>
 </LinearLayout>
 </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

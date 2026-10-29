@@ -44,13 +44,17 @@ public class LeaderboardViewModel extends AndroidViewModel {
     }
 
     public void loadLeaderboard() {
+        loadLeaderboard(50);
+    }
+
+    public void loadLeaderboard(int limit) {
         cancelCall();
         int version = ++requestVersion;
 
         loading.setValue(true);
         error.setValue(null);
 
-        activeCall = repository.getLeaderboard(50, new LeaderboardRepository.LeaderboardCallback() {
+        activeCall = repository.getLeaderboard(Math.max(1, Math.min(100, limit)), new LeaderboardRepository.LeaderboardCallback() {
             @Override
             public void onSuccess(List<LeaderboardUser> users) {
                 if (version != requestVersion) return;

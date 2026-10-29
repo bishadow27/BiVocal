@@ -64,7 +64,7 @@ public class HomeRuntimeUiTest {
                 assertNull(progress.getLearningError().getValue());
                 assertNull(progress.getScheduleError().getValue());
                 assertEquals(View.GONE,activity.findViewById(R.id.homeErrorContainer).getVisibility());
-                assertEquals(activity.getString(R.string.home16_streak_badge,
+                assertEquals(activity.getString(R.string.home_approved_streak,
                         java.text.NumberFormat.getIntegerInstance().format(profile.getStats().getValue().getCurrentStreak())),
                         ((TextView) activity.findViewById(R.id.textHomeStreakBadge)).getText().toString());
                 ReviewSchedule schedule=progress.getSchedule().getValue();
@@ -78,6 +78,26 @@ public class HomeRuntimeUiTest {
                         ? activity.getString(R.string.home_srs_due,java.text.NumberFormat.getIntegerInstance().format(schedule.getDueNow()))
                         : activity.getString(R.string.home_srs_no_due),
                         ((TextView)activity.findViewById(R.id.textHomeSrsDueLabel)).getText().toString());
+                java.util.List<LeaderboardUser> users=new ViewModelProvider(activity).get(LeaderboardViewModel.class).getLeaderboard().getValue();
+                java.util.List<LeaderboardUser> top=com.example.bivoca.ui.home.HomePresentation.topThree(users);
+                android.widget.LinearLayout rows=activity.findViewById(R.id.homeLeaderboardRows);
+                assertEquals(top.size()*2,rows.getChildCount()); // one separator per top row
+                for(int i=0;i<top.size();i++) {
+                    View row=rows.getChildAt(i*2);
+                    assertEquals(String.valueOf(top.get(i).getRank()),((TextView)row.findViewById(R.id.homeRank)).getText().toString());
+                    assertEquals(activity.getString(R.string.home16_xp_value,java.text.NumberFormat.getIntegerInstance().format(top.get(i).getTotalXp())),((TextView)row.findViewById(R.id.homeRankXp)).getText().toString());
+                }
+                int myId=new SessionManager(activity).getUserId();
+                android.widget.LinearLayout own=activity.findViewById(R.id.homeCurrentUserRows);
+                boolean inTop=com.example.bivoca.ui.home.HomePresentation.findUser(top,myId)!=null;
+                assertEquals(inTop?0:1,own.getChildCount());
+                if(!inTop) {
+                    LeaderboardUser me=com.example.bivoca.ui.home.HomePresentation.findUser(users,myId);
+                    View row=own.getChildAt(0);
+                    assertEquals(me==null?"—":String.valueOf(me.getRank()),((TextView)row.findViewById(R.id.homeRank)).getText().toString());
+                    int xp=me==null?profile.getStats().getValue().getTotalXp():me.getTotalXp();
+                    assertEquals(activity.getString(R.string.home16_xp_value,java.text.NumberFormat.getIntegerInstance().format(xp)),((TextView)row.findViewById(R.id.homeRankXp)).getText().toString());
+                }
                 ScrollView scroll=activity.findViewById(R.id.homeScroll);
                 scroll.scrollTo(0,0);
             });
@@ -136,7 +156,7 @@ public class HomeRuntimeUiTest {
         SystemClock.sleep(300);
         Bitmap bitmap=InstrumentationRegistry.getInstrumentation().getUiAutomation().takeScreenshot();
         assertNotNull(bitmap);
-        File dir=new File(InstrumentationRegistry.getInstrumentation().getTargetContext().getExternalFilesDir(null),"m16-3-home");
+        File dir=new File(InstrumentationRegistry.getInstrumentation().getTargetContext().getExternalFilesDir(null),"home-approved-20261029");
         assertTrue(dir.isDirectory()||dir.mkdirs());
         try(FileOutputStream out=new FileOutputStream(new File(dir,name))){assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG,100,out));}
         bitmap.recycle();

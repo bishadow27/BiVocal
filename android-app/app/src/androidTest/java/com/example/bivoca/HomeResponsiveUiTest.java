@@ -18,15 +18,15 @@ public class HomeResponsiveUiTest {
     @Test public void homeFitsReferenceSmallLandscapeAndLargeFontWithoutClipping() {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
             Context base=InstrumentationRegistry.getInstrumentation().getTargetContext();
-            int[][] sizes={{320,640},{411,731},{412,915},{440,915},{467,830},{731,411}};
+            int[][] sizes={{320,640},{360,800},{411,731},{412,915},{440,915},{467,830},{731,411}};
             for(int[] size:sizes) for(float scale:new float[]{1f,1.3f}) {
                 Configuration config=new Configuration(base.getResources().getConfiguration());
                 config.fontScale=scale; config.screenWidthDp=size[0]; config.screenHeightDp=size[1];
-                Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home);
+                Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home_Approved);
                 View root=LayoutInflater.from(themed).inflate(R.layout.activity_home,null,false);
-                ((TextView)root.findViewById(R.id.textHomeStreakBadge)).setText("🔥 120 ngày");
+                ((TextView)root.findViewById(R.id.textHomeStreakBadge)).setText("120 Day");
                 ((TextView)root.findViewById(R.id.textDailyGoal)).setText("10 / 10 từ mới");
-                ((TextView)root.findViewById(R.id.textDailyGoalPercent)).setText("100% hoàn thành");
+                ((TextView)root.findViewById(R.id.textDailyGoalPercent)).setText("100%");
                 float density=themed.getResources().getDisplayMetrics().density;
                 int w=Math.round(size[0]*density),h=Math.round(size[1]*density);
                 root.measure(View.MeasureSpec.makeMeasureSpec(w,View.MeasureSpec.EXACTLY),View.MeasureSpec.makeMeasureSpec(h,View.MeasureSpec.EXACTLY));

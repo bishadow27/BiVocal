@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bivoca.R;
 import com.example.bivoca.data.model.GamificationStats;
+import com.example.bivoca.data.model.User;
 import com.example.bivoca.data.model.ReviewSchedule;
 import com.example.bivoca.data.model.LearningToday;
 import com.example.bivoca.data.model.LeaderboardUser;
@@ -76,12 +78,34 @@ public class HomeActivity extends AppCompatActivity {
                 && progressViewModel.getError().getValue() == null) progressViewModel.loadSummary();
         if (leaderboardViewModel.getLeaderboard().getValue() == null
                 && !Boolean.TRUE.equals(leaderboardViewModel.getLoading().getValue())
-                && leaderboardViewModel.getError().getValue() == null) leaderboardViewModel.loadLeaderboard();
+                && leaderboardViewModel.getError().getValue() == null) leaderboardViewModel.loadLeaderboard(100);
         render();
     }
 
     private void bindActions() {
-        com.example.bivoca.ui.navigation.LearningBottomNavigation.bind(this, NavigationRoute.HOME);
+        com.example.bivoca.ui.navigation.LearningBottomNavigation.bind(this, NavigationRoute.HOME,
+                getColor(R.color.home_approved_cyan), getColor(R.color.home_approved_secondary_text));
+        // Opt in on Home only: Topics keeps the existing shared navigation appearance.
+        ViewGroup bottom = findViewById(R.id.homeBottomNavigation);
+        bottom.setBackgroundColor(getColor(R.color.home_approved_secondary_ground));
+        for (int i = 0; i < bottom.getChildCount(); i++) {
+            if (!(bottom.getChildAt(i) instanceof ViewGroup)) continue;
+            ViewGroup tab = (ViewGroup) bottom.getChildAt(i);
+            for (int j = 0; j < tab.getChildCount(); j++) {
+                View child = tab.getChildAt(j);
+                if (child instanceof TextView) ((TextView) child).setTextSize(12);
+                if (child instanceof ImageView) {
+                    ImageView icon = (ImageView) child;
+                    if (tab.getId() == R.id.buttonTopics) icon.setImageResource(R.drawable.topics16_book);
+                    else if (tab.getId() == R.id.buttonReviewToday) icon.setImageResource(R.drawable.home_approved_review);
+                    else if (tab.getId() == R.id.buttonQuiz) icon.setImageResource(R.drawable.home_approved_quiz);
+                    icon.getLayoutParams().width = dp(22);
+                    icon.getLayoutParams().height = dp(22);
+                    icon.requestLayout();
+                }
+            }
+        }
+        findViewById(R.id.textHomeAvatar).setBackgroundResource(R.drawable.home_approved_avatar);
         findViewById(R.id.buttonProgress).setOnClickListener(v -> open(ProgressActivity.class));
         findViewById(R.id.buttonHomeSrsInfo).setOnClickListener(v -> new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle(R.string.home_srs_title).setMessage(R.string.home_srs_help)
@@ -126,7 +150,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void render() {
         GamificationStats stats = profileViewModel.getStats().getValue();
-        text(R.id.textHomeStreakBadge, getString(R.string.home16_streak_badge, stats == null ? "—" : number(stats.getCurrentStreak())));
+        text(R.id.textHomeStreakBadge, getString(R.string.home_approved_streak, stats == null ? "—" : number(stats.getCurrentStreak())));
         LearningToday today = progressViewModel.getLearningToday().getValue();
         boolean goalAvailable = today != null && progressViewModel.getLearningError().getValue() == null;
         findViewById(R.id.buttonLearnNewToday).setEnabled(goalAvailable);
@@ -140,25 +164,15 @@ public class HomeActivity extends AppCompatActivity {
             android.text.SpannableString goal = new android.text.SpannableString(getString(R.string.home16_goal_value, today.getNewWordsLearned(), today.getDailyGoal()));
             int separator = goal.toString().indexOf('/');
             if (separator >= 0) {
-                goal.setSpan(new android.text.style.RelativeSizeSpan(16f / 28f), separator, goal.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                goal.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#94A3B8")), separator, goal.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                goal.setSpan(new android.text.style.RelativeSizeSpan(16f / 32f), separator, goal.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                goal.setSpan(new android.text.style.ForegroundColorSpan(getColor(R.color.home_approved_secondary_text)), separator, goal.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             textDailyGoal.setText(goal);
             dailyGoalProgress.setProgress(Math.max(0, Math.min(100, today.getCompletionPercent())));
-            text(R.id.textDailyGoalPercent, getString(R.string.home16_goal_percent, today.getCompletionPercent()));
+            text(R.id.textDailyGoalPercent, getString(R.string.home_approved_goal_percent, today.getCompletionPercent()));
             textDailyGoalStatus.setText(today.isCompleted() ? getString(R.string.home16_goal_done)
-                    : getString(R.string.home16_goal_remaining, today.getRemaining()));
-            if (!today.isCompleted()) {
-                android.text.SpannableString status = new android.text.SpannableString(textDailyGoalStatus.getText());
-                int start = status.toString().indexOf(String.valueOf(today.getRemaining()));
-                int end = status.toString().indexOf(" từ nữa", start);
-                if (start >= 0 && end >= start) {
-                    end += " từ nữa".length();
-                    status.setSpan(new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#38BDF8")), start, end, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    status.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), start, end, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-                textDailyGoalStatus.setText(status);
-            }
+                    : getString(R.string.home_approved_goal_remaining, today.getRemaining()));
+
         }
         ((TextView) findViewById(R.id.buttonLearnNewToday)).setText(today != null && today.isCompleted()
                 ? R.string.home16_learn_more : R.string.home16_learn);
@@ -190,10 +204,8 @@ public class HomeActivity extends AppCompatActivity {
             segment.setVisibility(groups != null && groups[i] > 0 ? View.VISIBLE : View.GONE);
         }
         text(R.id.textHomeSrsTotal, groups == null ? "—" : number(schedule.getReviewedCards()));
-        int total = groups == null ? 0 : schedule.getReviewedCards();
-        int masteredPercent = total == 0 ? 0 : Math.round(groups[3] * 100f / total);
         text(R.id.textHomeSrsCaption, groups == null ? getString(R.string.home16_no_data)
-                : getString(R.string.home_srs_caption, masteredPercent));
+                : getString(R.string.home_approved_learned));
         boolean canReview = groups != null && schedule.getDueNow() > 0;
         View review = findViewById(R.id.buttonHomeSrsReview);
         review.setEnabled(canReview);
@@ -206,52 +218,82 @@ public class HomeActivity extends AppCompatActivity {
     private void renderLeaderboard() {
         if (leaderboardViewModel == null) return;
         LinearLayout rows = findViewById(R.id.homeLeaderboardRows);
+        LinearLayout ownRows = findViewById(R.id.homeCurrentUserRows);
         rows.removeAllViews();
+        ownRows.removeAllViews();
         List<LeaderboardUser> users = leaderboardViewModel.getLeaderboard().getValue();
         String error = leaderboardViewModel.getError().getValue();
         TextView state = findViewById(R.id.textHomeLeaderboardState);
+        state.setOnClickListener(null);
+        state.setVisibility(View.GONE);
         if (error != null) {
             state.setVisibility(View.VISIBLE);
             state.setText(error);
-            state.setOnClickListener(v -> leaderboardViewModel.loadLeaderboard());
-            return;
-        }
-        state.setOnClickListener(null);
-        if (users == null || users.isEmpty()) {
+            state.setOnClickListener(v -> leaderboardViewModel.loadLeaderboard(100));
+        } else if (users == null || users.isEmpty()) {
             state.setVisibility(View.VISIBLE);
             state.setText(Boolean.TRUE.equals(leaderboardViewModel.getLoading().getValue())
                     ? R.string.home16_loading : R.string.home16_leaderboard_empty);
+        }
+        List<LeaderboardUser> top = HomePresentation.topThree(error == null ? users : null);
+        for (LeaderboardUser user : top) {
+            addRankRow(rows, String.valueOf(user.getRank()), user.getDisplayName(), user.getTotalXp(),
+                    user.getUserId() == sessionManager.getUserId(), user.getRank() == 1, null);
+            View divider = new View(this);
+            divider.setBackgroundColor(getColor(R.color.home_approved_border));
+            rows.addView(divider, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1)));
+        }
+        // Membership is by user ID, not rank: ties can occupy several of the first three rows.
+        if (HomePresentation.findUser(top, sessionManager.getUserId()) != null) return;
+        LeaderboardUser me = error == null ? HomePresentation.findUser(users, sessionManager.getUserId()) : null;
+        if (me != null) {
+            addRankRow(ownRows, String.valueOf(me.getRank()), me.getDisplayName(), me.getTotalXp(), true, false, null);
             return;
         }
-        boolean containsMe = false;
-        for (LeaderboardUser user : HomePresentation.preview(users, sessionManager.getUserId())) {
-            View row = getLayoutInflater().inflate(R.layout.item_home_leaderboard, rows, false);
-            boolean me = user.getUserId() == sessionManager.getUserId();
-            containsMe |= me;
-            if (me) row.setBackgroundResource(R.drawable.home16_row_self);
-            else if (user.getRank() == 1) row.setBackgroundResource(R.drawable.home16_rank_gold);
-            else if (user.getRank() == 2) row.setBackgroundResource(R.drawable.home16_rank_silver);
-            TextView rank = row.findViewById(R.id.homeRank);
-            rank.setText(me || user.getRank() > 3 ? "#" + user.getRank() : user.getRank() == 1 ? "🥇" : user.getRank() == 2 ? "🥈" : "🥉");
-            rank.setContentDescription("Hạng " + user.getRank());
-            if (me) ((TextView) row.findViewById(R.id.homeRankName)).setTextColor(android.graphics.Color.parseColor("#38BDF8"));
-            if (!me && user.getRank() == 1) ((TextView) row.findViewById(R.id.homeRankXp)).setTextColor(android.graphics.Color.parseColor("#FBBF24"));
-            ((TextView) row.findViewById(R.id.homeRankAvatar)).setText(com.example.bivoca.ui.navigation.AvatarLabel.initial(user.getDisplayName()));
-            ((TextView) row.findViewById(R.id.homeRankName)).setText(me ? getString(R.string.home16_leaderboard_self, user.getDisplayName()) : user.getDisplayName());
-            ((TextView) row.findViewById(R.id.homeRankMeta)).setText(getString(R.string.home16_leaderboard_meta, user.getCurrentStreak(), user.getLevel()));
-            ((TextView) row.findViewById(R.id.homeRankXp)).setText(getString(R.string.home16_xp_value, number(user.getTotalXp())));
-            rows.addView(row);
-        }
-        state.setVisibility(containsMe ? View.GONE : View.VISIBLE);
-        if (!containsMe) state.setText(getString(R.string.home16_leaderboard_user_missing, users.size()));
+        User profile = profileViewModel.getUser().getValue();
+        GamificationStats stats = profileViewModel.getStats().getValue();
+        if (profile == null || stats == null || profile.getId() != sessionManager.getUserId()) return;
+        String name = profile.getFullName();
+        if (name == null || name.trim().isEmpty()) name = profile.getUsername();
+        // The bounded API cannot supply every user's rank. Never infer it from XP or list length.
+        addRankRow(ownRows, "—", name, stats.getTotalXp(), true, false,
+                getString(stats.getTotalXp() == 0 ? R.string.home_approved_not_ranked : R.string.home_approved_rank_unavailable));
     }
+
+    private void addRankRow(LinearLayout parent, String rank, String name, int xp, boolean me, boolean first, String note) {
+        View row = getLayoutInflater().inflate(R.layout.item_home_leaderboard, parent, false);
+        TextView rankView = row.findViewById(R.id.homeRank);
+        TextView nameView = row.findViewById(R.id.homeRankName);
+        TextView xpView = row.findViewById(R.id.homeRankXp);
+        rankView.setText(rank);
+        nameView.setText(me ? getString(R.string.home_approved_self, name) : name);
+        xpView.setText(getString(R.string.home16_xp_value, number(xp)));
+        ((TextView) row.findViewById(R.id.homeRankAvatar)).setText(com.example.bivoca.ui.navigation.AvatarLabel.initial(name));
+        if (me) {
+            row.setBackgroundResource(R.drawable.home_approved_self);
+            nameView.setTextColor(getColor(R.color.home_approved_cyan));
+            xpView.setTextColor(getColor(R.color.home_approved_cyan));
+        } else if (first) {
+            rankView.setTextColor(getColor(R.color.home_approved_mastered));
+            xpView.setTextColor(getColor(R.color.home_approved_mastered));
+        }
+        if (note != null) {
+            TextView meta = row.findViewById(R.id.homeRankMeta);
+            meta.setText(note);
+            meta.setVisibility(View.VISIBLE);
+        }
+        row.setContentDescription(getString(R.string.home_approved_rank_description, rank, name, number(xp)));
+        parent.addView(row);
+    }
+
+    private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 
     @Override protected void onResume() {
         super.onResume();
         if (hasResumed && profileViewModel != null) retry();
         hasResumed = true;
     }
-    private void retry() { profileViewModel.loadProfile(); progressViewModel.loadSummary(); leaderboardViewModel.loadLeaderboard(); }
+    private void retry() { profileViewModel.loadProfile(); progressViewModel.loadSummary(); leaderboardViewModel.loadLeaderboard(100); }
     private void text(int id, String value) { ((TextView) findViewById(id)).setText(value); }
     private static String number(int value) { return NumberFormat.getIntegerInstance().format(value); }
     private void open(Class<?> destination) {

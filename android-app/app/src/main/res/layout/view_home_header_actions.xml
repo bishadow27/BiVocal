@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:orientation="horizontal" android:gravity="center_vertical">
-    <TextView android:id="@+id/textHomeStreakBadge" style="@style/Home16Text"
-        android:background="@drawable/home16_streak" android:textColor="#FB923C"
-        android:paddingStart="10dp" android:paddingEnd="10dp" android:paddingTop="5dp" android:paddingBottom="5dp" android:textStyle="bold"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+    <ImageView android:layout_width="22dp" android:layout_height="24dp" android:src="@drawable/home_approved_flame" android:importantForAccessibility="no"/>
+    <TextView android:id="@+id/textHomeStreakBadge" style="@style/ApprovedHomeText" android:layout_marginStart="4dp" android:layout_marginEnd="8dp" android:textColor="@color/home_approved_text" android:textSize="14sp"/>
     <include layout="@layout/view_navigation_avatar"/>
 </LinearLayout>

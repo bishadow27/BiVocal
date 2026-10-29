@@ -19,6 +19,9 @@ import com.example.bivoca.ui.quiz.QuizActivity;
 public final class LearningBottomNavigation {
     private LearningBottomNavigation() { }
     public static void bind(AppCompatActivity activity, NavigationRoute current) {
+        bind(activity, current, Color.parseColor("#38BDF8"), Color.parseColor("#94A3B8"));
+    }
+    public static void bind(AppCompatActivity activity, NavigationRoute current, int activeColor, int inactiveColor) {
         int[] ids={R.id.homeTabHome,R.id.buttonTopics,R.id.buttonReviewToday,R.id.buttonQuiz};
         NavigationRoute[] routes={NavigationRoute.HOME,NavigationRoute.TOPICS,NavigationRoute.REVIEW_TODAY,NavigationRoute.QUIZ};
         Class<?>[] targets={HomeActivity.class,TopicsActivity.class,FlashcardActivity.class,QuizActivity.class};
@@ -26,7 +29,7 @@ public final class LearningBottomNavigation {
             final NavigationRoute route=routes[i]; final Class<?> target=targets[i];
             ViewGroup tab=activity.findViewById(ids[i]);
             boolean active=route==current;
-            int color=Color.parseColor(active?"#38BDF8":"#94A3B8");
+            int color=active?activeColor:inactiveColor;
             tab.setSelected(active);
             for(int child=0;child<tab.getChildCount();child++) {
                 View view=tab.getChildAt(child);

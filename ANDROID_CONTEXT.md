@@ -1,5 +1,27 @@
 # ANDROID_CONTEXT.md — Chi tiết Kỹ thuật Ứng dụng Android BiVoca
 
+## Home Phase A + Login Phase B — người dùng nghiệm thu PASS (2026-10-29)
+
+- Nguồn: xác nhận trực tiếp của người dùng trong chat, sau đó duyệt danh sách bàn giao Git. Home và Login đã được nghiệm thu UI PASS; các mục READY_FOR_ACCEPTANCE bên dưới là hồ sơ trước nghiệm thu, không xóa lịch sử.
+- Không thay code hoặc chạy lại build/test khi chốt Git. Source khớp snapshot Phase B; bằng chứng 84 unit PASS, Home4/4+font1.3 1/1, Login4/4+font1.3 1/1 giữ nguyên. Lượt cuối unit UP-TO-DATE; Google/password success/SMTP E2E và AVD nhỏ riêng vẫn chưa chạy, không đánh dấu PASS thay cho UI.
+- Phạm vi bàn giao đã duyệt: 37 file trên `feature/initial-import`, commit/push tới origin cùng nhánh. Chỉ source/resource/test/tài liệu; loại ảnh/log runtime-evidence, APK/build và Skill untracked. Không đổi Home/Login thêm hoặc sửa Backend/DB/auth/API/nghiệp vụ. Chi tiết [Home](docs/reports/HOME_APPROVED_PHASE_A_REPORT.md), [Login](docs/reports/LOGIN_APPROVED_PHASE_B_REPORT.md); kết quả Git bàn giao trong chat.
+
+## Login — thiết kế cuối, Phase B (2026-10-29, chờ duyệt UI)
+
+- Home Phase A được người dùng nghiệm thu PASS cùng ngày, source Home giữ nguyên từ khi duyệt. Login riêng Theme.BiVoca.Login.Approved trong Manifest; Register/Forgot vẫn Reference. XML dùng chung palette đã duyệt của Home nhưng không sửa token Home. Mascot chính thức40×48, wordmark auto20–24sp, title20sp; slogan12/subtitle14/label14/input15sp, input min56/CTA52/radius12dp, footer cách Google32dp.
+- LoginActivity/ViewModel/Repository/API/SessionManager/Credential Manager và các UI khác không sửa. Root ScrollView/fillViewport/căn giữa khi đủ chỗ; giữ callback/toggle/validation/recreation/insets hiện có. Thêm LoginApprovedUiTest, không giả auth hoặc gọi POST bằng dữ liệu test.
+- Build cuối14s PASS,7 executed/71 up-to-date; unit84/84 executed đầu Phase B, lượt cuối UP-TO-DATE; lint0 lỗi428 warnings. Instrumentation cuối4/4 PASS23.219s (Login2/Auth nav1/Home layout1); Login runtime font1.3 1/1 PASS10.567s. Login đo28 cấu hình7 size×2 font×normal/error; màn nhỏ chưa chạy AVD riêng.
+- Đọc ảnh đã phát hiện Gboard floating che form dù isDisplayed PASS; test mới đòi IME inset>0 và control nằm trên mép IME, đã PASS khi dock. Gboard đã trả floating như ban đầu, font1.0, AVD hash/size/density không đổi. Cuối phiên có session đăng nhập, giữ nguyên. Không tự kết luận Google/password success E2E, SMTP hoặc Backend/DB test PASS vì chưa chạy.
+- Source2 sửa/4 mới từ baseline423;421 file gốc khác giữ hash, gồm toàn Java auth/Home/Backend/Admin. [Báo cáo](docs/reports/LOGIN_APPROVED_PHASE_B_REPORT.md); evidence `android-app/runtime-evidence/login-approved-20261029/`, ảnh nghiệm thu font10-docked/font13-docked và comparison. Giữ log lỗi import test/đo trailing whitespace đã sửa. READY_FOR_ACCEPTANCE; CHƯA COMMIT/CHƯA PUSH.
+
+## Home — thiết kế cuối, Phase A (2026-10-29, chờ duyệt UI)
+
+- HomeActivity dùng Theme.BiVoca.Home.Approved và resource home_approved riêng; giữ theme/layout Auth/Topics/Flashcard. Native header có mascot crop từ resource chính thức, wordmark, slogan không gạch chân; narrow header cho slogan xuống dòng. Streak `%s Day` đọc API. Avatar vẫn NavigationDrawerController END.
+- Daily Goal/SRS dùng ProfileViewModel/ProgressViewModel/API cũ; bốn nhóm0–1/2–3/4/5 và dueNow không đổi. CTA blue, SRS legend không nền màu, Info vector viền/touch48dp, due disabled khi0. Bottom nav chỉ Home opt-in màu/icon/font mới qua overload LearningBottomNavigation; default Topics không đổi.
+- HomePresentation.topThree giữ ba object đầu và rank thật; findUser đối chiếu user ID, không suy rank. Home yêu cầu leaderboard limit100 bằng overload ViewModel, no-arg giữ50. Tài khoản ngoài Top3 có hàng riêng; ngoài dữ liệu API dùng profile+stats thật/rank `—` kèm chú thích. Không tạo user/XP/rating giả; runtime account thuộc Top3 nên không có hàng thứ4 trùng. Case ngoài Top3/thiếu rank có unit test, chưa runtime bằng tài khoản ngoài Top100.
+- Build25s/unit84/84 executed/lint0 lỗi425 warnings PASS. Guard giữ APK xác minh; APK install-r. Instrumentation cuối Home+Topics4/4 PASS83.474s, Home font1.3 1/1 PASS30.961s. Home measurement7 size×2 font; màn nhỏ được đo resource, chưa AVD nhỏ riêng. Đã đọc ảnh font1.0/1.3, comparison có demo/trước/sau; font trả1.0, AVD config/hash/size/density không đổi.
+- Giữ log FAIL window focus (NotificationShade/Launcher ANR/app khác) và mất ADB khi Emulator tắt; khởi động lại AVD không wipe rồi PASS các lượt cuối. Không sửa logic hoặc bỏ assertion. Source14 sửa/14 mới,395 file gốc còn lại giữ hash; báo cáo [HOME_APPROVED_PHASE_A_REPORT.md](docs/reports/HOME_APPROVED_PHASE_A_REPORT.md), evidence `android-app/runtime-evidence/home-approved-20261029/` ignored. READY_FOR_ACCEPTANCE, chờ người dùng duyệt Home; Login Phase B chưa làm; CHƯA COMMIT/CHƯA PUSH.
+
 ## M16.5 — Khoảng cách thẻ và ví dụ trong suốt (2026-10-28)
 
 - Mới nhất chỉ XML: flashcardViewport marginBottom12 thay36; công thức resize80% không đổi nên card dài thêm24dp và nút không đổi vị trí giữa hai mặt. Background khung ví dụ gỡ hẳn, không nền/viền; padding14 và audio giữ nguyên. Drawable fc16_example còn là resource chưa dùng, không xóa source ngoài phạm vi.

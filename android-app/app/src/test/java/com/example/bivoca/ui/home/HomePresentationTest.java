@@ -19,17 +19,21 @@ public class HomePresentationTest {
         assertNull(HomePresentation.srsGroups(new int[5]));
         assertNull(HomePresentation.srsGroups(new int[]{0,0,0,-1,0,0}));
     }
-    @Test public void currentUserPreviewPreservesRealRankAndAvoidsDuplicate() {
-        LeaderboardUser first = user(1,2), second=user(2,3), me=user(7,55);
-        List<LeaderboardUser> selected=HomePresentation.preview(Arrays.asList(first,second,me),55);
-        assertEquals(3,selected.size());
-        assertEquals(7,selected.get(2).getRank());
-        assertEquals(2,HomePresentation.preview(Arrays.asList(first,second,me),2).size());
+    @Test public void topThreePreservesApiOrderAndRealRanksIncludingTies() {
+        LeaderboardUser first=user(1,2), second=user(1,3), third=user(3,4), me=user(8,55);
+        List<LeaderboardUser> users=Arrays.asList(first,second,third,me);
+        assertEquals(Arrays.asList(first,second,third),HomePresentation.topThree(users));
+        assertEquals(1,HomePresentation.topThree(users).get(1).getRank());
+        assertSame(me,HomePresentation.findUser(users,55));
+        assertNull(HomePresentation.findUser(HomePresentation.topThree(users),55));
+        assertSame(second,HomePresentation.findUser(HomePresentation.topThree(users),3));
     }
     @Test public void missingUserDoesNotGetFabricatedRanking() {
-        assertTrue(HomePresentation.preview(null,55).isEmpty());
-        assertTrue(HomePresentation.preview(Collections.emptyList(),55).isEmpty());
-        assertEquals(1,HomePresentation.preview(Collections.singletonList(user(1,2)),55).size());
+        assertTrue(HomePresentation.topThree(null).isEmpty());
+        assertTrue(HomePresentation.topThree(Collections.emptyList()).isEmpty());
+        assertEquals(1,HomePresentation.topThree(Collections.singletonList(user(1,2))).size());
+        assertNull(HomePresentation.findUser(null,55));
+        assertNull(HomePresentation.findUser(Collections.singletonList(user(1,2)),55));
     }
     private LeaderboardUser user(int rank,int id) {
         return new LeaderboardUser(rank,id,"test",null,null,100,2,1,1);
