@@ -1,6 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/flashcardComplete" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:visibility="gone">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:paddingTop="16dp" android:paddingBottom="16dp">
-        <TextView style="@style/Fc16Title" android:layout_width="80dp" android:layout_height="80dp" android:background="@drawable/fc16_check" android:gravity="center" android:text="@string/fc16_check" android:textColor="#38BDF8" android:textSize="42sp"/>
+        <ImageView android:layout_width="80dp" android:layout_height="80dp" android:padding="16dp" android:src="@drawable/phase_d_status_check" android:importantForAccessibility="no"/>
         <TextView style="@style/Fc16Title" android:layout_width="match_parent" android:gravity="center" android:text="@string/fc16_done" android:textSize="26sp" android:layout_marginTop="14dp"/>
         <TextView style="@style/Fc16Text" android:layout_width="match_parent" android:gravity="center" android:text="@string/fc16_done_note" android:textSize="14sp" android:layout_marginTop="6dp"/>
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="20dp" android:baselineAligned="false">

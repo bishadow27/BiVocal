@@ -79,6 +79,11 @@
         </activity>
 
         <activity
+            android:name=".ui.topics.TopicDetailActivity"
+            android:theme="@style/Theme.BiVoca.TopicDetail"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.topics.TopicsActivity"
             android:theme="@style/Theme.BiVoca.Home"
             android:windowSoftInputMode="adjustResize"

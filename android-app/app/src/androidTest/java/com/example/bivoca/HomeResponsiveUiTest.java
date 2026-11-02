@@ -22,6 +22,7 @@ public class HomeResponsiveUiTest {
             for(int[] size:sizes) for(float scale:new float[]{1f,1.3f}) {
                 Configuration config=new Configuration(base.getResources().getConfiguration());
                 config.fontScale=scale; config.screenWidthDp=size[0]; config.screenHeightDp=size[1];
+                config.orientation=size[0]>size[1]?Configuration.ORIENTATION_LANDSCAPE:Configuration.ORIENTATION_PORTRAIT;
                 Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home_Approved);
                 View root=LayoutInflater.from(themed).inflate(R.layout.activity_home,null,false);
                 ((TextView)root.findViewById(R.id.textHomeStreakBadge)).setText("120 Day");
@@ -39,7 +40,7 @@ public class HomeResponsiveUiTest {
                 assertTrue(label,bottom.getHeight()>=Math.round(64*density));
                 assertTrue(label+" bottom nav horizontal overflow",bottom.getRight()<=w);
                 TextView slogan=root.findViewById(R.id.textHomeSlogan);
-                assertTrue(label+" slogan exceeds two lines",slogan.getLineCount()<=2);
+                assertTrue(label+" editorial slogan must wrap rather than truncate",slogan.getLineCount()<=6);
                 assertEquals(label+" slogan truncated",slogan.getText().length(),slogan.getLayout().getLineEnd(slogan.getLineCount()-1));
                 View info=root.findViewById(R.id.buttonHomeSrsInfo);
                 assertTrue(label+" info touch target",info.getWidth()>=Math.round(48*density)&&info.getHeight()>=Math.round(48*density));

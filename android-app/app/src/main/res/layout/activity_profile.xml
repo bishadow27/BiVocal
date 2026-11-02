@@ -28,7 +28,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/nav_open_description"
             android:text="@string/nav_back_symbol"
-            android:textColor="#0284C7"
+            android:textColor="@color/bivocal_light_cobalt"
             android:textSize="24sp" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Hồ sơ cá nhân"
-            android:textColor="#F8FAFC"
+            android:textColor="@color/bivocal_light_text"
             android:textSize="20sp"
             android:textStyle="bold"
             android:paddingStart="8dp" />
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="#DC2626"
+            android:textColor="@color/bivocal_light_coral_ink"
             android:textSize="16sp" />
 
         <com.google.android.material.button.MaterialButton
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Thử lại"
-            app:backgroundTint="#2563EB" />
+            app:backgroundTint="@color/bivocal_light_cobalt"  android:textColor="@color/bivocal_light_on_primary"/>
     </LinearLayout>
 
     <!-- Nội dung chính -->
@@ -99,10 +99,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#111C31"
-                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/bivocal_light_surface"
+                app:cardCornerRadius="@dimen/bivocal_card_radius"
                 app:cardElevation="1dp"
-                app:strokeColor="#334155"
+                app:strokeColor="@color/bivocal_light_border"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -131,7 +131,7 @@
                             android:background="@drawable/avatar_circle_background"
                             android:gravity="center"
                             android:text="U"
-                            android:textColor="#FFFFFF"
+                            android:textColor="@color/bivocal_light_text"
                             android:textSize="32sp"
                             android:textStyle="bold" />
                     </FrameLayout>
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="Đổi ảnh đại diện"
-                        android:textColor="#38BDF8" />
+                        android:textColor="@color/bivocal_light_cobalt" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonResetAvatar"
@@ -151,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dùng avatar mặc định"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:visibility="gone" />
 
                     <LinearLayout
@@ -187,7 +187,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Lưu ảnh"
-                                app:backgroundTint="#2563EB" />
+                                app:backgroundTint="@color/bivocal_light_cobalt"  android:textColor="@color/bivocal_light_on_primary"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -197,7 +197,7 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Ảnh chỉ lưu trên thiết bị này"
-                        android:textColor="#64748B"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="12sp" />
 
                     <!-- Họ và tên -->
@@ -206,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:textColor="#F8FAFC"
+                        android:textColor="@color/bivocal_light_text"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -216,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="14sp" />
 
                     <!-- Email -->
@@ -225,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:textColor="#CBD5E1"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="14sp" />
 
                     <!-- Cấp độ người học -->
@@ -234,12 +234,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:background="#172B4D"
+                        android:background="@color/bivocal_light_cobalt_soft"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
-                        android:textColor="#38BDF8"
+                        android:textColor="@color/bivocal_light_cobalt"
                         android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -252,7 +252,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="12dp"
                 android:text="Thành tích học tập"
-                android:textColor="#F8FAFC"
+                android:textColor="@color/bivocal_light_text"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -268,10 +268,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
-                    app:cardBackgroundColor="#111C31"
+                    app:cardBackgroundColor="@color/bivocal_light_surface"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="1dp"
-                    app:strokeColor="#334155"
+                    app:strokeColor="@color/bivocal_light_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -281,11 +281,11 @@
                         android:gravity="center"
                         android:padding="12dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="⭐"
-                            android:textSize="24sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/home_approved_quiz"
+                              app:tint="@color/bivocal_light_cobalt" android:importantForAccessibility="no"/>
 
                         <TextView
                             android:id="@+id/textTotalXp"
@@ -293,7 +293,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="0"
-                            android:textColor="#F8FAFC"
+                            android:textColor="@color/bivocal_light_text"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -302,7 +302,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Tổng XP"
-                            android:textColor="#94A3B8"
+                            android:textColor="@color/bivocal_light_small_text"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -314,10 +314,10 @@
                     android:layout_weight="1"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
-                    app:cardBackgroundColor="#111C31"
+                    app:cardBackgroundColor="@color/bivocal_light_surface"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="1dp"
-                    app:strokeColor="#334155"
+                    app:strokeColor="@color/bivocal_light_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -327,11 +327,11 @@
                         android:gravity="center"
                         android:padding="12dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🔥"
-                            android:textSize="24sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/home_approved_flame"
+                              app:tint="@color/bivocal_light_cobalt" android:importantForAccessibility="no"/>
 
                         <TextView
                             android:id="@+id/textCurrentStreak"
@@ -339,7 +339,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="0"
-                            android:textColor="#EA580C"
+                            android:textColor="@color/bivocal_light_honey_ink"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -348,7 +348,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Streak ngày"
-                            android:textColor="#94A3B8"
+                            android:textColor="@color/bivocal_light_small_text"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -359,10 +359,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
-                    app:cardBackgroundColor="#111C31"
+                    app:cardBackgroundColor="@color/bivocal_light_surface"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="1dp"
-                    app:strokeColor="#334155"
+                    app:strokeColor="@color/bivocal_light_border"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -372,11 +372,11 @@
                         android:gravity="center"
                         android:padding="12dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🏆"
-                            android:textSize="24sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/home_approved_quiz"
+                              app:tint="@color/bivocal_light_cobalt" android:importantForAccessibility="no"/>
 
                         <TextView
                             android:id="@+id/textLongestStreak"
@@ -384,7 +384,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="0"
-                            android:textColor="#F8FAFC"
+                            android:textColor="@color/bivocal_light_text"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -393,7 +393,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Kỷ lục"
-                            android:textColor="#94A3B8"
+                            android:textColor="@color/bivocal_light_small_text"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -407,9 +407,9 @@
                 android:layout_marginTop="32dp"
                 android:minHeight="56dp"
                 android:text="@string/profile_link_google"
-                android:textColor="#E2E8F0"
+                android:textColor="@color/bivocal_light_text"
                 android:textSize="16sp"
-                app:strokeColor="#64748B" />
+                app:strokeColor="@color/bivocal_light_small_text" />
 
             <!-- Nút Đăng xuất -->
             <com.google.android.material.button.MaterialButton
@@ -421,9 +421,9 @@
                 android:layout_marginBottom="24dp"
                 android:minHeight="56dp"
                 android:text="Đăng xuất"
-                android:textColor="#DC2626"
+                android:textColor="@color/bivocal_light_coral_ink"
                 android:textSize="16sp"
-                app:strokeColor="#FCA5A5" />
+                app:strokeColor="@color/bivocal_light_coral_ink" />
 
         </LinearLayout>
     </ScrollView>

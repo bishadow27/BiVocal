@@ -25,7 +25,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/nav_open_description"
             android:text="@string/nav_back_symbol"
-            android:textColor="#0284C7"
+            android:textColor="@color/bivocal_light_cobalt"
             android:textSize="24sp" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Làm Quiz"
-            android:textColor="#F8FAFC"
+            android:textColor="@color/bivocal_light_text"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
             android:id="@+id/textQuizProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#94A3B8"
+            android:textColor="@color/bivocal_light_small_text"
             android:textSize="14sp"
             android:visibility="invisible" />
     </LinearLayout>
@@ -63,31 +63,31 @@
             android:id="@+id/textScoreCorrect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#16A34A"
+            android:textColor="@color/bivocal_light_mint_ink"
             android:textSize="14sp"
             android:textStyle="bold" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="  /  "
-            android:textColor="#94A3B8"
+            android:textColor="@color/bivocal_light_small_text"
             android:textSize="14sp" />
         <TextView
             android:id="@+id/textScoreTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#94A3B8"
+            android:textColor="@color/bivocal_light_small_text"
             android:textSize="14sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" đúng"
-            android:textColor="#94A3B8"
+            android:textColor="@color/bivocal_light_small_text"
             android:textSize="14sp" />
     </LinearLayout>
 
     <!-- Nội dung chính: dùng ScrollView để không tràn màn hình nhỏ -->
-    <ScrollView
+    <ScrollView android:id="@+id/quizContentScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:gravity="center"
-                android:textColor="#DC2626"
+                android:textColor="@color/bivocal_light_coral_ink"
                 android:textSize="16sp"
                 android:accessibilityLiveRegion="polite"
                 android:visibility="gone" />
@@ -130,8 +130,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:text="Thử lại"
-                app:backgroundTint="#2563EB"
-                android:visibility="gone" />
+                app:backgroundTint="@color/bivocal_light_cobalt"
+                android:visibility="gone"  android:textColor="@color/bivocal_light_on_primary"/>
 
             <!-- Card câu hỏi -->
             <com.google.android.material.card.MaterialCardView
@@ -139,10 +139,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#111C31"
-                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/bivocal_light_cobalt"
+                app:cardCornerRadius="@dimen/bivocal_card_radius"
                 app:cardElevation="1dp"
-                app:strokeColor="#334155"
+                app:strokeColor="@color/bivocal_light_border"
                 app:strokeWidth="1dp"
                 android:visibility="gone">
 
@@ -156,7 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Từ này nghĩa là gì?"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_on_primary"
                         android:textSize="13sp" />
 
                     <TextView
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        android:textColor="#38BDF8"
+                        android:textColor="@color/bivocal_light_on_primary"
                         android:textSize="36sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -189,7 +189,7 @@
                     android:minHeight="56dp"
                     android:textSize="16sp"
                     android:gravity="center"
-                    app:strokeColor="#CBD5E1" />
+                    app:strokeColor="@color/bivocal_light_border" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonOption1"
@@ -200,7 +200,7 @@
                     android:minHeight="56dp"
                     android:textSize="16sp"
                     android:gravity="center"
-                    app:strokeColor="#CBD5E1" />
+                    app:strokeColor="@color/bivocal_light_border" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonOption2"
@@ -211,7 +211,7 @@
                     android:minHeight="56dp"
                     android:textSize="16sp"
                     android:gravity="center"
-                    app:strokeColor="#CBD5E1" />
+                    app:strokeColor="@color/bivocal_light_border" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonOption3"
@@ -222,7 +222,7 @@
                     android:minHeight="56dp"
                     android:textSize="16sp"
                     android:gravity="center"
-                    app:strokeColor="#CBD5E1" />
+                    app:strokeColor="@color/bivocal_light_border" />
             </LinearLayout>
 
             <!-- Đang gửi đáp án -->
@@ -241,7 +241,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
+                app:cardCornerRadius="@dimen/bivocal_card_radius"
                 app:cardElevation="0dp"
                 app:strokeWidth="2dp"
                 android:visibility="gone">
@@ -266,7 +266,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="Đáp án đúng:"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="13sp" />
 
                     <TextView
@@ -274,7 +274,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="#F8FAFC"
+                        android:textColor="@color/bivocal_light_text"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -302,7 +302,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="@string/quiz_result_title"
-                    android:textColor="#F8FAFC"
+                    android:textColor="@color/bivocal_light_text"
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
@@ -312,7 +312,7 @@
                     android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="@string/quiz_result_completed"
-                    android:textColor="#38BDF8"
+                    android:textColor="@color/bivocal_light_cobalt"
                     android:textSize="15sp" />
 
                 <LinearLayout
@@ -327,14 +327,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/quiz_result_total"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="14sp" />
                     <TextView
                         android:id="@+id/textFinalTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:textColor="#F8FAFC"
+                        android:textColor="@color/bivocal_light_text"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -343,14 +343,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="@string/quiz_result_correct"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="14sp" />
                     <TextView
                         android:id="@+id/textFinalCorrect"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:textColor="#22C55E"
+                        android:textColor="@color/bivocal_light_mint_ink"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -359,14 +359,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="@string/quiz_result_wrong"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="14sp" />
                     <TextView
                         android:id="@+id/textFinalWrong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:textColor="#F87171"
+                        android:textColor="@color/bivocal_light_coral_ink"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -375,14 +375,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="@string/quiz_result_accuracy"
-                        android:textColor="#94A3B8"
+                        android:textColor="@color/bivocal_light_small_text"
                         android:textSize="14sp" />
                     <TextView
                         android:id="@+id/textFinalAccuracy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:textColor="#38BDF8"
+                        android:textColor="@color/bivocal_light_cobalt"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -395,7 +395,7 @@
                     android:minHeight="56dp"
                     android:text="Làm lại"
                     android:textSize="16sp"
-                    app:backgroundTint="#2563EB" />
+                    app:backgroundTint="@color/bivocal_light_cobalt"  android:textColor="@color/bivocal_light_on_primary"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonQuizDone"
@@ -422,9 +422,10 @@
         android:minHeight="56dp"
         android:text="Tiếp tục"
         android:textSize="16sp"
-        app:backgroundTint="#2563EB"
-        android:visibility="gone" />
+        app:backgroundTint="@color/bivocal_light_cobalt"
+        android:visibility="gone"  android:textColor="@color/bivocal_light_on_primary"/>
 
+    <include layout="@layout/view_learning_bottom_navigation"/>
 </LinearLayout>
 
 

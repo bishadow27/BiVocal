@@ -18,7 +18,6 @@ public final class SettingsActivity extends AppCompatActivity {
         bind(R.id.settingsStudy, SettingsDetailActivity.SECTION_STUDY);
         bind(R.id.settingsAudio, SettingsDetailActivity.SECTION_AUDIO);
         bind(R.id.settingsReminder, SettingsDetailActivity.SECTION_REMINDER);
-        bind(R.id.settingsDisplay, SettingsDetailActivity.SECTION_DISPLAY);
         bind(R.id.settingsAbout, SettingsDetailActivity.SECTION_ABOUT);
     }
 

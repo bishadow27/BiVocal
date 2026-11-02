@@ -28,7 +28,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/nav_open_description"
             android:text="@string/nav_back_symbol"
-            android:textColor="#0284C7"
+            android:textColor="@color/bivocal_light_cobalt"
             android:textSize="24sp" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Bảng xếp hạng"
-            android:textColor="#F8FAFC"
+            android:textColor="@color/bivocal_light_text"
             android:textSize="20sp"
             android:textStyle="bold"
             android:paddingStart="8dp" />
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="#DC2626"
+            android:textColor="@color/bivocal_light_coral_ink"
             android:textSize="16sp" />
 
         <com.google.android.material.button.MaterialButton
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Thử lại"
-            app:backgroundTint="#2563EB" />
+            app:backgroundTint="@color/bivocal_light_cobalt"  android:textColor="@color/bivocal_light_on_primary"/>
     </LinearLayout>
 
     <!-- Empty State -->
@@ -91,11 +91,11 @@
         android:layout_marginTop="60dp"
         android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🏆"
-            android:textSize="48sp" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/home_approved_quiz"
+              app:tint="@color/bivocal_light_cobalt" android:importantForAccessibility="no"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -103,7 +103,7 @@
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:text="Chưa có người học nào trong bảng xếp hạng"
-            android:textColor="#94A3B8"
+            android:textColor="@color/bivocal_light_small_text"
             android:textSize="16sp" />
 
         <TextView
@@ -112,7 +112,7 @@
             android:layout_marginTop="6dp"
             android:gravity="center"
             android:text="Hãy ôn tập từ vựng hoặc làm bài quiz để tích lũy XP đầu tiên!"
-            android:textColor="#94A3B8"
+            android:textColor="@color/bivocal_light_small_text"
             android:textSize="13sp" />
     </LinearLayout>
 
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="12dp"
-            app:cardBackgroundColor="#2563EB"
+            app:cardBackgroundColor="@color/bivocal_light_honey_soft"
             app:cardCornerRadius="14dp"
             app:cardElevation="2dp">
 
@@ -143,11 +143,11 @@
                 android:gravity="center_vertical"
                 android:padding="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🏆"
-                    android:textSize="32sp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/home_approved_quiz"
+                      app:tint="@color/bivocal_light_cobalt" android:importantForAccessibility="no"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -160,7 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bảng Vàng Thành Tích"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/bivocal_light_text"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -169,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="Top học viên xuất sắc nhất BiVoca"
-                        android:textColor="#BFDBFE"
+                        android:textColor="@color/bivocal_light_cobalt"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>

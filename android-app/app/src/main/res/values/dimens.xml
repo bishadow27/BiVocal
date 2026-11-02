@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bivocal_space_4">4dp</dimen>
+    <dimen name="bivocal_space_8">8dp</dimen>
+    <dimen name="bivocal_space_12">12dp</dimen>
+    <dimen name="bivocal_space_16">16dp</dimen>
+    <dimen name="bivocal_space_24">24dp</dimen>
+    <dimen name="bivocal_space_32">32dp</dimen>
+    <dimen name="bivocal_card_radius">20dp</dimen>
+    <dimen name="bivocal_input_radius">12dp</dimen>
+    <dimen name="bivocal_button_radius">14dp</dimen>
+    <dimen name="bivocal_touch_target">48dp</dimen>
+    <dimen name="bivocal_border_width">1dp</dimen>
+    <dimen name="bivocal_flashcard_compact_min_height">160dp</dimen>
+    <dimen name="bivocal_flashcard_preferred_min_height">280dp</dimen>
+</resources>

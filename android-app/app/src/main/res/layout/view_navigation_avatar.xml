@@ -4,7 +4,7 @@
         android:clickable="true" android:focusable="true">
         <TextView android:id="@+id/textHomeAvatar" android:layout_width="40dp" android:layout_height="40dp"
             android:layout_gravity="center" android:background="@drawable/home16_avatar" android:gravity="center"
-            android:textColor="#F8FAFC" android:textStyle="bold" android:textSize="17sp"/>
+            android:textColor="@color/bivocal_light_text" android:textStyle="bold" android:textSize="17sp"/>
         <ImageView android:id="@+id/imageHomeAvatar" android:layout_width="40dp" android:layout_height="40dp"
             android:layout_gravity="center" android:background="@drawable/avatar_circle_background"
             android:clipToOutline="true" android:scaleType="centerCrop" android:importantForAccessibility="no" android:visibility="gone"/>

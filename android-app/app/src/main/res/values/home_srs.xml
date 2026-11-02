@@ -14,7 +14,7 @@
     <string name="home_srs_help">Chỉ thống kê các từ đã có lượt ôn.\n\nBiết mới: mức 0–1\nĐang ôn: mức 2–3\nNhớ tốt: mức 4\nThuần thục: mức 5\n\nTỷ lệ thuần thục = số từ mức 5 / tổng từ đã ôn. Số cần ôn lấy theo lịch đến hạn từ máy chủ.</string>
     <string name="home_srs_help_close">Đã hiểu</string>
     <style name="HomeSrsText" parent="Home16Text">
-        <item name="android:textColor">#94A3B8</item>
+        <item name="android:textColor">@color/bivocal_light_small_text</item>
         <item name="android:textSize">12sp</item>
     </style>
     <style name="HomeSrsCell">
@@ -30,10 +30,10 @@
     <style name="HomeSrsLabel" parent="HomeSrsText">
         <item name="android:layout_width">0dp</item><item name="android:layout_weight">1</item>
         <item name="android:layout_marginStart">8dp</item><item name="android:layout_marginEnd">4dp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+        <item name="android:textStyle">normal</item>
+    <item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="fontFamily">@font/be_vietnam_pro_bold</item></style>
     <style name="HomeSrsValue" parent="HomeSrsText">
-        <item name="android:textSize">14sp</item><item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item><item name="android:textStyle">normal</item>
         <item name="android:gravity">end</item>
-    </style>
+    <item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="fontFamily">@font/be_vietnam_pro_bold</item></style>
 </resources>

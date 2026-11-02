@@ -32,7 +32,7 @@
     <string name="home16_leaderboard_self">Bạn · %1$s</string>
     <string name="home16_leaderboard_meta">🔥 %1$d ngày · Cấp %2$d</string>
     <string name="home16_xp_value">%1$s XP</string>
-    <string name="home16_motivation">Mỗi ngày 15 phút, bứt phá vốn từ cùng <font color="#38BDF8"><b>BiVocal!</b></font></string>
+    <string name="home16_motivation">Mỗi ngày 15 phút, bứt phá vốn từ cùng <font color="#2855D5"><b>BiVocal!</b></font></string>
     <string name="home16_tab_home">Trang chủ</string>
     <string name="home16_tab_topics">Chủ đề</string>
     <string name="home16_tab_review">Ôn tập</string>
@@ -41,25 +41,25 @@
     <string name="home16_profile_description">Mở hồ sơ cá nhân</string>
     <style name="Home16Card">
         <item name="android:layout_width">match_parent</item><item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">16dp</item><item name="cardCornerRadius">20dp</item>
-        <item name="cardBackgroundColor">#111726</item><item name="strokeColor">#334155</item>
+        <item name="android:layout_marginTop">16dp</item><item name="cardCornerRadius">@dimen/bivocal_card_radius</item>
+        <item name="cardBackgroundColor">@color/bivocal_light_surface</item><item name="strokeColor">@color/bivocal_light_border</item>
         <item name="strokeWidth">1dp</item><item name="cardElevation">0dp</item>
     </style>
     <style name="Home16Text">
         <item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#94A3B8</item><item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">sans-serif</item><item name="android:includeFontPadding">false</item>
-    </style>
+        <item name="android:textColor">@color/bivocal_light_small_text</item><item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro</item><item name="android:includeFontPadding">true</item>
+    <item name="fontFamily">@font/be_vietnam_pro</item></style>
     <style name="Home16Title" parent="Home16Text">
-        <item name="android:textColor">#F8FAFC</item><item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+        <item name="android:textColor">@color/bivocal_light_text</item><item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    <item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="fontFamily">@font/be_vietnam_pro_bold</item></style>
     <style name="Home16Action" parent="Home16Text">
         <item name="android:minHeight">48dp</item><item name="android:gravity">center</item>
-        <item name="android:textColor">#38BDF8</item><item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/bivocal_light_cobalt</item><item name="android:textStyle">normal</item>
         <item name="android:paddingStart">8dp</item><item name="android:paddingEnd">0dp</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-    </style>
+    <item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="fontFamily">@font/be_vietnam_pro_bold</item></style>
     <style name="Home16Stat">
         <item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item><item name="android:minHeight">100dp</item>
@@ -82,22 +82,25 @@
         <item name="android:background">@drawable/home16_srs_cell</item>
     </style>
     <style name="Home16Tab">
-        <item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item><item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item><item name="android:minHeight">64dp</item>
         <item name="android:paddingTop">8dp</item><item name="android:paddingBottom">8dp</item>
-        <item name="android:gravity">center</item><item name="android:orientation">vertical</item>
+        <item name="android:gravity">top|center_horizontal</item><item name="android:orientation">vertical</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:clickable">true</item><item name="android:focusable">true</item>
     </style>
     <style name="Home16TabLabel" parent="Home16Text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingStart">4dp</item><item name="android:paddingEnd">4dp</item>
+        <item name="android:maxLines">2</item>
         <item name="android:textSize">10sp</item><item name="android:gravity">center</item>
         <item name="android:layout_marginTop">4dp</item>
     </style>
     <style name="Theme.BiVoca.Home" parent="Theme.BiVoca">
-        <item name="android:windowBackground">#090D16</item>
-        <item name="android:statusBarColor">#090D16</item>
-        <item name="android:navigationBarColor">#090D16</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
+        <item name="android:windowBackground">@color/bivocal_light_canvas</item>
+        <item name="android:statusBarColor">@color/bivocal_light_canvas</item>
+        <item name="android:navigationBarColor">@color/bivocal_light_system_navigation</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro</item>
+    <item name="fontFamily">@font/be_vietnam_pro</item></style>
 </resources>

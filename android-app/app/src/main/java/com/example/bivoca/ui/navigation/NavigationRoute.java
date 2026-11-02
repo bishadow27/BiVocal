@@ -4,8 +4,10 @@ package com.example.bivoca.ui.navigation;
 public enum NavigationRoute {
     HOME,
     TOPICS,
+    TOPIC_DETAIL,
     FLASHCARDS,
     REVIEW_TODAY,
+    NEW_TODAY,
     QUIZ,
     PROGRESS,
     LEADERBOARD,

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:background="#071427"
+    android:background="@color/bivocal_light_canvas"
     android:clickable="false"
     android:focusable="false"
     tools:ignore="Overdraw">
@@ -18,7 +18,7 @@
         android:contentDescription="@string/nav_back_description"
         android:gravity="center"
         android:text="@string/nav_back_symbol"
-        android:textColor="#38BDF8"
+        android:textColor="@color/bivocal_light_cobalt"
         android:textSize="32sp" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="#F8FAFC"
+        android:textColor="@color/bivocal_light_text"
         android:textSize="19sp"
         android:textStyle="bold" />
 
@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:background="@drawable/home_avatar_background"
             android:gravity="center"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/bivocal_light_text"
             android:textSize="17sp"
             android:textStyle="bold" />
 

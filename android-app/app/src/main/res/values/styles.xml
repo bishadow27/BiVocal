@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.BiVocal.Body" parent="TextAppearance.MaterialComponents.Body1"><item name="fontFamily">@font/be_vietnam_pro</item><item name="android:fontFamily">@font/be_vietnam_pro</item><item name="android:textColor">@color/bivocal_light_text</item><item name="android:includeFontPadding">true</item><item name="android:letterSpacing">0</item><item name="android:lineSpacingExtra">2dp</item></style>
+    <style name="TextAppearance.BiVocal.Label" parent="TextAppearance.BiVocal.Body"><item name="fontFamily">@font/be_vietnam_pro_medium</item><item name="android:fontFamily">@font/be_vietnam_pro_medium</item><item name="android:textStyle">normal</item></style>
+    <style name="TextAppearance.BiVocal.Title" parent="TextAppearance.BiVocal.Body"><item name="fontFamily">@font/be_vietnam_pro_bold</item><item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="android:textStyle">normal</item></style>
+    <style name="Widget.BiVocal.TextView" parent="Widget.AppCompat.TextView"><item name="android:textAppearance">@style/TextAppearance.BiVocal.Body</item><item name="android:fontFamily">@font/be_vietnam_pro</item><item name="android:includeFontPadding">true</item><item name="android:letterSpacing">0</item><item name="fontFamily">@font/be_vietnam_pro</item></style>
+    <style name="Widget.BiVocal.EditText" parent="Widget.AppCompat.EditText"><item name="android:fontFamily">@font/be_vietnam_pro</item><item name="android:includeFontPadding">true</item><item name="android:letterSpacing">0</item><item name="fontFamily">@font/be_vietnam_pro</item></style>
+</resources>

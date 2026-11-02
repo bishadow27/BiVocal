@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="#66334155" android:state_enabled="false" />
+    <item android:color="@color/bivocal_light_border" android:state_enabled="false" />
     <item android:color="@color/bivocal_blue" android:state_checked="true" />
-    <item android:color="#CC334155" />
+    <item android:color="@color/bivocal_light_border" />
 </selector>

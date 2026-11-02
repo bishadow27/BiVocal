@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Scoped to the approved Home. Shared M16 resources remain unchanged. -->
-    <color name="home_approved_ground">#070B12</color>
-    <color name="home_approved_secondary_ground">#0D1320</color>
-    <color name="home_approved_card">#121A26</color>
-    <color name="home_approved_border">#243246</color>
-    <color name="home_approved_blue">#2F6BFF</color>
-    <color name="home_approved_blue_dark">#2457E6</color>
-    <color name="home_approved_cyan">#22C7F8</color>
-    <color name="home_approved_text">#F5F8FC</color>
-    <color name="home_approved_secondary_text">#B7C3D4</color>
-    <color name="home_approved_tertiary_text">#8FA3BA</color>
-    <color name="home_approved_fresh">#4DA3FF</color>
-    <color name="home_approved_practicing">#A55CFF</color>
-    <color name="home_approved_good">#66E05F</color>
-    <color name="home_approved_mastered">#FFC53D</color>
+    <color name="home_approved_ground">@color/bivocal_light_canvas</color>
+    <color name="home_approved_secondary_ground">@color/bivocal_light_surface</color>
+    <color name="home_approved_card">@color/bivocal_light_surface</color>
+    <color name="home_approved_border">@color/bivocal_light_border</color>
+    <color name="home_approved_blue">@color/bivocal_light_cobalt</color>
+    <color name="home_approved_blue_dark">@color/bivocal_light_cobalt</color>
+    <color name="home_approved_cyan">@color/bivocal_light_cobalt</color>
+    <color name="home_approved_text">@color/bivocal_light_text</color>
+    <color name="home_approved_secondary_text">@color/bivocal_light_small_text</color>
+    <color name="home_approved_tertiary_text">@color/bivocal_light_small_text</color>
+    <color name="home_approved_fresh">@color/bivocal_light_cobalt</color>
+    <color name="home_approved_practicing">@color/bivocal_light_lavender_ink</color>
+    <color name="home_approved_good">@color/bivocal_light_mint_ink</color>
+    <color name="home_approved_mastered">@color/bivocal_light_honey_ink</color>
     <string name="home_approved_goal_title">Mục tiêu hôm nay</string>
     <string name="home_approved_goal_percent">%1$d%%</string>
     <string name="home_approved_goal_remaining">Còn %1$d từ để hoàn thành mục tiêu.</string>
-    <string name="home_approved_streak">%1$s Day</string>
+    <string name="home_approved_streak">%1$s ngày</string>
     <string name="home_approved_srs_title">Độ thuộc từ vựng</string>
     <string name="home_approved_learned">từ đã học</string>
     <string name="home_approved_details">Chi tiết</string>
@@ -37,17 +37,17 @@
     <style name="ApprovedHomeTitle" parent="ApprovedHomeText">
         <item name="android:textColor">@color/home_approved_text</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
+        <item name="android:fontFamily">@font/be_vietnam_pro_medium</item>
+    <item name="fontFamily">@font/be_vietnam_pro_medium</item></style>
     <style name="ApprovedHomeAction" parent="ApprovedHomeText">
         <item name="android:minHeight">48dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/home_approved_cyan</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro_medium</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">0dp</item>
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-    </style>
+    <item name="fontFamily">@font/be_vietnam_pro_medium</item></style>
     <style name="ApprovedHomeCard" parent="Home16Card">
         <item name="android:layout_marginTop">24dp</item>
         <item name="cardBackgroundColor">@color/home_approved_card</item>
@@ -74,7 +74,7 @@
     <style name="Theme.BiVoca.Home.Approved" parent="Theme.BiVoca.Home">
         <item name="android:windowBackground">@color/home_approved_ground</item>
         <item name="android:statusBarColor">@color/home_approved_ground</item>
-        <item name="android:navigationBarColor">@color/home_approved_secondary_ground</item>
+        <item name="android:navigationBarColor">@color/bivocal_light_system_navigation</item>
         <item name="android:colorAccent">@color/home_approved_cyan</item>
     </style>
 </resources>

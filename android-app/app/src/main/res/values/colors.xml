@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="bivocal_night">#07111F</color>
-    <color name="bivocal_surface">#111C31</color>
-    <color name="bivocal_surface_pressed">#243653</color>
-    <color name="bivocal_blue">#2563EB</color>
-    <color name="bivocal_cyan">#38BDF8</color>
-    <color name="bivocal_cyan_light">#7DD3FC</color>
-    <color name="bivocal_text_primary">#F8FAFC</color>
-    <color name="bivocal_text_secondary">#94A3B8</color>
-    <color name="bivocal_border">#526782</color>
-    <color name="bivocal_border_disabled">#334155</color>
-    <color name="bivocal_danger">#FDA4AF</color>
+    <color name="black">@color/bivocal_light_text</color>
+    <color name="white">@color/bivocal_light_on_primary</color>
+    <color name="bivocal_night">@color/bivocal_light_canvas</color>
+    <color name="bivocal_surface">@color/bivocal_light_surface</color>
+    <color name="bivocal_surface_pressed">@color/bivocal_light_cobalt_soft</color>
+    <color name="bivocal_blue">@color/bivocal_light_cobalt</color>
+    <color name="bivocal_cyan">@color/bivocal_light_cobalt</color>
+    <color name="bivocal_cyan_light">@color/bivocal_light_cobalt</color>
+    <color name="bivocal_text_primary">@color/bivocal_light_text</color>
+    <color name="bivocal_text_secondary">@color/bivocal_light_small_text</color>
+    <color name="bivocal_border">@color/bivocal_light_border</color>
+    <color name="bivocal_border_disabled">@color/bivocal_light_border</color>
+    <color name="bivocal_danger">@color/bivocal_light_coral_ink</color>
 </resources>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <gradient android:angle="270" android:startColor="#0B1325"
-        android:centerColor="#090F1E" android:endColor="#060A15" />
+    <solid android:color="@color/bivocal_light_canvas"/>
 </shape>

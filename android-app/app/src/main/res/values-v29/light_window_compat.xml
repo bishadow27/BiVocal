@@ -1,0 +1,1 @@
+<resources><color name="bivocal_light_system_navigation">@color/bivocal_light_canvas</color><style name="BiVocalLightWindowCompat" parent="Theme.Material3.Light.NoActionBar"><item name="android:windowLightNavigationBar">true</item><item name="android:forceDarkAllowed">false</item></style></resources>

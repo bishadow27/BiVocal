@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         if (!sessionManager.isLoggedIn()) { openLogin(); return; }
         ReminderScheduler.reconcile(this);
         setContentView(R.layout.activity_home);
-        androidx.core.view.WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightNavigationBars(false);
+        androidx.core.view.WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView()).setAppearanceLightNavigationBars(true);
         NavigationDrawerController.attach(this, NavigationRoute.HOME, R.id.buttonHomeMenu);
         textDailyGoal = findViewById(R.id.textDailyGoal);
         textDailyGoalStatus = findViewById(R.id.textDailyGoalStatus);
@@ -85,26 +85,6 @@ public class HomeActivity extends AppCompatActivity {
     private void bindActions() {
         com.example.bivoca.ui.navigation.LearningBottomNavigation.bind(this, NavigationRoute.HOME,
                 getColor(R.color.home_approved_cyan), getColor(R.color.home_approved_secondary_text));
-        // Opt in on Home only: Topics keeps the existing shared navigation appearance.
-        ViewGroup bottom = findViewById(R.id.homeBottomNavigation);
-        bottom.setBackgroundColor(getColor(R.color.home_approved_secondary_ground));
-        for (int i = 0; i < bottom.getChildCount(); i++) {
-            if (!(bottom.getChildAt(i) instanceof ViewGroup)) continue;
-            ViewGroup tab = (ViewGroup) bottom.getChildAt(i);
-            for (int j = 0; j < tab.getChildCount(); j++) {
-                View child = tab.getChildAt(j);
-                if (child instanceof TextView) ((TextView) child).setTextSize(12);
-                if (child instanceof ImageView) {
-                    ImageView icon = (ImageView) child;
-                    if (tab.getId() == R.id.buttonTopics) icon.setImageResource(R.drawable.topics16_book);
-                    else if (tab.getId() == R.id.buttonReviewToday) icon.setImageResource(R.drawable.home_approved_review);
-                    else if (tab.getId() == R.id.buttonQuiz) icon.setImageResource(R.drawable.home_approved_quiz);
-                    icon.getLayoutParams().width = dp(22);
-                    icon.getLayoutParams().height = dp(22);
-                    icon.requestLayout();
-                }
-            }
-        }
         findViewById(R.id.textHomeAvatar).setBackgroundResource(R.drawable.home_approved_avatar);
         findViewById(R.id.buttonProgress).setOnClickListener(v -> open(ProgressActivity.class));
         findViewById(R.id.buttonHomeSrsInfo).setOnClickListener(v -> new androidx.appcompat.app.AlertDialog.Builder(this)
@@ -118,7 +98,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, FlashcardActivity.class);
             intent.putExtra(FlashcardActivity.EXTRA_NEW_TODAY, true);
             intent.putExtra(FlashcardActivity.EXTRA_NEW_LIMIT, today.isCompleted() ? today.getDailyGoal() : Math.max(1, today.getRemaining()));
-            startActivity(intent);
+            com.example.bivoca.ui.navigation.LearningBottomNavigation.open(this, intent);
         });
         findViewById(R.id.buttonHomeRetry).setOnClickListener(v -> retry());
     }
@@ -299,7 +279,7 @@ public class HomeActivity extends AppCompatActivity {
     private void open(Class<?> destination) {
         Intent intent = new Intent(this, destination);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
+        com.example.bivoca.ui.navigation.LearningBottomNavigation.open(this,intent);
     }
     private void openLogin() {
         Intent intent = new Intent(this, LoginActivity.class);

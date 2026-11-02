@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/homeTopBar"
-    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical"
-    android:paddingStart="24dp" android:paddingEnd="16dp" android:paddingTop="8dp" android:paddingBottom="8dp">
-    <ImageView android:id="@+id/homeHeaderMascot" android:layout_width="32dp" android:layout_height="40dp" android:scaleType="fitCenter" android:contentDescription="@string/login_logo_description"/>
-    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:orientation="vertical">
-        <TextView style="@style/ApprovedHomeTitle" android:text="@string/home_approved_brand" android:textSize="22sp" android:textStyle="bold" android:textColor="@color/home_approved_cyan"/>
-        <TextView android:id="@+id/textHomeSlogan" style="@style/ApprovedHomeText" android:layout_width="match_parent" android:text="@string/home_approved_motivation" android:textSize="12sp" android:maxLines="2"/>
-    </LinearLayout>
-    <include layout="@layout/view_home_header_actions"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/homeTopBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="24dp" android:paddingEnd="16dp" android:paddingTop="8dp" android:paddingBottom="8dp">
+<ImageView android:id="@+id/homeHeaderMascot" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone"/>
+<ImageView android:id="@+id/homeHeaderWordmark" android:layout_width="0dp" android:layout_weight="1" android:layout_height="56dp" android:layout_marginEnd="12dp" android:src="@drawable/bivocal_wordmark" android:scaleType="fitStart" android:contentDescription="@string/login_logo_description"/>
+<include layout="@layout/view_home_header_actions"/>
 </LinearLayout>

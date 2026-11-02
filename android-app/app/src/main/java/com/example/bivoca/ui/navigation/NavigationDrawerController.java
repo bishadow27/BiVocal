@@ -52,10 +52,10 @@ public final class NavigationDrawerController {
     private final View drawerPanel;
     private final ImageView topAvatarImage;
     private final TextView topAvatarFallback;
-    private final ImageView drawerAvatarImage;
     private final TextView drawerAvatarFallback;
     private final Runnable customBackAction;
     private final OnBackPressedCallback backCallback;
+    private LearningBottomNavigation.NavigationGuard navigationGuard = Runnable::run;
     private NavigationRoute pendingDestination;
 
     private NavigationDrawerController(AppCompatActivity activity,
@@ -101,10 +101,9 @@ public final class NavigationDrawerController {
         ViewCompat.setElevation(drawerPanel, dp(activity, 16));
         applyDrawerInsets(drawerPanel);
 
-        drawerLayout.setScrimColor(Color.argb(184, 1, 6, 18));
+        drawerLayout.setScrimColor(activity.getColor(R.color.bivocal_light_scrim));
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
-        drawerAvatarImage = drawerPanel.findViewById(R.id.imageNavAvatar);
         drawerAvatarFallback = drawerPanel.findViewById(R.id.textNavAvatarFallback);
 
         backCallback = new OnBackPressedCallback(true) {
@@ -255,10 +254,10 @@ public final class NavigationDrawerController {
 
     public void refreshAvatar() {
         SessionManager session = new SessionManager(activity);
-        Bitmap bitmap = new LocalAvatarStore(activity).load(session.getUserId());
+        Bitmap bitmap = session.getUserId() > 0 ? new LocalAvatarStore(activity).load(session.getUserId()) : null;
         String initial = AvatarLabel.initial(session.getUsername());
         bindAvatarPair(topAvatarImage, topAvatarFallback, bitmap, initial);
-        bindAvatarPair(drawerAvatarImage, drawerAvatarFallback, bitmap, initial);
+        drawerAvatarFallback.setText(initial);
     }
 
     private static void bindAvatarPair(ImageView image, TextView fallback,
@@ -272,12 +271,6 @@ public final class NavigationDrawerController {
 
     private void bindDestinations(View drawerPanel) {
         Map<NavigationRoute, Integer> rows = new EnumMap<>(NavigationRoute.class);
-        rows.put(NavigationRoute.HOME, R.id.navHome);
-        rows.put(NavigationRoute.TOPICS, R.id.navTopics);
-        rows.put(NavigationRoute.REVIEW_TODAY, R.id.navReviewToday);
-        rows.put(NavigationRoute.QUIZ, R.id.navQuiz);
-        rows.put(NavigationRoute.PROGRESS, R.id.navProgress);
-        rows.put(NavigationRoute.LEADERBOARD, R.id.navLeaderboard);
         rows.put(NavigationRoute.PROFILE, R.id.navProfile);
         rows.put(NavigationRoute.SETTINGS, R.id.navSettings);
         rows.put(NavigationRoute.LOGOUT, R.id.navLogout);
@@ -316,7 +309,15 @@ public final class NavigationDrawerController {
         close();
     }
 
+    public void setNavigationGuard(LearningBottomNavigation.NavigationGuard guard) {
+        navigationGuard = guard == null ? Runnable::run : guard;
+    }
+
     private void navigate(NavigationRoute destination) {
+        navigationGuard.request(() -> LearningBottomNavigation.requestNavigation(activity, () -> performNavigation(destination)));
+    }
+
+    private void performNavigation(NavigationRoute destination) {
         if (destination == NavigationRoute.LOGOUT) {
             SessionManager session = new SessionManager(activity);
             ReminderScheduler.cancelForUser(activity, session.getUserId());
@@ -365,7 +366,7 @@ public final class NavigationDrawerController {
             default:
                 return;
         }
-        activity.startActivity(intent);
+        LearningBottomNavigation.startRetained(activity, intent);
     }
 
     public void open() {

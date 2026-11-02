@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="forgot_error">#FFB4AB</color>
-    <color name="forgot_notice">#F8D997</color>
+    <color name="forgot_error">@color/bivocal_light_coral_ink</color>
+    <color name="forgot_notice">@color/bivocal_light_honey_ink</color>
 </resources>

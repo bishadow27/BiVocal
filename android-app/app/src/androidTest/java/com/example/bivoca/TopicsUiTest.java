@@ -26,6 +26,7 @@ import com.example.bivoca.data.api.TopicApi;
 import com.example.bivoca.data.model.Topic;
 import com.example.bivoca.ui.topics.*;
 import com.example.bivoca.ui.home.HomeActivity;
+import com.example.bivoca.ui.topics.TopicDetailActivity;
 import com.example.bivoca.ui.flashcard.FlashcardActivity;
 import com.example.bivoca.ui.flashcard.FlashcardViewModel;
 import com.example.bivoca.utils.SessionManager;
@@ -50,11 +51,13 @@ public class TopicsUiTest {
             for(int[] size:new int[][]{{320,640},{412,915},{731,411}})for(float font:new float[]{1f,1.3f}) {
                 Configuration config=new Configuration(base.getResources().getConfiguration());
                 config.fontScale=font;config.screenWidthDp=size[0];config.screenHeightDp=size[1];
+                config.orientation=size[0]>size[1]?Configuration.ORIENTATION_LANDSCAPE:Configuration.ORIENTATION_PORTRAIT;
                 Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home);
                 View root=LayoutInflater.from(themed).inflate(R.layout.activity_topics,null,false);
                 ((TextView)root.findViewById(R.id.textTopicsSubtitle)).setText("29 chủ đề · 7 nhóm loại từ");
                 ChipGroup chips=root.findViewById(R.id.topicsFilterChips);
-                for(String label:new String[]{"Tất cả (36)","Chủ đề (29)","Loại từ (7)"}) {
+                ((Chip)root.findViewById(R.id.chipTopicsAll)).setText("Tất cả (36)");
+                for(String label:new String[]{"Chủ đề (29)","Loại từ (7)"}) {
                     Chip chip=(Chip)LayoutInflater.from(themed).inflate(R.layout.item_topic_chip,chips,false);
                     chip.setText(label);chips.addView(chip);
                 }
@@ -69,7 +72,7 @@ public class TopicsUiTest {
                 adapter.setHasStableIds(true);
                 ((TopicAdapter)adapter).setTopics(Collections.singletonList(new Topic(1,"COMMUNICATION","Communication & Media","Từ vựng về giao tiếp và truyền thông",null,1068)));
                 RecyclerView.ViewHolder holder=adapter.onCreateViewHolder((ViewGroup)root,0);adapter.onBindViewHolder(holder,0);
-                View card=holder.itemView;int cardWidth=width-Math.round(48*density);
+                View card=holder.itemView;int cardWidth=root.findViewById(R.id.recyclerTopics).getWidth();
                 card.measure(View.MeasureSpec.makeMeasureSpec(cardWidth,View.MeasureSpec.EXACTLY),View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED));card.layout(0,0,cardWidth,card.getMeasuredHeight());
                 assertTextFits(card);
                 assertEquals(Math.round(48*density),card.findViewById(R.id.topicIconBox).getWidth());
@@ -102,7 +105,10 @@ public class TopicsUiTest {
             scenario.onActivity(activity->{int[] xy=new int[2];activity.findViewById(R.id.chipTopicsAll).getLocationOnScreen(xy);assertEquals("All chip moved",fixedX[0],xy[0]);assertTrue(((android.widget.HorizontalScrollView)activity.findViewById(R.id.topicsFilterScroll)).getScrollX()>0);});
             screenshot("topics-fixed-all.png");
             scenario.onActivity(activity->((android.widget.HorizontalScrollView)activity.findViewById(R.id.topicsFilterScroll)).scrollTo(0,0));
+            screenshot("topics-before-inner-swipe.png");
+            scenario.onActivity(activity->assertEquals("Page scrolled before inner swipe",0,activity.findViewById(R.id.topicsSectionsScroll).getScrollY()));
             onView(withId(R.id.recyclerTopics)).perform(swipeVisible(false));
+            screenshot("topics-after-inner-swipe.png");
             scenario.onActivity(activity->{assertEquals("Inner swipe scrolled page",0,activity.findViewById(R.id.topicsSectionsScroll).getScrollY());assertTrue(((androidx.recyclerview.widget.LinearLayoutManager)((RecyclerView)activity.findViewById(R.id.recyclerTopics)).getLayoutManager()).findFirstVisibleItemPosition()>0);});
             screenshot("topics-middle.png");
             onView(withId(R.id.topicsSectionsScroll)).perform(swipeVisible(true));
@@ -110,38 +116,76 @@ public class TopicsUiTest {
             screenshot("topics-two-frames.png");
             select(scenario,TopicFilter.Group.PART_OF_SPEECH);
             int pos=TopicFilter.apply(catalog,"",TopicFilter.Group.PART_OF_SPEECH).size();
-            awaitTopics(scenario,pos);screenshot("topics-pos.png");
+            awaitTopics(scenario,pos);
+            scenario.onActivity(activity->assertExpandedFilter(activity,true));
+            screenshot("topics-pos.png");
             scenario.recreate();awaitTopics(scenario,pos);
+            scenario.onActivity(activity->assertExpandedFilter(activity,true));
+            for(TopicFilter.Group group:new TopicFilter.Group[]{TopicFilter.Group.SEMANTIC,TopicFilter.Group.LIFE,TopicFilter.Group.WORK,TopicFilter.Group.NATURE}) {
+                int expectedCount=TopicFilter.apply(catalog,"",group).size();
+                if(expectedCount==0)continue;
+                select(scenario,group);awaitTopics(scenario,expectedCount);
+                scenario.onActivity(activity->assertExpandedFilter(activity,false));
+            }
             select(scenario,TopicFilter.Group.ALL);
             onView(withId(R.id.inputTopicSearch)).perform(replaceText("Food"),closeSoftKeyboard());
             awaitTopics(scenario,TopicFilter.apply(catalog,"Food").size());screenshot("topics-search.png");
             scenario.onActivity(activity->((RecyclerView)activity.findViewById(R.id.recyclerTopics)).findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.cardTopic).performClick());
+            Activity detail=awaitActivity(TopicDetailActivity.class);
+            assertEquals("FOOD",detail.getIntent().getStringExtra(TopicDetailActivity.EXTRA_TOPIC_CODE));
+            awaitDetailMetadata((TopicDetailActivity)detail);
+            InstrumentationRegistry.getInstrumentation().runOnMainSync(()->detail.findViewById(R.id.buttonTopicFlashcards).performClick());
             Activity flashcard=awaitActivity(FlashcardActivity.class);
             assertEquals("FOOD",flashcard.getIntent().getStringExtra(FlashcardActivity.EXTRA_TOPIC_CODE));
+            assertFalse(flashcard.getIntent().getBooleanExtra(FlashcardActivity.EXTRA_NEW_TODAY,false));
+            assertFalse(flashcard.getIntent().getBooleanExtra(FlashcardActivity.EXTRA_REVIEW_TODAY,false));
             long deadline=SystemClock.uptimeMillis()+12000;boolean[] cardsReady={false};
             while(!cardsReady[0]&&SystemClock.uptimeMillis()<deadline) {
                 InstrumentationRegistry.getInstrumentation().runOnMainSync(()->{
-                    FlashcardViewModel vm=new ViewModelProvider((FlashcardActivity)flashcard).get(FlashcardViewModel.class);
+                    FlashcardViewModel vm=((FlashcardActivity)flashcard).getLearningViewModel();
                     if(vm.getFlashcards().getValue()!=null&&!vm.getFlashcards().getValue().isEmpty()) {
                         assertTrue(vm.getFlashcards().getValue().size()<=100);cardsReady[0]=true;
                     }
                 });SystemClock.sleep(100);
             }
             assertTrue("Existing paginated Food cards did not load",cardsReady[0]);
-            InstrumentationRegistry.getInstrumentation().runOnMainSync(flashcard::finish);awaitActivity(TopicsActivity.class);
+            InstrumentationRegistry.getInstrumentation().runOnMainSync(flashcard::finish);awaitActivity(TopicDetailActivity.class);
+            InstrumentationRegistry.getInstrumentation().runOnMainSync(detail::finish);awaitActivity(TopicsActivity.class);
+            scenario.recreate();awaitTopics(scenario,TopicFilter.apply(catalog,"Food").size());
+            scenario.onActivity(activity->assertEquals("Food",((TextView)activity.findViewById(R.id.inputTopicSearch)).getText().toString()));
             onView(withId(R.id.inputTopicSearch)).perform(replaceText("zzzz_m16_4_nomatch"),closeSoftKeyboard());
             awaitTopics(scenario,0);screenshot("topics-empty.png");
             onView(withId(R.id.inputTopicSearch)).perform(replaceText(""),closeSoftKeyboard());awaitTopics(scenario,catalog.size());
             onView(withId(R.id.buttonHomeMenu)).perform(click());
             scenario.onActivity(activity->assertTrue(((DrawerLayout)activity.findViewById(R.id.navigationDrawerLayout)).isDrawerOpen(GravityCompat.END)));
-            screenshot("topics-drawer.png");onView(withId(R.id.buttonNavClose)).perform(click());
-            scenario.onActivity(activity->activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE));
-            awaitTopics(scenario,catalog.size());SystemClock.sleep(800);screenshot("topics-landscape.png");
-            scenario.onActivity(activity->{assertEquals(Configuration.ORIENTATION_LANDSCAPE,activity.getResources().getConfiguration().orientation);activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);});
+            onView(withId(R.id.buttonNavClose)).perform(click());
+            screenshot("topics-after-drawer.png");
+            int[] originalOrientation={ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED};
+            scenario.onActivity(activity->{originalOrientation[0]=activity.getRequestedOrientation();activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);});
+            try {
+                awaitTopics(scenario,catalog.size());SystemClock.sleep(800);screenshot("topics-landscape.png");
+                scenario.onActivity(activity->assertEquals(Configuration.ORIENTATION_LANDSCAPE,activity.getResources().getConfiguration().orientation));
+                for(TopicFilter.Group group:new TopicFilter.Group[]{TopicFilter.Group.PART_OF_SPEECH,TopicFilter.Group.SEMANTIC}) {
+                    select(scenario,group);awaitTopics(scenario,TopicFilter.apply(catalog,"",group).size());
+                    scenario.onActivity(activity->assertExpandedFilter(activity,group==TopicFilter.Group.PART_OF_SPEECH));
+                }
+                select(scenario,TopicFilter.Group.ALL);awaitTopics(scenario,catalog.size());
+            } finally {scenario.onActivity(activity->activity.setRequestedOrientation(originalOrientation[0]));}
             awaitTopics(scenario,catalog.size());SystemClock.sleep(700);
             onView(withId(R.id.homeTabHome)).perform(click());awaitActivity(HomeActivity.class);
             onView(withId(R.id.buttonTopics)).perform(click());awaitActivity(TopicsActivity.class);
         }
+    }
+    private static void awaitDetailMetadata(TopicDetailActivity activity){
+        boolean[] ready={false};long deadline=SystemClock.uptimeMillis()+15000;
+        do{InstrumentationRegistry.getInstrumentation().runOnMainSync(()->{
+            TopicDetailViewModel vm=new ViewModelProvider(activity).get(TopicDetailViewModel.class);
+            if(!Boolean.TRUE.equals(vm.getMetadataLoading().getValue())) {
+                assertNull("Metadata GET failed",vm.getMetadataError().getValue());
+                ready[0]=vm.getTopic().getValue()!=null;
+            }
+        });if(!ready[0])SystemClock.sleep(100);}while(!ready[0]&&SystemClock.uptimeMillis()<deadline);
+        assertTrue("Detail metadata did not load",ready[0]);
     }
     private static void select(ActivityScenario<TopicsActivity> scenario,TopicFilter.Group filter){
         scenario.onActivity(activity->{
@@ -165,6 +209,28 @@ public class TopicsUiTest {
         });if(!ready[0])SystemClock.sleep(100);}while(!ready[0]&&SystemClock.uptimeMillis()<deadline);
         assertTrue("Real catalog/filter did not settle",ready[0]);InstrumentationRegistry.getInstrumentation().waitForIdleSync();SystemClock.sleep(250);
     }
+    private static void assertExpandedFilter(TopicsActivity activity,boolean pos){
+        View viewport=activity.findViewById(R.id.topicsContentViewport);
+        ViewGroup sections=activity.findViewById(R.id.topicsSectionsContent);
+        View frame=activity.findViewById(pos?R.id.topicsPosFrame:R.id.topicsSemanticFrame);
+        View content=activity.findViewById(pos?R.id.topicsPosContent:R.id.topicsSemanticContent);
+        View header=activity.findViewById(pos?R.id.topicsPosHeader:R.id.topicsSemanticHeader);
+        RecyclerView list=activity.findViewById(pos?R.id.recyclerTopicPartsOfSpeech:R.id.recyclerTopics);
+        View scroll=activity.findViewById(R.id.topicsSectionsScroll);
+        int available=viewport.getHeight()-scroll.getPaddingTop()-scroll.getPaddingBottom();
+        ViewGroup.MarginLayoutParams hp=(ViewGroup.MarginLayoutParams)header.getLayoutParams();
+        assertNotNull(list.getChildAt(0));
+        int rowHeight=list.getChildAt(0).getHeight();
+        int tolerance=Math.round(6*activity.getResources().getDisplayMetrics().density);
+        assertTrue("Filtered frame leaves unused viewport",frame.getHeight()>=available-tolerance);
+        assertTrue("Filtered viewport cannot show one complete row",list.getHeight()>=rowHeight);
+        int minimumFrame=header.getHeight()+hp.topMargin+hp.bottomMargin+content.getPaddingTop()+content.getPaddingBottom()+rowHeight;
+        if(available>=minimumFrame+tolerance)assertTrue("Filtered frame overflows viewport",frame.getHeight()<=available+tolerance);
+        assertEquals("Filtered frame starts below stale content",sections.getPaddingTop(),frame.getTop());
+        assertEquals(0,((ViewGroup.MarginLayoutParams)frame.getLayoutParams()).topMargin);
+        if(pos)assertEquals(View.GONE,activity.findViewById(R.id.topicsSemanticFrame).getVisibility());
+    }
+
     private static void assertFourRows(RecyclerView list){
         int expected=Math.min(4,list.getAdapter().getItemCount());
         assertNotNull(list.getChildAt(0));
@@ -193,7 +259,7 @@ public class TopicsUiTest {
     private static void screenshot(String name)throws Exception{
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();SystemClock.sleep(350);
         Bitmap bitmap=InstrumentationRegistry.getInstrumentation().getUiAutomation().takeScreenshot();assertNotNull(bitmap);
-        File dir=new File(InstrumentationRegistry.getInstrumentation().getTargetContext().getExternalFilesDir(null),"m16-4-topics");assertTrue(dir.isDirectory()||dir.mkdirs());
+        File dir=new File(InstrumentationRegistry.getInstrumentation().getTargetContext().getExternalFilesDir(null),"phase-c-recovery/topics");assertTrue(dir.isDirectory()||dir.mkdirs());
         try(FileOutputStream out=new FileOutputStream(new File(dir,name))){assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG,100,out));}bitmap.recycle();
     }
     private static void assertTextFits(View view){

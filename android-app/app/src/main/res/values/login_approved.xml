@@ -3,10 +3,10 @@
     <!-- The approved Login and Home share the same palette; other auth screens keep their theme. -->
     <string name="login_approved_title">Đăng nhập</string>
     <string name="login_approved_subtitle">Tiếp tục hành trình học của bạn.</string>
-    <string name="login_approved_footer">Chưa có tài khoản? <font color="#22C7F8" face="sans-serif-medium">Đăng ký ngay</font></string>
+    <string name="login_approved_footer">Chưa có tài khoản? <font color="#2855D5">Đăng ký ngay</font></string>
     <style name="Theme.BiVoca.Login.Approved" parent="Theme.BiVoca.Login.Reference">
         <item name="android:statusBarColor">@color/home_approved_ground</item>
-        <item name="android:navigationBarColor">@color/home_approved_ground</item>
+        <item name="android:navigationBarColor">@color/bivocal_light_system_navigation</item>
         <item name="android:windowBackground">@color/home_approved_ground</item>
         <item name="android:colorAccent">@color/home_approved_cyan</item>
         <item name="colorAccent">@color/home_approved_cyan</item>

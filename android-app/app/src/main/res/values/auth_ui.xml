@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="auth_back_description">Quay lại</string>
-    <string name="auth_register_title">TẠO TÀI KHOẢN</string>
-    <string name="auth_recovery_title">QUÊN MẬT KHẨU?</string>
+    <string name="auth_register_title">Tạo tài khoản</string>
+    <string name="auth_recovery_title">Quên mật khẩu</string>
     <string name="auth_recovery_heading">Khôi phục mật khẩu</string>
-    <string name="auth_full_name_label">Họ và tên <font color="#94A3B8">(không bắt buộc)</font></string>
-    <string name="auth_username_label">Tên đăng nhập <font color="#FDA4AF">*</font></string>
-    <string name="auth_email_label">Email <font color="#FDA4AF">*</font></string>
-    <string name="auth_password_label">Mật khẩu <font color="#FDA4AF">*</font></string>
-    <string name="auth_confirm_label">Xác nhận mật khẩu <font color="#FDA4AF">*</font></string>
+    <string name="auth_full_name_label">Họ và tên <font color="#5E6B79">(không bắt buộc)</font></string>
+    <string name="auth_username_label">Tên đăng nhập <font color="#9B422B">*</font></string>
+    <string name="auth_email_label">Email <font color="#9B422B">*</font></string>
+    <string name="auth_password_label">Mật khẩu <font color="#9B422B">*</font></string>
+    <string name="auth_confirm_label">Xác nhận mật khẩu <font color="#9B422B">*</font></string>
     <string name="auth_username_helper">Từ 3–30 ký tự, chỉ chứa chữ không dấu, số và dấu gạch dưới (_).</string>
     <string name="auth_register_button">Đăng ký tài khoản</string>
     <string name="auth_register_loading">Đang đăng ký…</string>
-    <string name="auth_register_footer">Đã có tài khoản? <font color="#38BDF8" face="sans-serif-medium">Đăng nhập</font></string>
+    <string name="auth_register_footer">Đã có tài khoản? <font color="#2855D5">Đăng nhập</font></string>
     <string name="auth_recovery_instruction">Nhập email tài khoản của bạn, chúng tôi sẽ gửi hướng dẫn đặt lại mật khẩu qua email.</string>
     <string name="auth_recovery_email_hint">Nhập email của bạn</string>
     <string name="auth_google_help_title">Đăng nhập bằng Google?</string>
-    <string name="auth_google_help_body">Nếu tài khoản của bạn được tạo bằng Google và chưa thiết lập mật khẩu BiVocal, hãy quay lại màn hình đăng nhập và chọn <font color="#38BDF8">“Tiếp tục với Google”.</font></string>
+    <string name="auth_google_help_body">Nếu tài khoản của bạn được tạo bằng Google và chưa thiết lập mật khẩu BiVocal, hãy quay lại màn hình đăng nhập và chọn <font color="#2855D5">“Tiếp tục với Google”.</font></string>
     <string name="auth_return_login">Quay lại Đăng nhập</string>
     <style name="M16AuthLabel">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">12dp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro_medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/bivocal_text_primary</item>
-    </style>
+    <item name="fontFamily">@font/be_vietnam_pro_medium</item></style>
     <style name="M16AuthField">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">52dp</item>
@@ -42,13 +42,13 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:background">@null</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro</item>
         <item name="android:padding">0dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/bivocal_text_primary</item>
         <item name="android:textColorHint">@color/bivocal_text_secondary</item>
         <item name="android:textSize">16sp</item>
-    </style>
+    <item name="fontFamily">@font/be_vietnam_pro</item></style>
     <style name="M16AuthIcon">
         <item name="android:layout_width">20dp</item>
         <item name="android:layout_height">20dp</item>
@@ -78,14 +78,14 @@
         <item name="android:minHeight">52dp</item>
         <item name="android:background">@drawable/login_ui_primary</item>
         <item name="backgroundTint">@null</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro_medium</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/bivocal_text_primary</item>
+        <item name="android:textColor">@color/bivocal_light_on_primary</item>
         <item name="android:paddingStart">32dp</item>
         <item name="android:paddingEnd">32dp</item>
         <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>
-    </style>
+    <item name="fontFamily">@font/be_vietnam_pro_medium</item></style>
 </resources>

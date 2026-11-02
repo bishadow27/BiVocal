@@ -1,5 +1,43 @@
 # WORK_STATUS.md — Trạng thái Thực tế và Kế hoạch Phát triển BiVoca
 
+## Admin Web kết nối Backend và tự chạy cùng nhau — 2026-11-01
+
+- Người dùng báo localhost:5173/login không kết nối. Kiểm tra thực tế: cổng5173 chưa có server; Backend3000 Health200. API client /api/v1 và Vite proxy /api→127.0.0.1:3000 đã đúng; không sửa auth/UI hoặc API client.
+- Admin npm run build PASS (TypeScript + Vite,2549 modules). Chuyển cấu hình tự chạy từ Backend-only sang launcher Admin+Backend hiện có: gỡ BiVocal Backend.lnk và Start/Stop Backend links bằng installer của phiên này; cài BIPASSION Local Admin.lnk trong Startup bằng install-local-admin.ps1. Chỉ một launcher, frontendReady=true/backendMode=managed, chạy nền.
+- Kiểm tra qua localhost:5173: /login200 HTML, /api/v1/health200 PostgreSQL connected, catalog200/36, Flashcard theo topic200. Login endpoint với body rỗng trả400 và admin/me chưa có token trả401 AUTH_TOKEN_MISSING, chứng minh proxy chạm đúng Backend và vẫn giữ auth. Không giả tài khoản/token.
+- HTTP Health từ Emulator qua10.0.2.2:3000 tiếp tục200 sau chuyển launcher. Người dùng xác nhận trực tiếp đã vào được Admin. Không thay dữ liệu Flashcard/Topics hoặc tài khoản; không migration/seed/restore/M15.7 Apply, commit/push.
+- Vận hành hiện tại: mở http://localhost:5173/login. Start Admin.lnk, Stop Admin.lnk và Open Admin.url trong maintenance (ignored). Admin+Backend tự chạy khi người dùng đăng nhập Windows; chưa thử logout/reboot. Hướng dẫn maintenance/LOCAL_ADMIN.md; backend-only vẫn là lựa chọn khác nhưng không cài song song.
+
+## Khắc phục kết nối Android 17 tới Backend local — 2026-11-01
+
+- Người dùng báo app không kết nối được máy chủ. Backend Health200, lắng nghe0.0.0.0:3000; HTTP từ shell Emulator qua10.0.2.2:3000 cũng200 nhưng OkHttp app timeout. Android API37/target37; app thiếu ACCESS_LOCAL_NETWORK và UID app-op ignore. Đối chiếu tài liệu Android: https://developer.android.com/privacy-and-security/local-network-permission.
+- Cấu hình cục bộ tối thiểu: tạo android-app/app/src/debug/AndroidManifest.xml, khai báo android.permission.ACCESS_LOCAL_NETWORK chỉ cho debug. Không sửa main manifest, Java, UI, logic auth, dependency hoặc target SDK. Thử appops đơn lẻ không giữ được trạng thái allow khi APK chưa khai báo; sau cập nhật dùng quyền runtime chính thức, granted=true.
+- assembleDebug PASS6s,5 tasks executed/29 up-to-date; không chạy lại unit cho manifest-only. install-r Success giữ dữ liệu; adb -s emulator-5554 shell pm grant com.example.bivoca android.permission.ACCESS_LOCAL_NETWORK thành công. Nếu cài debug mới trên Android17+ cần cấp quyền này qua ADB; chưa triển khai luồng xin quyền trong UI vì ngoài phạm vi.
+- Runtime PASS: POST /api/v1/auth/login200, auth/me/progress/schedule/learning/today/gamification/me/history/summary/leaderboard200; HomeActivity resumed. Người dùng xác nhận trực tiếp đã vào Trang chủ. Không ghi mật khẩu/token hoặc ảnh có mật khẩu vào bàn giao.
+- Bản release chưa có hỗ trợ yêu cầu quyền LAN; cấu hình này phục vụ debug local. Không thay database/Flashcard/Topics, không migration/seed/restore/M15.7 Apply; CHƯA COMMIT/CHƯA PUSH.
+
+## Backend tự chạy khi đăng nhập Windows — 2026-11-01
+
+- Theo yêu cầu người dùng, mở rộng launcher maintenance/local-admin.mjs và local-admin.vbs bằng chế độ --backend-only; giữ cơ chế named pipe/retry/không dừng tiến trình ngoài. Tạo install-backend-autostart.ps1 và BACKEND_AUTOSTART.md. Không sửa logic nghiệp vụ/UI/database hoặc cấu hình PostgreSQL.
+- Đã cài BiVocal Backend.lnk trong Startup người dùng hiện tại, Start Backend.lnk và Stop Backend.lnk trong maintenance (ignored); chạy ẩn bằng Windows Script Host và Node. Dùng backend/.env và backend/dist/server.js; không cần Admin Web. PostgreSQL service Running/Automatic đã xác minh, không sửa service.
+- npm run build PASS; kiểm tra cú pháp Node/PowerShell và git diff --check PASS. Shortcut đã chạy thật; launcher backendOnly=true/managed, Health200/PostgreSQL connected. Đã dừng dev server do phiên này tạo và chuyển sang bản build do launcher quản lý.
+- Tự phục hồi PASS: dừng đúng Backend con đã xác minh ownership, launcher tạo PID mới và Health trở lại ok. Mở launcher lần hai vẫn chỉ có1 launcher. API Health/catalog/Flashcard HTTP200; database vẫn20.000 Flashcard/38 Topics. Chưa logoff/reboot để thử đăng nhập Windows thực tế; Startup shortcut đúng đích đã kiểm tra.
+- Log sự kiện không chứa bí mật: maintenance/.runtime/local-admin.log. Cách tắt tự chạy: maintenance/install-backend-autostart.ps1 -Uninstall. Nếu sửa source Backend cần build và restart launcher. CHƯA COMMIT/CHƯA PUSH; giữ nguyên thay đổi có sẵn.
+
+## Tạo tài khoản quản trị theo yêu cầu — 2026-11-01
+
+- Người dùng yêu cầu tạo một tài khoản ADMIN. Đăng ký qua API hiện có201, cấp quyền bằng scripts/set-user-role.ts, kiểm tra login200 và /api/v1/admin/me200 PASS; user ID1, role ADMIN. Không ghi email hoặc thông tin xác thực vào bàn giao.
+- Mật khẩu do người dùng nhập ẩn qua terminal, truyền qua stdin trong bộ nhớ, bcrypt do luồng đăng ký hiện có xử lý. Không lưu/log mật khẩu, hash hoặc JWT vào helper/báo cáo.
+- Số liệu trước/sau:20.000 Flashcard và38 Topics, không thay nội dung. Không sửa source/UI/dependencies, migration, seed, restore hoặc M15.7 Apply; không commit/push.
+
+## Kiểm tra khởi động bản recovered — 2026-11-01
+
+- Backend npm run dev đang chạy cổng3000, PostgreSQL bivoca_m15_7_recovered kết nối PASS. SELECT READ ONLY trước/sau xác nhận20.000 Flashcard/38 Topics; không restore/seed/import/migration/M15.7 Apply hoặc sửa dữ liệu.
+- Tạo backend/.env ignored/untracked; JWT ngẫu nhiên64 ký tự, mật khẩu do người dùng nhập ẩn. Không sửa source/dependencies hoặc ghi secret vào báo cáo.
+- Typecheck PASS; Backend unit/HTTP338/338 PASS. Health200; Topics38/catalog36; Flashcard API cả38 topic PASS,36 topic catalog khớp count/paging. Hai topic không có thẻ active ngoài catalog là hành vi source hiện tại.
+- Android build/unit PASS5m51s,39 tasks executed,84/84 tests; install-r Success, Emulator API37 boot và LoginActivity mở PASS, ảnh đã kiểm tra. Chưa đăng nhập hoặc kiểm tra học/API trong app; không giả phiên, tạo tài khoản, gửi review/quiz/favorite. Netcat adb không cho phản hồi HTTP hợp lệ nên không dùng làm bằng chứng kết nối Android→Backend.
+- Giữ nguyên thay đổi chưa commit có sẵn. CHƯA COMMIT/CHƯA PUSH. Báo cáo: docs/reports/BIVOCAL_RECOVERED_STARTUP_2026-11-01.md. Backend/Emulator giữ chạy để người dùng tiếp tục đăng nhập.
+
 ## Nghiệm thu Home Phase A và Login Phase B — 2026-10-29 — USER_ACCEPTED_PASS
 
 - Người dùng xác nhận trực tiếp nghiệm thu PASS cả Home (Phase A) và Login (Phase B) sau khi xem kết quả/ảnh. Thay thế trạng thái chờ duyệt của các bản ghi bàn giao bên dưới; giữ nguyên lịch sử và kết quả test.
@@ -468,3 +506,82 @@
 - Backend typecheck/build, 338/338 tests PASS. Android source không đổi; build/lint và 76/76 tests PASS. Production API paging Noun 5.729/58 trang PASS. APK `-r` tới Login; authenticated UI count chưa nghiệm thu lại và được ghi đúng trong báo cáo.
 - Báo cáo: `M15_7_SEMANTIC_TOPIC_ENRICHMENT_REPORT.md`. M16 chưa triển khai.
 
+
+
+## M16 Phase C — Phục dựng sau cài Windows (01/11/2026)
+
+- Trạng thái READY_FOR_ACCEPTANCE, chờ người dùng xem ảnh/nghiệm thu; chỉ phạm vi bảng9.2 đã duyệt, không tự sang PhaseD/navbar chung.
+- Phục dựng Topic List palette cyan/navy, All cố định, hai frame4 hàng/cuộn riêng, filter giãn viewport/POS bỏ gap; thêm Detail Java/XML MVVM với metadata thật, preview page1/limit20 tối đa3 valid unique cards và warning theo displayed cards; retry/version/cancel độc lập, recreation; CTA Browse/Quiz đúng topicCode. Tái dùng API/Repository/DTO, không đổi dependency.
+- 25 file Android (15 sửa/10 thêm), xem manifest/hash trong báo cáo. Home/Auth/Flashcard PhaseD/Backend/Admin và thay đổi có trước giữ nguyên; baseline447 file,432 nguyên hash trước append handoff,15 thay đổi đúng whitelist. Không stage/commit/push, HEAD audit a4a9801 giữ nguyên.
+- BuildDebug/unit106/106/lint0error430warning/testAPK PASS. Instrumentation font1.0:7/7 78.187s; font1.3:7/7 72.188s; runtime320x640dp/font1.3:2/2 52.161s; detached XML matrix320/412/731dp x font1/1.3. Guard giữAPK true/uninstallIncompatible false; install-r, không logout/clear/wipe. Font1.0/physical1080x2400/density420/orientation settings1/0 đã khôi phục.
+- GET health database connected; topics38/catalog36; flashcards total20000 trước/sau. Không migration/seed/import/restore/reset/M15.7 Apply, không POST Review/QuizAnswer/Favorite; không sửa credential/Auth để xử lý loginHTTP400 (người dùng đã đăng nhập lại thành công).
+- Giới hạn: lỗi/warning/retry xác minh unit+detached fixtures, không làm hỏng API/sửa data để tạo ảnh; chưa physical device/process-death/token-expiry E2E, không kiểm thử thao tác học tập ghiDB. Landscape thấp vẫn cần cuộn. Lint còn warnings.
+- Báo cáo/ảnh/log/manifest: [M16_PHASE_C_RECOVERY_REPORT](docs/reports/M16_PHASE_C_RECOVERY_REPORT.md), docs/exports/m16-phase-c-recovery-2026-11-01/. Dừng để người dùng nghiệm thu PhaseC.
+
+
+## M16 — Google Sign-In khôi phục (02/11/2026) — PASS
+
+- Nguyên nhân thực tế: Backend chưa chạy; .env thiếu GOOGLE_WEB_CLIENT_ID; sau bật launcher/config, GMS trả UNREGISTERED_ON_API_CONSOLE do đăng ký OAuth package/SHA-1, biểu hiện UI tự báo hủy. Challenge đã200 nhưng chưa có token tới Backend.
+- Chỉ thêm Web Client ID hiện có vào .env ignored, giữ nguyên mọi giá trị/byte có trước. Người dùng duyệt và tự cấu hình Android OAuth Client cùng project cũ cho com.example.bivoca, SHA-1 EE:11:7C:F5:43:2D:9D:17:74:18:25:F9:3A:28:79:1C:33:0A:88:51, giữ client cũ. Không sửa source/Client ID/dependency/UI.
+- Người dùng tự chọn Google và xác nhận vào Home. Runtime: Google challenge200/login200, Home resumed; JWT hiện tại GET auth/me200/user hợp lệ (token chỉ trong RAM). BuildDebug/signingReport PASS26s, assembleDebug UP-TO-DATE;12/12 unit Auth/nonce PASS (test doubles). Google Play Services và account có sẵn; install-r giữ dữ liệu. Launcher Admin+Backend managed, một Backend3000.
+- Baseline442 file nguyên hash trước handoff. GET trước/sau vẫn20000 Flashcard/38 Topics, DB bivoca_m15_7_recovered; không migration/seed/import/reset/restore/M15.7 Apply, Review/QuizAnswer/Favorite hoặc SQL sửa user. Chỉ Auth challenge/login theo API hiện có; không tạo user thủ công/cấp ADMIN/reset password. Không lưu token/password/OAuth secret. Giữ các thay đổi/untracked có trước; không stage/commit/push.
+- Nguồn xác nhận mới: người dùng nêu PhaseC đã nghiệm thu PASS01/11/2026 trong yêu cầu Google ngày02/11. Không triển khai PhaseD trong phiên này. Giới hạn Google: chưa physical/release/expiry/collision-link E2E; chưa đọc Console độc lập, OAuth có hiệu lực đã xác minh qua đăng nhập thật.
+- Báo cáo: [M16_GOOGLE_SIGNIN_RECOVERY_REPORT](docs/reports/M16_GOOGLE_SIGNIN_RECOVERY_REPORT.md); evidence ignored docs/exports/google-signin-recovery-2026-11-02/.
+
+
+## M16 Phase D — Flashcard phục dựng (02/11/2026) — READY_FOR_ACCEPTANCE
+
+- Theo yêu cầu PhaseD được duyệt:10 file Android (7 sửa/3 drawable thêm), palette070B12/121A26/243246/2457E6/22C7F8, progress4dp, type36/16/30/24/16/14 trong XML+Java; flip solid/back outline, rating không outer panel, status ACK/error riêng ngoài rating. Metadata status chỉ ánh xạ API, không đổi dữ liệu.
+- Pending khóa/mờ các control liên quan; Browse ACK chỉ onSuccess, queue dùng processed thật; error giữ card/count theo logic cũ. Sửa stale failure khi chuyển card. Không sửa VM/Repo/API/TTS/Settings nghiệp vụ/SRS/XP/Room/Backend/Admin/Auth/Home/Topics/navbar chung.
+- Test màn nhỏ bắt lỗi back-label wrap làm height137->149px: sửa flip min64dp để hai mặt giữ cùng bounds. Vuốt thật bắt innerScroll nested=false khiến outerY317/innerY0: bật nestedScrollingEnabled trong XML, chạy lại đạt. Nội dung dài trong thẻ/cuộn trang ngoài có ảnh Android thật.
+- BuildDebug/unit106/106/lint0error435warning/testAPK PASS; unit thực thi sau Java thay đổi, lượt XML cuối UP-TO-DATE. Guard giữAPK true/uninstallIncompatible false, install-r. Bản cuối font1.0 độ phân giải gốc7/7 39.677s; font1.3 gốc hai mặt1/1 26.411s;320x640dp/font1.3 full7/7 42.138s. Detached24config có font1/1.3, pending/ACK/error/empty/completion state tests; runtimepaging100->101->100,VI-first,TTS completion callback. Giữ log FAIL và nguyên nhân trong report.
+- E2E ghi Review/pending/ACK/error/completion NOT_RUN vì chưa duyệt DB test cô lập; không POST Review/QuizAnswer/Favorite recovery, không fake runtime/XP. TTS chưa đánh giá bằng tai/lag; Browse pending Activity-owned và recreation khi POST chưa E2E. Không mở rộng nghiệp vụ để xử lý các giới hạn này.
+- Baseline447:440 nguyênhash,7 sửa đúngwhitelist,3 mới,khôngunexpected; .env giữhash. GET cuối20000/38/catalog36, JWT phiênGoogle auth/me200. Size1080x2400/density420/font1.0/rotation1-0 khôi phục;VI-firstsetting restored. Không logout/clear/wipe/migration/seed/import/restore/reset/M15.7 Apply. Giữ toàn bộ công việc có trước; không stage/commit/push.
+- Báo cáo [M16_PHASE_D_RECOVERY_REPORT](docs/reports/M16_PHASE_D_RECOVERY_REPORT.md), manifest/hash/log/ảnh docs/exports/m16-phase-d-recovery-2026-11-02/. Skill design-taste-frontend/gpt-taste/high-end-visual-design dùng đánh giá theo spec đã chốt, không thiết kế lại; bivoca-quality-handoff cho kiểm thử/bàn giao.
+- DỪNG chờ người dùng xem ảnh/nghiệm thu PhaseD; không tự triển khai đồng bộ Bottom Navigation.
+
+
+## M16 Phase E — Unified Learning Bottom Navigation (02/11/2026) — READY_FOR_ACCEPTANCE
+
+- Đầu vào A–D USER_ACCEPTED_PASS theo yêu cầu PhaseE hiện tại của người dùng; không sửa lịch sử hoặc ghi đè file báo cáo D đang chứa yêu cầu xem ảnh. Google đã phục hồi.
+- Đồng bộ4tab theo Home trên5màn; icon22dp/label12sp,0D1320/22C7F8/B7C3D4. Home XML/content giữ nguyên. Shared retained routing + guard, keyed existing VM/UI state cho Browse/Review/NEW/Quiz; NEW identity không theo remaining/limit. Không thêm Activity/VM/repo/API/dependency.
+- BuildDebug/unit110/110/lint0error436warning/testAPK PASS (9s19executed59up-to-date). Navigation cuối10/10 lượt test: native/font1,412x915/font1+1.3,320x640/font1+1.3; mỗi lượt xoay5màn,giữ VM/queue/face/index/query/Quizquestion và kiểm tra không duplicate. Hồi quy Home2/Topics2/Detail5/Flashcard7 PASS16/16. ẢnhAndroid/API thật, không mock.
+- Review hiện0/0: chỉ kiểm chứng retention queue rỗng thật; Review có queue/pending/ACK/error write E2E và Quiz đã answer/confirm/submitting E2E NOT_RUN vì chưa duyệt DB test cô lập. Purepolicy/state unit covered; không POST Review/QuizAnswer/Favorite. Không cam kết giữ queue qua process death hoặc explicitBack đóng Activity. Lint436warning so với435 ghi ở PhaseD; còn TooDeepLayout tại Flashcard; chưa refactor UI nội dung đã nghiệm thu.
+- Baseline450:434giữhash,16sửađúngwhitelist,1testmới,0unexpected; .env giữhash. Backend/Admin/Auth/VM/repo/API/HomeXML nguyênhash. GET health connected,20000Flashcard/38Topics/catalog36; JWT Google auth/me200. Không migration/seed/import/reset/restore/M15.7; không logout/clear/uninstall/wipe. Emulator khôi phục1080x2400/density420/font1/rotation1-0. Giữ mọi thay đổi/untracked có trước; CHƯA STAGE/COMMIT/PUSH.
+- Skills design-taste-frontend/gpt-taste/high-end-visual-design dùng đánh giá navigation/readability/icon/touch trong design đã duyệt; bivoca-quality-handoff cho evidence/giới hạn/nghiệm thu. Báo cáo [M16_PHASE_E_NAVIGATION_REPORT](docs/reports/M16_PHASE_E_NAVIGATION_REPORT.md); ảnh/log/hash ignored docs/exports/m16-phase-e-navigation-2026-11-02/.
+- DỪNG READY_FOR_ACCEPTANCE, chờ người dùng xem ảnh/nghiệm thu; không tự chuyển milestone hoặc commit/push.
+
+
+## M17.1 — ROLLED_BACK theo yêu cầu người dùng (02/11/2026)
+
+- Người dùng không chấp nhận Light Colorful và yêu cầu trở về giao diện trước. Đã hoàn tác riêng172file M17 sửa từ snapshot trước phiên, gỡ9file M17 thêm;454file baseline khớp hash trước bản ghi này. Giữ toàn bộ source/thay đổi/untracked M16 có trước; không dùng git reset/clean/checkout, không stage/commit/push. Không giữ token/theme/CSS/font M17 trong project; không tiếp tục M17.1/M17.2.
+- Build lại Android Debug/testAPK và110/110unit PASS, Admin build PASS. APK M16 cài bằng install-r, Home tối đã xác minh bằng ảnh thật; Admin dùng lại CSS cũ (không còn biến LightColorful). JWT hiện có GET auth/me200; health connected,20000Flashcard/38Topics. Không đổi Backend/API/DB/.env/Auth/nghiệp vụ, không POST Review/QuizAnswer/Favorite hoặc migration/seed/import/reset/restore; không logout/clear/uninstall/wipe. Lịch sử WORK_STATUS giữ nguyên, chỉ append bản ghi hoàn tác.
+
+
+## M16.6 — Light Colorful / Editorial Modern (02/11/2026) — READY_FOR_ACCEPTANCE
+
+- Yêu cầu mới được duyệt sau rollback M17.1; Android Java/XML/MVVM native theo refined PNG + warmF7F7F2/212A37/Cobalt2855D5/pastel, font localBeVietnamPro400–800/OFL. Không phục hồi bản M17 bị từ chối. Restyle các màn hiện có, giữ4tab/rightDrawer, không thêm WordDetail/Favorites standalone chưa có source.
+- 203file UI/test/font; snapshot454, khôngunexpected/mismatch; Backend/Admin/Repo/VM/API/AuthJava/.env/manifest/build giữhash. Không thay logic SRS/XP/TTS/Quiz/Auth hoặc dependency. Không DBops/Review/QuizAnswer/Favorite POST, logout/clear/wipe/uninstall hoặc Gitreset/clean/stage/commit/push. Giữ mọi công việc có trước.
+- BuildDebug/testAPK/unit110/110/lint0error467warning PASS; hồi quy cuối16/16, actual-insets5màn tại4cấu hình412/320/font1/1.3+landscape, Flashcard nhỏhai mặt; Authkeyboard/recreation/glyph5weight có evidence. Test ban đầu bắt AppCompatfont400thay800, clippinglogo, linttint, navlabelgap và Topicslandscapeclip10px; đã sửa presentation và kiểm tra lại. Reviewer độc lập khôngCritical/Important.
+- Quiz GET từng SocketTimeoutException,2001–9s; routing cuốiFAILkhông xóa lịch sử FAIL và không chứng minh ổn định. Chưa sửa Backend/tầng mạng; cần phạm vi xử lý riêng. Review/QuizAnswer/Favorite writeE2E, kết quả hoàn thành thật NOT_RUN; fixture không thay ảnh sản phẩm. TTS chưa đánh giá bằng tai, TimePicker native chưa chụp riêng.
+- GET cuối healthconnected,20000Flashcard/38Topics/catalog36, GoogleJWTauth/me200. Emulator size/density/font/rotation khôi phục, giữ phiên. Báo cáo docs/reports/M16_6_LIGHT_COLORFUL_FRONTEND_REPORT.md; ảnh/log/hash ignored android-app/runtime-evidence/m16-6-light-colorful/. Chờ người dùng xem ảnh và nghiệm thu, không tiếp tục milestone khác.
+
+- Rà ảnh trước bàn giao: sửa contrast riêng card Leaderboard→HoneySoft và Progress→LavenderSoft/small_text; final-contrast-cards-build PASS, unit UP-TO-DATE, chụp lại hai màn thật bằng Drawer/Back GET-only. Giữ ảnh trước/sau và cập nhật hash. Case320/font1.3 có một lần chờ focus Quiz FAIL, chạy lại nguyên source PASS46.573s; chưa kết luận nguyên nhân gốc. Không coi routing Quiz timeout là PASS.
+
+
+## Quiz — Tối ưu Backend phản hồi lâu — TECHNICAL_COMPLETE
+
+- Người dùng duyệt tối ưu sau đo nghẽn CPU. Chỉ sửa quiz.service.ts và thêm quiz-performance.test.ts: chuẩn hóa metadata request-local và IDmap, không thay eligibility/shuffle/scoring/conflicts/globaldedup/count/DTO. answer/history/summary nguyên logic; Repo/SQL/Android/Admin/Auth/.env giữhash.
+- RED172320normalizations/120thẻ→GREEN480; focused64/64, toàn bộ342/342unit/HTTP, typecheck/build PASS; review độc lập không có lỗi cần sửa. Không dùng PostgreSQL cho unit tests.
+- Backend thật sau restart đúng child do launcher quản lý: Quiz GET3mẫu trung vị2858→94ms (~30.4lần), range91–117ms; Health worst-observed2876→103ms. DTO/nghĩa/option40card khớp GETdetail. Admin5173giữHTTP200/launcherkhôngđổi/mộtBackendlistener3000.
+- Android GET-only1/1PASS sau khi người dùng tự đăng nhập Google lại. Lượt đầu401mấtphiên gây crash LocalAvatarStore khiuseridkhônghợplệ; lỗi này chưa sửa, cần scopeAndroidriêng. Không thay lịch sử FAIL/nghiệm thu UI M16.6.
+- GET20000Flashcard/38Topics/catalog36(29+7), .env giữhash; khôngDBops/Review/QuizAnswer/Favorite runtimePOST, không logout/clear/uninstall/wipe, khôngstage/commit/push/Gitreset/clean. Giữ mọi công việc có trước; append lịch sử. Báo cáo docs/reports/QUIZ_PERFORMANCE_FIX_REPORT.md; evidence ignored docs/exports/quiz-performance-fix/.
+
+
+## M16.6 — Drawer / Settings / Reminder refinement — READY_FOR_ACCEPTANCE (03/11/2026)
+
+- Theo yêu cầu cụ thể đã duyệt: Drawer3mục/avatarinitial/noBrand;Settings4card/khôngDisplay;Reminder native time/day-grid và Save đủ4trường qua ViewModel draft, commit worker có xác nhận, reuse scheduler. Giữ UI/logic các module khác.
+- BuildDebug/testAPK/lint PASS (0errors,449warnings);116unit PASS. Instrumentation functional4active+gateddurability method;durability2processruns PASS,6configuration phone/font/landscape PASS. GridLayout shrink crash đã RED→GREEN; giữ log FAIL. Review độc lập1Important cùng grid đã sửa, không có finding khác đủ bằng chứng.
+- Local reminder tests phục hồi đúng4keys/presence và reconcile lịch gốc; không cấp quyền/giả notification. Actual delivery,OS denial dialog,permission pending process death chưa kiểm chứng. Logout thật không chạy; thân logout và SessionManager nguyênhash. Avatar renderer guard userid dương tránh crash không đổi Auth.
+- GET-only20.000Flashcard/38Topics/catalog36,JWT hợp lệ;715file baseline được đối chiếu. Backend/Admin/Home/Topics/Flashcard/Quiz/Auth/.env/font assets/scheduler/receiver giữhash, khôngDBwrites. Khôngstage/commit/push/reset/clean/clear/uninstall/wipe; phục hồi devicefont/size/rotation, giữ Asia/Bangkok và quyền.
+- Báo cáo docs/reports/M16_6_DRAWER_SETTINGS_REMINDER_REFINEMENT.md;ảnh thật/gallery ignored docs/exports/m16-6-drawer-settings-reminder/. Người dùng cần xem ảnh và nghiệm thu; không tự đánh dấu toàn M16.6 DONE.

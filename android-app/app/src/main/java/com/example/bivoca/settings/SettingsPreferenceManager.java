@@ -42,6 +42,37 @@ public final class SettingsPreferenceManager {
         devicePreferences = app.getSharedPreferences(DEVICE_PREFS, Context.MODE_PRIVATE);
     }
 
+    SettingsPreferenceManager(SharedPreferences user, SharedPreferences device, int owner) {
+        userPreferences=user; devicePreferences=device; userId=owner;
+    }
+
+    public ReminderSchedule readReminderSchedule() {
+        return new ReminderSchedule(isReminderEnabled(),getReminderHour(),getReminderMinute(),getReminderDays());
+    }
+
+    /** Worker-thread only: confirm all four fields together before scheduling. */
+    public synchronized boolean saveReminderSchedule(ReminderSchedule value) {
+        if (userId <= 0 || value == null || !value.isValid()) return false;
+        String[] keys={KEY_REMINDER_ENABLED,KEY_REMINDER_HOUR,KEY_REMINDER_MINUTE,KEY_REMINDER_DAYS};
+        java.util.Map<String,?> old=userPreferences.getAll();
+        try {
+            if (userPreferences.edit().putBoolean(KEY_REMINDER_ENABLED,value.enabled)
+                    .putInt(KEY_REMINDER_HOUR,value.hour).putInt(KEY_REMINDER_MINUTE,value.minute)
+                    .putInt(KEY_REMINDER_DAYS,value.days).commit()) return true;
+        } catch (RuntimeException ignored) { /* Never expose a false success. */ }
+        // A failed disk commit may already have updated SharedPreferences' memory map.
+        // Restore only these four keys, preserving absence and unrelated account settings.
+        SharedPreferences.Editor rollback=userPreferences.edit();
+        for (String key:keys) {
+            Object previous=old.get(key);
+            if (!old.containsKey(key)) rollback.remove(key);
+            else if (previous instanceof Boolean) rollback.putBoolean(key,(Boolean)previous);
+            else if (previous instanceof Integer) rollback.putInt(key,(Integer)previous);
+        }
+        try { rollback.commit(); } catch (RuntimeException ignored) { }
+        return false;
+    }
+
     public int getUserId() { return userId; }
 
     public int getDailyGoal() {

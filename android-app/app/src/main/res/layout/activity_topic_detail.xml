@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topicDetailRoot" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/phase_c_ground">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="64dp"
+        android:orientation="horizontal" android:gravity="center_vertical" android:paddingHorizontal="16dp" android:paddingVertical="8dp">
+        <androidx.appcompat.widget.AppCompatImageButton android:id="@+id/buttonTopicDetailBack" android:layout_width="48dp" android:layout_height="48dp"
+            android:padding="12dp" android:src="@drawable/auth_arrow_back" app:tint="@color/phase_c_cyan"
+            android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/auth_back_description" />
+        <TextView android:id="@+id/textTopicDetailHeader" style="@style/PhaseCText" android:layout_width="0dp" android:layout_weight="1"
+            android:layout_marginHorizontal="8dp" android:textSize="18sp" android:fontFamily="@font/be_vietnam_pro_medium"
+            android:textColor="@color/phase_c_cyan" android:gravity="center" android:text="@string/phase_c_detail_title"  app:fontFamily="@font/be_vietnam_pro_medium"/>
+        <include layout="@layout/view_navigation_avatar" />
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView android:id="@+id/topicDetailScroll" android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+            android:paddingHorizontal="24dp" android:paddingTop="16dp" android:paddingBottom="24dp">
+            <ProgressBar android:id="@+id/detailMetadataLoading" android:layout_width="28dp" android:layout_height="28dp"
+                android:layout_gravity="center_horizontal" android:indeterminateTint="@color/phase_c_cyan" android:visibility="gone" />
+            <TextView android:id="@+id/textTopicMetadataError" style="@style/PhaseCText" android:layout_width="match_parent"
+                android:textColor="@color/bivocal_light_coral_ink" android:accessibilityLiveRegion="polite" android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/buttonRetryTopicMetadata" style="@style/PhaseCAction"
+                android:layout_marginTop="12dp" android:text="@string/phase_c_retry_metadata" android:visibility="gone" />
+            <LinearLayout android:id="@+id/topicMetadataContent" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:visibility="gone">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+                    <FrameLayout android:id="@+id/topicDetailIconBox" android:layout_width="64dp" android:layout_height="64dp" android:layout_marginEnd="16dp">
+                        <ImageView android:id="@+id/imageTopicDetailIcon" android:layout_width="34dp" android:layout_height="34dp"
+                            android:layout_gravity="center" android:importantForAccessibility="no" />
+                        <TextView android:id="@+id/textTopicDetailGlyph" style="@style/PhaseCText" android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:gravity="center" android:textSize="22sp" android:fontFamily="@font/be_vietnam_pro_medium" android:visibility="gone" android:importantForAccessibility="no"  app:fontFamily="@font/be_vietnam_pro_medium"/>
+                    </FrameLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+                        <TextView android:id="@+id/textTopicDetailName" style="@style/PhaseCText" android:layout_width="match_parent" android:textSize="24sp"
+                            android:textColor="@color/phase_c_text" android:fontFamily="@font/be_vietnam_pro_medium"  app:fontFamily="@font/be_vietnam_pro_medium"/>
+                        <TextView android:id="@+id/textTopicDetailCount" style="@style/PhaseCText" android:layout_marginTop="6dp" android:textColor="@color/phase_c_cyan" />
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView android:id="@+id/textTopicDetailDescription" style="@style/PhaseCText" android:layout_width="match_parent" android:layout_marginTop="20dp" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/buttonTopicFlashcards" style="@style/PhaseCAction"
+                    android:layout_marginTop="24dp" android:text="@string/phase_c_learn_flashcards" app:icon="@drawable/topics16_book"
+                    app:iconTint="@color/phase_c_text" app:iconGravity="textStart" app:iconPadding="10dp" app:iconSize="20dp" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/buttonTopicQuiz" style="@style/PhaseCAction"
+                    android:layout_marginTop="12dp" android:text="@string/phase_c_quiz" app:backgroundTint="@color/phase_c_card"
+                    app:strokeColor="@color/phase_c_border" app:strokeWidth="1dp" app:icon="@drawable/home16_icon_quiz"
+                    app:iconTint="@color/phase_c_cyan" app:iconGravity="textStart" app:iconPadding="10dp" app:iconSize="20dp" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/topicPreviewSection" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="28dp" android:orientation="vertical">
+                <TextView style="@style/PhaseCText" android:text="@string/phase_c_preview_title" android:textSize="18sp"
+                    android:textColor="@color/phase_c_cyan" android:fontFamily="@font/be_vietnam_pro_medium"  app:fontFamily="@font/be_vietnam_pro_medium"/>
+                <TextView style="@style/PhaseCText" android:layout_marginTop="4dp" android:text="@string/phase_c_preview_hint" android:textSize="13sp" />
+                <ProgressBar android:id="@+id/topicPreviewLoading" android:layout_width="28dp" android:layout_height="28dp"
+                    android:layout_marginTop="16dp" android:layout_gravity="center_horizontal" android:indeterminateTint="@color/phase_c_cyan" android:visibility="gone" />
+                <TextView android:id="@+id/textTopicPreviewError" style="@style/PhaseCText" android:layout_width="match_parent" android:layout_marginTop="16dp"
+                    android:textColor="@color/bivocal_light_coral_ink" android:accessibilityLiveRegion="polite" android:visibility="gone" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/buttonRetryTopicPreview" style="@style/PhaseCAction"
+                    android:layout_marginTop="12dp" android:text="@string/phase_c_retry_preview" android:visibility="gone" />
+                <TextView android:id="@+id/textTopicPreviewEmpty" style="@style/PhaseCText" android:layout_width="match_parent" android:layout_marginTop="16dp"
+                    android:text="@string/phase_c_preview_empty" android:visibility="gone" />
+                <TextView android:id="@+id/textTopicPreviewWarning" style="@style/PhaseCText" android:layout_width="match_parent" android:layout_marginTop="16dp"
+                    android:padding="12dp" android:background="@color/phase_c_card" android:textColor="@color/bivocal_light_honey_ink"
+                    android:text="@string/phase_c_preview_warning" android:accessibilityLiveRegion="polite" android:visibility="gone" />
+                <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerTopicPreview" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp" android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <include layout="@layout/view_learning_bottom_navigation" />
+</LinearLayout>

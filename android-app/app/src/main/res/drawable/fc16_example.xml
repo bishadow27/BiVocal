@@ -1,1 +1,1 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"><solid android:color="#0C1321"/><corners android:radius="14dp"/></shape>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"><solid android:color="@color/bivocal_light_canvas"/><corners android:radius="@dimen/bivocal_card_radius"/></shape>

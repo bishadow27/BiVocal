@@ -20,7 +20,6 @@ import com.google.android.material.chip.ChipGroup;
 import com.example.bivoca.R;
 import com.example.bivoca.data.model.Topic;
 import com.example.bivoca.data.repository.TopicRepository;
-import com.example.bivoca.ui.flashcard.FlashcardActivity;
 import com.example.bivoca.ui.navigation.NavigationDrawerController;
 import com.example.bivoca.ui.navigation.NavigationRoute;
 import com.example.bivoca.ui.navigation.LearningBottomNavigation;
@@ -33,6 +32,7 @@ public class TopicsActivity extends AppCompatActivity {
     private TopicsViewModel viewModel;
     private TopicAdapter adapter, posAdapter;
     private TextView search;
+    private boolean resizePending;
     private TopicFilter.Group selected=TopicFilter.Group.ALL;
     private final EnumMap<TopicFilter.Group,Chip> chips=new EnumMap<>(TopicFilter.Group.class);
 
@@ -40,7 +40,7 @@ public class TopicsActivity extends AppCompatActivity {
         super.onCreate(state);
         if(!new SessionManager(this).isLoggedIn()){finish();return;}
         setContentView(R.layout.activity_topics);
-        androidx.core.view.WindowCompat.getInsetsController(getWindow(),getWindow().getDecorView()).setAppearanceLightNavigationBars(false);
+        androidx.core.view.WindowCompat.getInsetsController(getWindow(),getWindow().getDecorView()).setAppearanceLightNavigationBars(true);
         NavigationDrawerController.attach(this,NavigationRoute.TOPICS,R.id.buttonHomeMenu);
         LearningBottomNavigation.bind(this,NavigationRoute.TOPICS);
         search=findViewById(R.id.inputTopicSearch);
@@ -60,6 +60,9 @@ public class TopicsActivity extends AppCompatActivity {
             }
         }).get(TopicsViewModel.class);
         createChips();
+        findViewById(R.id.topicsContentViewport).addOnLayoutChangeListener((view,l,t,r,b,ol,ot,or,ob)->{
+            if(r-l!=or-ol || b-t!=ob-ot) scheduleResize();
+        });
         search.addTextChangedListener(new TextWatcher(){
             @Override public void beforeTextChanged(CharSequence s,int start,int count,int after){}
             @Override public void onTextChanged(CharSequence s,int start,int before,int count){render();}
@@ -107,15 +110,38 @@ public class TopicsActivity extends AppCompatActivity {
             }
         });
         list.addOnLayoutChangeListener((view,l,t,r,b,oldL,oldT,oldR,oldB)->{
-            if(r-l!=oldR-oldL)list.post(()->resizeList(list,listAdapter));
+            if(r-l!=oldR-oldL) scheduleResize();
         });
     }
 
-    private void resizeList(RecyclerView list,TopicAdapter listAdapter) {
-        if(list.getWidth()<=0||listAdapter.getItemCount()==0)return;
+    private void scheduleResize() {
+        if(resizePending)return;
+        resizePending=true;
+        findViewById(R.id.topicsContentViewport).post(()->{
+            resizePending=false;
+            resizeList(R.id.recyclerTopics, R.id.topicsSemanticContent, R.id.topicsSemanticHeader, adapter);
+            resizeList(R.id.recyclerTopicPartsOfSpeech, R.id.topicsPosContent, R.id.topicsPosHeader, posAdapter);
+        });
+    }
+
+    private void resizeList(int listId, int contentId, int headerId, TopicAdapter listAdapter) {
+        RecyclerView list=findViewById(listId);
+        if(list.getWidth()<=0 || listAdapter.getItemCount()==0)return;
         int height=listAdapter.viewportHeight(list);
+        if(selected!=TopicFilter.Group.ALL) {
+            ViewGroup content=findViewById(contentId);
+            View header=findViewById(headerId);
+            ViewGroup.MarginLayoutParams headerParams=(ViewGroup.MarginLayoutParams)header.getLayoutParams();
+            androidx.core.widget.NestedScrollView scroll=findViewById(R.id.topicsSectionsScroll);
+            int available=scroll.getHeight()-scroll.getPaddingTop()-scroll.getPaddingBottom();
+            int overhead=content.getPaddingTop()+content.getPaddingBottom()+header.getMeasuredHeight()
+                    +headerParams.topMargin+headerParams.bottomMargin;
+            // A very short landscape viewport can scroll the outer page to a full, reachable row.
+            int minimumRow=height/Math.min(4,listAdapter.getItemCount());
+            height=Math.max(minimumRow,available-overhead);
+        }
         ViewGroup.LayoutParams params=list.getLayoutParams();
-        if(params.height!=height||list.getHeight()!=height){params.height=height;list.setLayoutParams(params);}
+        if(params.height!=height){params.height=height;list.setLayoutParams(params);}
     }
 
     private void updateChipLabels(List<Topic> topics) {
@@ -142,11 +168,14 @@ public class TopicsActivity extends AppCompatActivity {
         List<Topic> parts=TopicFilter.apply(filtered,"",TopicFilter.Group.PART_OF_SPEECH);
         adapter.setTopics(semantic);posAdapter.setTopics(parts);
         findViewById(R.id.topicsSemanticFrame).setVisibility(!semantic.isEmpty()?View.VISIBLE:View.GONE);
-        findViewById(R.id.topicsPosFrame).setVisibility(!parts.isEmpty()?View.VISIBLE:View.GONE);
+        View posFrame=findViewById(R.id.topicsPosFrame);
+        posFrame.setVisibility(!parts.isEmpty()?View.VISIBLE:View.GONE);
+        ViewGroup.MarginLayoutParams posParams=(ViewGroup.MarginLayoutParams)posFrame.getLayoutParams();
+        int gap=!semantic.isEmpty()&&!parts.isEmpty()?Math.round(16*getResources().getDisplayMetrics().density):0;
+        if(posParams.topMargin!=gap){posParams.topMargin=gap;posFrame.setLayoutParams(posParams);}
         ((TextView)findViewById(R.id.textSemanticGroupCount)).setText(getString(R.string.topics16_group_count,semantic.size()));
         ((TextView)findViewById(R.id.textPosGroupCount)).setText(getString(R.string.topics16_group_count,parts.size()));
-        RecyclerView semanticList=findViewById(R.id.recyclerTopics),posList=findViewById(R.id.recyclerTopicPartsOfSpeech);
-        semanticList.post(()->resizeList(semanticList,adapter));posList.post(()->resizeList(posList,posAdapter));
+        scheduleResize();
         findViewById(R.id.progressBar).setVisibility(loading?View.VISIBLE:View.GONE);
         TextView textError=findViewById(R.id.textError);textError.setText(error);
         textError.setVisibility(failed?View.VISIBLE:View.GONE);
@@ -160,10 +189,9 @@ public class TopicsActivity extends AppCompatActivity {
     }
 
     private void openTopic(Topic topic) {
-        Intent intent=new Intent(this,FlashcardActivity.class);
-        intent.putExtra(FlashcardActivity.EXTRA_TOPIC_CODE,topic.getCode());
-        intent.putExtra(FlashcardActivity.EXTRA_TOPIC_NAME,topic.getName());
-        startActivity(intent);
+        Intent intent=new Intent(this,TopicDetailActivity.class);
+        intent.putExtra(TopicDetailActivity.EXTRA_TOPIC_CODE,topic.getCode());
+        LearningBottomNavigation.open(this,intent);
     }
     @Override protected void onSaveInstanceState(@NonNull Bundle state) {
         state.putString("topicFilter",selected.name());

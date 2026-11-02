@@ -1,18 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BiVoca" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="BiVocalLightWindowCompat" parent="Theme.Material3.Light.NoActionBar"/>
+    <style name="Base.Theme.BiVoca" parent="BiVocalLightWindowCompat">
+        <item name="android:fontFamily">@font/be_vietnam_pro</item><item name="fontFamily">@font/be_vietnam_pro</item>
+        <item name="android:textViewStyle">@style/Widget.BiVocal.TextView</item><item name="android:editTextStyle">@style/Widget.BiVocal.EditText</item>
+        <item name="android:windowBackground">@color/bivocal_light_canvas</item><item name="android:colorBackground">@color/bivocal_light_canvas</item><item name="colorSurface">@color/bivocal_light_surface</item>
+        <item name="colorPrimary">@color/bivocal_light_cobalt</item><item name="colorOnPrimary">@color/bivocal_light_on_primary</item><item name="colorSecondary">@color/bivocal_light_cobalt</item>
+        <item name="colorOnSurface">@color/bivocal_light_text</item><item name="colorOnBackground">@color/bivocal_light_text</item><item name="colorError">@color/bivocal_light_coral_ink</item>
+        <item name="android:textColorPrimary">@color/bivocal_light_text</item><item name="android:textColorSecondary">@color/bivocal_light_small_text</item>
+        <item name="android:statusBarColor">@color/bivocal_light_canvas</item><item name="android:navigationBarColor">@color/bivocal_light_system_navigation</item><item name="android:windowLightStatusBar">true</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.BiVoca" parent="Base.Theme.BiVoca" />
     <style name="Theme.BiVoca.Login" parent="Theme.BiVoca">
-        <item name="android:statusBarColor">#0B1325</item>
-        <item name="android:navigationBarColor">#060A15</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/bivocal_light_canvas</item>
+        <item name="android:navigationBarColor">@color/bivocal_light_system_navigation</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowActionModeOverlay">true</item>
     </style>
-    <style name="Theme.BiVoca.TimePicker" parent="Theme.Material3.Dark.Dialog.Alert">
+    <style name="Theme.BiVoca.TimePicker" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="android:fontFamily">@font/be_vietnam_pro</item>
+        <item name="fontFamily">@font/be_vietnam_pro</item>
         <item name="android:windowBackground">@color/bivocal_surface</item>
         <item name="android:colorAccent">@color/bivocal_cyan</item>
         <item name="colorAccent">@color/bivocal_cyan</item>
@@ -22,6 +32,6 @@
         <item name="android:colorControlActivated">@color/bivocal_cyan</item>
         <item name="android:textColorPrimary">@color/bivocal_text_primary</item>
         <item name="android:textColorSecondary">@color/bivocal_text_secondary</item>
-        <item name="android:navigationBarColor">@color/bivocal_night</item>
+        <item name="android:navigationBarColor">@color/bivocal_light_system_navigation</item>
     </style>
 </resources>

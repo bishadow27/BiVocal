@@ -43,26 +43,30 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LeaderboardUser user = users.get(position);
         if (holder.itemView instanceof com.google.android.material.card.MaterialCardView) {
-            int color = android.graphics.Color.parseColor(user.getUserId() == currentUserId ? "#173A66" : "#111C31");
+            int color = holder.itemView.getContext().getColor(user.getUserId() == currentUserId ? com.example.bivoca.R.color.bivocal_light_cobalt_soft : com.example.bivoca.R.color.bivocal_light_surface);
             ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(color);
         }
 
         // Rank representation
         int rank = user.getRank();
         if (rank == 1) {
-            holder.textRank.setText("🥇");
+            holder.textRank.setText("1");
             holder.textRank.setTextSize(22);
         } else if (rank == 2) {
-            holder.textRank.setText("🥈");
+            holder.textRank.setText("2");
             holder.textRank.setTextSize(22);
         } else if (rank == 3) {
-            holder.textRank.setText("🥉");
+            holder.textRank.setText("3");
             holder.textRank.setTextSize(22);
         } else {
             holder.textRank.setText("#" + rank);
             holder.textRank.setTextSize(15);
         }
 
+        holder.textRank.setBackgroundResource(com.example.bivoca.R.drawable.light_rank_badge);
+        int rankInk=rank==1?com.example.bivoca.R.color.bivocal_light_honey_ink:rank==3?com.example.bivoca.R.color.bivocal_light_coral_ink:com.example.bivoca.R.color.bivocal_light_small_text;
+        holder.textRank.setTextColor(holder.itemView.getContext().getColor(rankInk));
+        holder.textRank.setBackgroundTintList(android.content.res.ColorStateList.valueOf(holder.itemView.getContext().getColor(rank==1?com.example.bivoca.R.color.bivocal_light_honey_soft:rank==3?com.example.bivoca.R.color.bivocal_light_coral_soft:com.example.bivoca.R.color.bivocal_light_cobalt_soft)));
         // Avatar letter
         String displayName = user.getDisplayName();
         String letter = "U";
@@ -77,7 +81,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
         // Level & Streak
         holder.textUserLevel.setText("Lv. " + user.getLevel());
-        holder.textUserStreak.setText("🔥 " + user.getCurrentStreak());
+        holder.textUserStreak.setText(user.getCurrentStreak() + " ngày");
 
         // XP
         holder.textUserXp.setText(user.getTotalXp() + " XP");
