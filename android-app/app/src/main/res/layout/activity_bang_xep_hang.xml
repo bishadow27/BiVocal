@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/leaderboardRoot" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingTop="64dp" android:background="@color/lb_light_canvas">
+
+    <!-- The existing NavigationDrawerController supplies the single shared64dp toolbar. -->
+    <TextView android:id="@+id/buttonLeaderboardBack" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:importantForAccessibility="no" />
+    <include android:id="@+id/homeBottomNavigation" layout="@layout/view_learning_bottom_navigation" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" />
+
+    <LinearLayout android:id="@+id/layoutLeaderboardHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingBottom="12dp">
+        <LinearLayout android:id="@+id/layoutLeaderboardTabs" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="4dp" android:orientation="horizontal" android:background="@drawable/lb_light_segments">
+            <TextView android:id="@+id/tabLeaderboardAll" style="@style/LbLightTab" android:text="@string/lb_light_all" android:textColor="@color/lb_light_cobalt" android:background="@drawable/lb_light_segment_selected" />
+            <TextView android:id="@+id/tabLeaderboardMonth" style="@style/LbLightTab" android:text="@string/lb_light_month" />
+            <TextView android:id="@+id/tabLeaderboardTest" style="@style/LbLightTab" android:layout_weight="1.25" android:text="@string/lb_light_test" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar android:id="@+id/progressLoading" android:layout_width="48dp" android:layout_height="48dp" android:layout_centerInParent="true" android:indeterminateTint="@color/lb_light_cobalt" android:contentDescription="@string/lb_light_loading" android:visibility="gone" />
+    <LinearLayout android:id="@+id/errorContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerInParent="true" android:padding="24dp" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+        <TextView android:id="@+id/textLeaderboardError" style="@style/LbLightText" android:layout_width="match_parent" android:gravity="center" android:textColor="@color/lb_light_error" android:textSize="15sp" android:accessibilityLiveRegion="polite" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/buttonLeaderboardRetry" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp" android:layout_marginTop="16dp" android:text="@string/lb_light_retry" android:textColor="@color/lb_light_surface" app:backgroundTint="@color/lb_light_cobalt" app:cornerRadius="12dp" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/emptyContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerInParent="true" android:orientation="vertical" android:gravity="center" android:padding="28dp" android:visibility="gone">
+        <ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/lb_light_trophy" android:importantForAccessibility="no" />
+        <TextView style="@style/LbLightSection" android:layout_width="match_parent" android:layout_marginTop="16dp" android:gravity="center" android:text="@string/lb_light_empty_title" />
+        <TextView style="@style/LbLightCaption" android:layout_width="match_parent" android:layout_marginTop="8dp" android:gravity="center" android:text="@string/lb_light_empty_body" />
+    </LinearLayout>
+
+    <RelativeLayout android:id="@+id/layoutLeaderboardContent" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/layoutLeaderboardHeader" android:layout_above="@id/homeBottomNavigation" android:visibility="gone">
+        <androidx.core.widget.NestedScrollView android:id="@+id/leaderboardScroll" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@id/layoutUserStickyBar" android:fillViewport="false" android:clipToPadding="false" android:scrollbarStyle="outsideOverlay">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="4dp" android:paddingBottom="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_marginBottom="12dp">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                        <TextView style="@style/LbLightSection" android:text="@string/lb_light_leaders" />
+                        <TextView style="@style/LbLightCaption" android:layout_marginTop="4dp" android:text="@string/lb_light_accumulated" />
+                    </LinearLayout>
+                    <ImageView android:layout_width="38dp" android:layout_height="38dp" android:padding="8dp" android:background="@drawable/lb_light_trophy_badge" android:src="@drawable/lb_light_trophy" android:importantForAccessibility="no" />
+                </LinearLayout>
+                <!-- Physical2-1-3 only. IDs and API data binding retain their original ranks. -->
+                <LinearLayout android:id="@+id/layoutPodium" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="bottom" android:paddingTop="8dp" android:layout_marginBottom="24dp">
+                    <LinearLayout android:id="@+id/podiumCol2" style="@style/LbLightPodiumColumn">
+                        <TextView android:id="@+id/textPodiumAvatar2" style="@style/LbLightPodiumAvatar" android:background="@drawable/lb_light_avatar_silver" android:textColor="@color/lb_light_silver_ink" />
+                        <TextView android:id="@+id/textPodiumName2" style="@style/LbLightPodiumName" />
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="12dp" android:gravity="center_vertical">
+                            <TextView android:id="@+id/textPodiumScore2" style="@style/LbLightPodiumScore" android:textColor="@color/lb_light_silver_ink" />
+                            <TextView style="@style/LbLightXpUnit" android:textColor="@color/lb_light_silver_ink" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/blockPodium2" style="@style/LbLightPodiumBlock" android:layout_height="56dp" android:background="@drawable/lb_light_podium_silver" android:text="2" android:textColor="@color/lb_light_silver_ink" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/podiumCol1" style="@style/LbLightPodiumColumn" android:layout_weight="1.08">
+                        <ImageView android:layout_width="28dp" android:layout_height="24dp" android:layout_marginBottom="4dp" android:src="@drawable/lb_light_crown" android:importantForAccessibility="no" />
+                        <TextView android:id="@+id/textPodiumAvatar1" style="@style/LbLightPodiumAvatar" android:layout_width="68dp" android:layout_height="68dp" android:background="@drawable/lb_light_avatar_gold" android:textColor="@color/lb_light_gold_ink" android:textSize="23sp" />
+                        <TextView android:id="@+id/textPodiumName1" style="@style/LbLightPodiumName" />
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="12dp" android:gravity="center_vertical">
+                            <TextView android:id="@+id/textPodiumScore1" style="@style/LbLightPodiumScore" android:textColor="@color/lb_light_gold_ink" />
+                            <TextView style="@style/LbLightXpUnit" android:textColor="@color/lb_light_gold_ink" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/blockPodium1" style="@style/LbLightPodiumBlock" android:layout_height="86dp" android:background="@drawable/lb_light_podium_gold" android:text="1" android:textColor="@color/lb_light_gold_ink" android:textSize="34sp" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/podiumCol3" style="@style/LbLightPodiumColumn">
+                        <TextView android:id="@+id/textPodiumAvatar3" style="@style/LbLightPodiumAvatar" android:background="@drawable/lb_light_avatar_bronze" android:textColor="@color/lb_light_bronze_ink" />
+                        <TextView android:id="@+id/textPodiumName3" style="@style/LbLightPodiumName" />
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="12dp" android:gravity="center_vertical">
+                            <TextView android:id="@+id/textPodiumScore3" style="@style/LbLightPodiumScore" android:textColor="@color/lb_light_bronze_ink" />
+                            <TextView style="@style/LbLightXpUnit" android:textColor="@color/lb_light_bronze_ink" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/blockPodium3" style="@style/LbLightPodiumBlock" android:layout_height="44dp" android:background="@drawable/lb_light_podium_bronze" android:text="3" android:textColor="@color/lb_light_bronze_ink" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:gravity="center_vertical">
+                    <TextView style="@style/LbLightSection" android:layout_width="0dp" android:layout_weight="1" android:textSize="15sp" android:text="@string/lb_light_all_rankings" />
+                    <TextView style="@style/LbLightCaption" android:textSize="11sp" android:text="@string/lb_light_total_xp" />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerLeaderboard" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" android:overScrollMode="never" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout android:id="@+id/layoutUserStickyBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="10dp" android:paddingBottom="12dp" android:background="@color/lb_light_canvas">
+            <LinearLayout android:id="@+id/layoutLeaderboardSelfCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="12dp" android:background="@drawable/lb_light_self_card">
+                <LinearLayout android:id="@+id/layoutLeaderboardSelfOverview" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:paddingEnd="8dp">
+                    <TextView android:id="@+id/textStickyUserRank" style="@style/LbLightText" android:textSize="12sp" android:textColor="@color/lb_light_surface" android:fontFamily="@font/be_vietnam_pro_semibold" />
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_marginTop="2dp">
+                        <TextView android:id="@+id/textStickyUserScore" style="@style/LbLightText" android:textSize="18sp" android:textColor="@color/lb_light_surface" android:fontFamily="@font/be_vietnam_pro_bold" />
+                        <TextView style="@style/LbLightXpUnit" android:textColor="@color/lb_light_surface" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/layoutLeaderboardSelfActions" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:id="@+id/buttonHistoryPoints" style="@style/LbLightHistoryButton" android:text="@string/lb_light_history" android:textColor="@color/lb_light_cobalt" />
+                    <TextView android:id="@+id/buttonLeaderboardHelp" style="@style/LbLightHistoryButton" android:layout_width="48dp" android:layout_marginStart="8dp" android:paddingStart="0dp" android:paddingEnd="0dp" android:background="@drawable/lb_light_button_help" android:textColor="@color/lb_light_cobalt" android:textSize="18sp" android:text="?" android:contentDescription="@string/lb_light_help" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

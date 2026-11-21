@@ -47,10 +47,8 @@ describe('M6A parameterized repository contracts (SQL not executed)',()=>{
     const f=fixture();await f.repository.progress(42,{search:'',page:1,limit:20});
     assert.ok(f.calls.every(c=>!c.sql.includes('is_active')));assert.deepEqual(f.calls[1]!.params,[42,'%%',20,0]);
   });
-  it('PUT card does not update status; dedicated status SQL does not delete history',async()=>{
-    const f=fixture();await f.repository.updateCard(1,{topicCode:'FOOD',english:'x',vietnamese:'y',pronunciation:null,partOfSpeech:null,example:null,exampleVi:null,level:'A1'});
-    assert.doesNotMatch(f.calls[0]!.sql,/SET is_active|is_active=|DELETE|TRUNCATE/);
-    await f.repository.setCardStatus(1,false);assert.match(f.calls[1]!.sql,/SET is_active=\$2/);assert.doesNotMatch(f.calls[1]!.sql,/DELETE|TRUNCATE/);
+  it('dedicated status SQL does not delete history; PUT status preservation covered by membership transaction suite',async()=>{
+    const f=fixture();await f.repository.setCardStatus(1,false);assert.match(f.calls[0]!.sql,/SET is_active=\$2/);assert.doesNotMatch(f.calls[0]!.sql,/DELETE|TRUNCATE/);
   });
   it('unsafe aggregate conversion fails instead of rounding large bigint counts silently',()=>{
     assert.equal(adminCount('0'),0);assert.equal(adminCount('123'),123);

@@ -32,7 +32,7 @@
     <string name="home16_leaderboard_self">Bạn · %1$s</string>
     <string name="home16_leaderboard_meta">🔥 %1$d ngày · Cấp %2$d</string>
     <string name="home16_xp_value">%1$s XP</string>
-    <string name="home16_motivation">Mỗi ngày 15 phút, bứt phá vốn từ cùng <font color="#2855D5"><b>BiVocal!</b></font></string>
+    <string name="home16_motivation">Mỗi ngày 15 phút, bứt phá vốn từ cùng <font color="#087477"><b>BiVocal!</b></font></string>
     <string name="home16_tab_home">Trang chủ</string>
     <string name="home16_tab_topics">Chủ đề</string>
     <string name="home16_tab_review">Ôn tập</string>

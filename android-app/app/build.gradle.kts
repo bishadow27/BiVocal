@@ -23,12 +23,15 @@ android {
 
     }
 
+    testBuildType = if (providers.gradleProperty("bivocalE2e").orNull == "true") "e2e" else "debug"
+
     buildFeatures {
         buildConfig = true
     }
 
     buildTypes {
         getByName("debug") {
+            buildConfigField("boolean", "QUIZ_SESSION_V2_ENABLED", "true")
             buildConfigField("String", "API_BASE_URL_OVERRIDE", "\"\"")
             buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"900150975285-tf2ogeummkum8fdopho2gbgd9476gfhv.apps.googleusercontent.com\"")
         }
@@ -36,6 +39,7 @@ android {
         create("e2e") {
             initWith(getByName("debug"))
             matchingFallbacks += listOf("debug")
+            buildConfigField("boolean", "QUIZ_SESSION_V2_ENABLED", "true")
             applicationIdSuffix = ".e2e"
             versionNameSuffix = "-e2e"
             buildConfigField(
@@ -47,6 +51,7 @@ android {
         }
 
         release {
+            buildConfigField("boolean", "QUIZ_SESSION_V2_ENABLED", "false")
             buildConfigField("String", "API_BASE_URL_OVERRIDE", "\"\"")
             buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"900150975285-tf2ogeummkum8fdopho2gbgd9476gfhv.apps.googleusercontent.com\"")
             optimization {

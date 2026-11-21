@@ -6,7 +6,7 @@
                 <shape><solid android:color="@color/home_approved_border"/><corners android:radius="@dimen/bivocal_button_radius"/></shape>
             </item>
             <item>
-                <shape><solid android:color="@color/home_approved_blue_dark"/><corners android:radius="@dimen/bivocal_button_radius"/></shape>
+                <shape><solid android:color="@color/brand_cta"/><corners android:radius="@dimen/bivocal_button_radius"/></shape>
             </item>
         </selector>
     </item>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pm_title">Hồ sơ cá nhân</string>
+    <color name="pm_canvas">@color/brand_canvas</color><color name="pm_surface">#FFFFFF</color>
+    <color name="pm_ink">@color/brand_ink</color><color name="pm_secondary">@color/brand_secondary</color><color name="pm_border">@color/brand_border</color>
+    <color name="pm_cobalt">@color/brand_teal_ink</color><color name="pm_cobalt_soft">@color/brand_teal_soft</color>
+    <color name="pm_mint">#B9E5D3</color><color name="pm_coral">#F29A7E</color><color name="pm_lavender">#B4A3E7</color>
+    <string name="pm_stats">Thống kê học tập</string><string name="pm_xp">Tổng điểm XP</string>
+    <string name="pm_streak">Chuỗi học liên tiếp</string><string name="pm_best">Kỷ lục streak</string><string name="pm_rank">Thứ hạng tổng XP</string>
+    <string name="pm_week">Hoạt động tuần này</string><string name="pm_goal">Mục tiêu: %1$d từ/ngày</string><string name="pm_goal_loading">Đang tải mục tiêu học…</string><string name="pm_goal_unavailable">Chưa tải được mục tiêu học</string>
+    <string name="pm_level">Cấp độ %1$d</string><string name="pm_level_xp">%1$d / %2$d XP trong cấp</string><string name="pm_days">%1$d ngày</string><string name="pm_missing">—</string>
+    <string name="pm_rank_unavailable">Chưa có thứ hạng trong danh sách đã tải.</string>
+    <string name="pm_loading">Đang tải hồ sơ cá nhân</string><string name="pm_stats_loading">Đang tải thống kê học tập</string><string name="pm_week_loading">Đang tải hoạt động tuần</string>
+    <string name="pm_empty">Chưa có thông tin hồ sơ</string><string name="pm_empty_body">Thông tin sẽ xuất hiện khi tải được tài khoản của bạn.</string>
+    <string name="pm_retry">Thử lại</string><string name="pm_partial">Một số thông tin chưa được cập nhật.</string>
+    <string name="pm_avatar_change">Đổi ảnh đại diện</string><string name="pm_avatar_reset">Dùng avatar mặc định</string><string name="pm_avatar_local">Ảnh tùy chọn được lưu trên thiết bị này</string>
+    <string name="pm_link_title">Liên kết Google</string><string name="pm_link_description">Kết nối tài khoản BiVocal với Google</string>
+    <string name="pm_day_future">%1$s, chưa đến ngày này</string><string name="pm_day_unknown">%1$s, chưa có dữ liệu học tập</string><string name="pm_day_inactive">%1$s, chưa ghi nhận hoạt động</string>
+    <string name="pm_day_active">%1$s, đã học %2$d từ mới và ôn %3$d lượt</string><string name="pm_day_complete">%1$s, hoàn thành mục tiêu, %2$d từ mới và %3$d lượt ôn</string>
+    <string-array name="pm_weekdays"><item>T2</item><item>T3</item><item>T4</item><item>T5</item><item>T6</item><item>T7</item><item>CN</item></string-array>
+    <style name="PmText"><item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item><item name="android:fontFamily">@font/be_vietnam_pro_regular</item><item name="fontFamily">@font/be_vietnam_pro_regular</item><item name="android:textSize">13sp</item><item name="android:textColor">@color/pm_ink</item><item name="android:includeFontPadding">true</item></style>
+    <style name="PmTitle" parent="PmText"><item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="fontFamily">@font/be_vietnam_pro_bold</item><item name="android:textSize">17sp</item></style>
+    <style name="PmCardOverlay" parent=""><item name="elevationOverlayEnabled">false</item></style>
+    <style name="PmCard" parent="Widget.MaterialComponents.CardView"><item name="android:theme">@style/PmCardOverlay</item><item name="cardForegroundColor">@android:color/transparent</item><item name="android:layout_width">match_parent</item><item name="android:layout_height">wrap_content</item><item name="cardBackgroundColor">@color/pm_surface</item><item name="cardCornerRadius">16dp</item><item name="cardElevation">1dp</item><item name="strokeWidth">1dp</item><item name="strokeColor">@color/pm_border</item></style>
+    <style name="PmMetricCard" parent="PmCard"><item name="android:layout_width">0dp</item><item name="android:layout_height">match_parent</item><item name="android:layout_weight">1</item></style>
+    <style name="PmMetricContent"><item name="android:layout_width">match_parent</item><item name="android:layout_height">wrap_content</item><item name="android:minHeight">96dp</item><item name="android:orientation">horizontal</item><item name="android:gravity">center_vertical</item><item name="android:padding">12dp</item></style>
+    <style name="PmMetricIcon"><item name="android:layout_width">36dp</item><item name="android:layout_height">36dp</item><item name="android:layout_marginEnd">12dp</item><item name="android:padding">8dp</item><item name="android:importantForAccessibility">no</item></style>
+    <style name="PmMetricCopy"><item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item><item name="android:layout_weight">1</item><item name="android:orientation">vertical</item></style>
+    <style name="PmMetricValue" parent="PmText"><item name="android:layout_width">match_parent</item><item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="fontFamily">@font/be_vietnam_pro_bold</item><item name="android:textSize">22sp</item><item name="android:text">@string/pm_missing</item></style>
+    <style name="PmMetricLabel" parent="PmText"><item name="android:layout_width">match_parent</item><item name="android:layout_marginTop">4dp</item><item name="android:textSize">12sp</item></style>
+</resources>
+
+
+
+

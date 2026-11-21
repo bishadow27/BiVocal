@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.bivoca.R;
-import com.example.bivoca.ui.home.HomeActivity;
+import com.example.bivoca.ui.home.TrangChuActivity;
 import com.example.bivoca.utils.SessionManager;
 
 public final class ReminderReceiver extends BroadcastReceiver {
@@ -54,7 +54,7 @@ public final class ReminderReceiver extends BroadcastReceiver {
                     context.getString(R.string.settings_reminder_channel),
                     NotificationManager.IMPORTANCE_DEFAULT));
         }
-        Intent open = new Intent(context, HomeActivity.class)
+        Intent open = new Intent(context, TrangChuActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent content = PendingIntent.getActivity(context, 4100, open,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);

@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+ <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="24dp" app:strokeWidth="1dp" app:strokeColor="@color/quiz_v2_border" app:cardBackgroundColor="@color/quiz_v2_surface" app:cardElevation="0dp">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+ <ImageView android:id="@+id/quizV2Trophy" android:layout_width="76dp" android:layout_height="76dp" android:layout_gravity="center_horizontal" android:layout_marginBottom="12dp" android:src="@drawable/quiz_v2_trophy" android:importantForAccessibility="no"/>
+ <TextView android:id="@+id/quizV2ResultHeading" style="@style/QuizV2Heading" android:textSize="20sp" android:gravity="center" android:text="Kết quả luyện tập"/>
+ <TextView android:id="@+id/quizV2ResultReason" style="@style/QuizV2Text" android:gravity="center" android:layout_marginBottom="20dp"/>
+ <TextView android:id="@+id/quizV2ResultAccuracy" style="@style/QuizV2Heading" android:visibility="gone" android:textSize="44sp" android:textColor="@color/quiz_v2_cobalt" android:gravity="center"/>
+ <LinearLayout android:id="@+id/quizV2ResultStats" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+ </LinearLayout></com.google.android.material.card.MaterialCardView>
+ <LinearLayout android:id="@+id/quizV2ResultSupplement" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="16dp"/>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2ReviewToggle" style="@style/QuizV2Button" android:layout_marginTop="20dp"/>
+ <LinearLayout android:id="@+id/quizV2ReviewList" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone"/>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2Complete" style="@style/QuizV2Button" android:text="Xác nhận hoàn tất"/>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2ReturnToSession" style="@style/QuizV2Button" android:text="Xem lại bài làm"/>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2NewSession" style="@style/QuizV2Button" android:text="Luyện tập mới"/>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2Abandon" style="@style/QuizV2Button" android:text="Kết thúc bài đang làm"/>
+</LinearLayout>

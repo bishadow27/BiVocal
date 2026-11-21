@@ -1,0 +1,10 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" app:cardCornerRadius="18dp" app:cardElevation="2dp" app:strokeWidth="0dp">
+ <LinearLayout android:id="@+id/quizMethodBackground" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="96dp" android:padding="16dp" android:orientation="horizontal" android:gravity="center_vertical">
+  <ImageView android:id="@+id/quizMethodIcon" android:layout_width="32dp" android:layout_height="32dp" android:layout_marginEnd="14dp" android:importantForAccessibility="no"/>
+  <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+   <TextView android:id="@+id/quizMethodTitle" style="@style/QuizV2Text" android:fontFamily="@font/be_vietnam_pro_bold" android:textColor="#FFFFFF" android:textSize="15sp"/>
+   <TextView android:id="@+id/quizMethodDescription" style="@style/QuizV2Text" android:layout_marginTop="4dp" android:textColor="#FFFFFF" android:textSize="11sp"/>
+  </LinearLayout>
+  <TextView style="@style/QuizV2Text" android:layout_width="20dp" android:layout_marginStart="8dp" android:text="›" android:textColor="#FFFFFF" android:textSize="26sp" android:importantForAccessibility="no"/>
+ </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

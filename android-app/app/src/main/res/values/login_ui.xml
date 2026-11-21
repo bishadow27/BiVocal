@@ -6,7 +6,7 @@
     <string name="login_brand">BiVocal</string>
     <string name="login_slogan">Học từ vựng mỗi ngày</string>
     <string name="login_account_label">Tài khoản</string>
-    <string name="login_footer">Chưa có tài khoản? <font color="#2855D5">Đăng ký ngay</font></string>
+    <string name="login_footer">Chưa có tài khoản? <font color="#087477">Đăng ký ngay</font></string>
     <style name="Theme.BiVoca.Login.Reference" parent="Theme.BiVoca.Login">
         <item name="android:statusBarColor">@color/login_ui_background</item>
         <item name="android:navigationBarColor">@color/bivocal_light_system_navigation</item>

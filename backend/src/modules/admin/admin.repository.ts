@@ -1,4 +1,5 @@
-import type { Pool, QueryResultRow } from 'pg';
+import type { Pool, PoolClient, QueryResultRow } from 'pg';
+import { AppError } from '../../shared/errors/app-error.js';
 import type { Pagination, TopicQuery, TopicInput, CardQuery, CardInput, CreateCardInput, UserQuery, Role, StatsQuery } from './admin.schema.js';
 import type { AdminAccount, AdminUserRow, TopicRow, CardRow, PageRows, AdminProgressRow, AdminQuizRow,
   QuizAggregate, DayRow, TopicStatRow } from './admin.types.js';
@@ -26,7 +27,48 @@ const statsFrom = `FROM quiz_results q JOIN flashcards f ON f.id=q.flashcard_id 
 const aggregate = `COUNT(*)::text AS total_answers, COUNT(*) FILTER (WHERE q.is_correct)::text AS correct_answers,
   COUNT(*) FILTER (WHERE NOT q.is_correct)::text AS wrong_answers`;
 
+const posTopics: Readonly<Record<string,string>> = Object.freeze({
+  noun:'POS_NOUN',verb:'POS_VERB',adjective:'POS_ADJECTIVE',adverb:'POS_ADVERB',
+  preposition:'POS_PREPOSITION',conjunction:'POS_CONJUNCTION',pronoun:'POS_PRONOUN',phrase:'POS_PHRASE',
+});
+function mappedPos(pos: CardInput['partOfSpeech']): string | null {
+  if (pos === null) return null;
+  if (!Object.hasOwn(posTopics,pos)) throw new AppError(400,'ADMIN_POS_INVALID','Unsupported part of speech');
+  return posTopics[pos]!;
+}
+
 export function createAdminRepository(pool: Pool) {
+  async function cardTransaction<T>(work: (client: PoolClient)=>Promise<T>): Promise<T> {
+    const client=await pool.connect(); let discard=false;
+    try { await client.query('BEGIN'); const value=await work(client); await client.query('COMMIT'); return value; }
+    catch (error) { try { await client.query('ROLLBACK'); } catch { discard=true; } throw error; }
+    finally { client.release(discard); }
+  }
+  async function cardTopics(client: PoolClient, primaryCode: string, posCode: string|null) {
+    const rows=(await client.query<{id:number;code:string}>(
+      'SELECT id,code FROM public.topics WHERE code=ANY($1::text[]) ORDER BY id FOR KEY SHARE',
+      [[...new Set([primaryCode,...(posCode ? [posCode] : [])])]],
+    )).rows;
+    const primary=rows.find(t=>t.code===primaryCode);
+    if (!primary) throw new AppError(404,'ADMIN_TOPIC_NOT_FOUND','Topic not found');
+    if (primary.code.startsWith('POS_') && primary.code!==posCode)
+      throw new AppError(409,'ADMIN_PRIMARY_POS_CONFLICT','Primary POS topic conflicts with part of speech');
+    const pos=posCode ? rows.find(t=>t.code===posCode) : undefined;
+    if (posCode && !pos) throw new AppError(409,'ADMIN_POS_TOPIC_MISSING','Mapped POS topic is unavailable');
+    return {primary,pos};
+  }
+  async function savedCard(client: PoolClient,id: number) {
+    const row=(await client.query<CardRow>(
+      `SELECT ${cardColumns} FROM public.flashcards f JOIN public.topics t ON t.id=f.topic_id WHERE f.id=$1`,[id])).rows[0];
+    if (!row) throw new AppError(409,'ADMIN_TOPIC_MEMBERSHIP_DRIFT','Card disappeared during transaction');
+    return row;
+  }
+  async function addPos(client: PoolClient,cardId: number,primaryId: number,pos: {id:number}|undefined) {
+    if (pos && pos.id!==primaryId) await client.query(
+      'INSERT INTO public.flashcard_topics(flashcard_id,topic_id,is_primary) VALUES($1,$2,FALSE) ON CONFLICT (flashcard_id,topic_id) DO NOTHING',
+      [cardId,pos.id]);
+  }
+
   async function page<T extends QueryResultRow>(columns: string, from: string, order: string,
     params: unknown[], pagination: Pagination): Promise<PageRows<T>> {
     // SQL fragments are private constants, never supplied by callers/requests.
@@ -108,22 +150,52 @@ export function createAdminRepository(pool: Pool) {
           AND ($4::text IS NULL OR f.level=$4)`, 'f.id ASC',
       [literalSearch(query.search), query.topicCode ?? null, query.status, query.level ?? null], query);
     },
-    async createCard(input: CreateCardInput) {
-      return (await pool.query<CardRow>(`WITH saved AS (
-        INSERT INTO flashcards(topic_id,english,vietnamese,pronunciation,part_of_speech,example,example_vi,level,is_active)
-        SELECT t.id,$2,$3,$4,$5,$6,$7,$8,$9 FROM topics t WHERE t.code=$1
-        RETURNING id,topic_id,english,vietnamese,pronunciation,part_of_speech,example,example_vi,level,is_active,created_at,updated_at)
-        SELECT ${cardColumns} FROM saved f JOIN topics t ON t.id=f.topic_id`,
-      [input.topicCode,input.english,input.vietnamese,input.pronunciation,input.partOfSpeech,input.example,input.exampleVi,input.level,input.isActive])).rows[0];
+    async createCard(input: CreateCardInput): Promise<CardRow | undefined> {
+      const posCode=mappedPos(input.partOfSpeech);
+      return cardTransaction(async client=>{
+        const {primary,pos}=await cardTopics(client,input.topicCode,posCode);
+        const card=(await client.query<{id:number}>(
+          `INSERT INTO public.flashcards(topic_id,english,vietnamese,pronunciation,part_of_speech,example,example_vi,level,is_active)
+           VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id`,
+          [primary.id,input.english,input.vietnamese,input.pronunciation,input.partOfSpeech,input.example,input.exampleVi,input.level,input.isActive])).rows[0]!;
+        await client.query('INSERT INTO public.flashcard_topics(flashcard_id,topic_id,is_primary) VALUES($1,$2,TRUE)',[card.id,primary.id]);
+        await addPos(client,card.id,primary.id,pos);
+        return savedCard(client,card.id);
+      });
     },
     async updateCard(id: number, input: CardInput) {
-      return (await pool.query<CardRow>(`WITH saved AS (
-        UPDATE flashcards AS f SET topic_id=t.id,english=$3,vietnamese=$4,pronunciation=$5,part_of_speech=$6,
-          example=$7,example_vi=$8,level=$9,updated_at=CURRENT_TIMESTAMP FROM topics t WHERE f.id=$1 AND t.code=$2
-        RETURNING f.id,f.topic_id,f.english,f.vietnamese,f.pronunciation,f.part_of_speech,f.example,f.example_vi,
-          f.level,f.is_active,f.created_at,f.updated_at)
-        SELECT ${cardColumns} FROM saved f JOIN topics t ON t.id=f.topic_id`,
-      [id,input.topicCode,input.english,input.vietnamese,input.pronunciation,input.partOfSpeech,input.example,input.exampleVi,input.level])).rows[0];
+      const posCode=mappedPos(input.partOfSpeech);
+      return cardTransaction(async client=>{
+        // Card lock serializes cooperating writers, including concurrent Admin requests.
+        const card=(await client.query<{id:number;topic_id:number;part_of_speech:string|null}>(
+          'SELECT id,topic_id,part_of_speech FROM public.flashcards WHERE id=$1 FOR UPDATE',[id])).rows[0];
+        if (!card) return undefined;
+        const links=(await client.query<{topic_id:number;is_primary:boolean;code:string}>(
+          `SELECT ft.topic_id,ft.is_primary,t.code FROM public.flashcard_topics ft
+           JOIN public.topics t ON t.id=ft.topic_id WHERE ft.flashcard_id=$1
+           ORDER BY ft.topic_id FOR UPDATE OF ft`,[id])).rows;
+        const primaries=links.filter(l=>l.is_primary);
+        if (new Set(links.map(l=>l.topic_id)).size!==links.length || primaries.length!==1 || primaries[0]!.topic_id!==card.topic_id)
+          throw new AppError(409,'ADMIN_TOPIC_MEMBERSHIP_DRIFT','Primary topic membership is inconsistent; refresh and review');
+        const {primary,pos}=await cardTopics(client,input.topicCode,posCode);
+        await client.query(
+          `UPDATE public.flashcards SET topic_id=$2,english=$3,vietnamese=$4,pronunciation=$5,part_of_speech=$6,
+           example=$7,example_vi=$8,level=$9,updated_at=CURRENT_TIMESTAMP WHERE id=$1`,
+          [id,primary.id,input.english,input.vietnamese,input.pronunciation,input.partOfSpeech,input.example,input.exampleVi,input.level]);
+        // A2: remove A first, then promote B; never demote A into a secondary.
+        if (card.topic_id!==primary.id) await client.query(
+          'DELETE FROM public.flashcard_topics WHERE flashcard_id=$1 AND topic_id=$2',[id,card.topic_id]);
+        await client.query(
+          'INSERT INTO public.flashcard_topics(flashcard_id,topic_id,is_primary) VALUES($1,$2,TRUE) ON CONFLICT (flashcard_id,topic_id) DO UPDATE SET is_primary=TRUE',[id,primary.id]);
+        if (card.part_of_speech!==input.partOfSpeech) {
+          await client.query(
+            `DELETE FROM public.flashcard_topics ft USING public.topics t
+             WHERE ft.flashcard_id=$1 AND ft.topic_id=t.id AND NOT ft.is_primary
+               AND left(t.code,4)='POS_' AND ($2::text IS NULL OR t.code<>$2)`,[id,posCode]);
+          await addPos(client,id,primary.id,pos);
+        }
+        return savedCard(client,id);
+      });
     },
     async setCardStatus(id: number, isActive: boolean) {
       return (await pool.query<CardRow>(`WITH saved AS (

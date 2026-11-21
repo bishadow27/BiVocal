@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center_horizontal" android:focusable="true">
+    <TextView android:id="@+id/profileDayLabel" style="@style/PmText" android:textSize="11sp" android:gravity="center" android:importantForAccessibility="no" />
+    <FrameLayout android:id="@+id/profileDayCircle" android:layout_width="32dp" android:layout_height="32dp" android:layout_marginTop="8dp" android:background="@drawable/pm_day_neutral" android:importantForAccessibility="noHideDescendants"><ImageView android:id="@+id/profileDayIcon" android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" /></FrameLayout>
+</LinearLayout>

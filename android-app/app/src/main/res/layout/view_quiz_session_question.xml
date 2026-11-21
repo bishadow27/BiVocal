@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+ <TextView android:id="@+id/quizV2ProgressText" style="@style/QuizV2Text" android:layout_width="0dp" android:layout_weight="1" android:textColor="@color/quiz_v2_cobalt"/>
+ <TextView android:id="@+id/quizV2Timer" style="@style/QuizV2Text" android:layout_width="wrap_content" android:textSize="12sp" android:padding="8dp"/>
+ </LinearLayout>
+ <ProgressBar android:id="@+id/quizV2Progress" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="8dp" android:layout_marginTop="8dp" android:layout_marginBottom="16dp"/>
+ <TextView android:id="@+id/quizV2Kind" style="@style/QuizV2Text" android:textSize="12sp" android:layout_marginBottom="12dp"/>
+ <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="18dp" app:strokeColor="@color/quiz_v2_border" app:strokeWidth="1dp" app:cardBackgroundColor="@color/quiz_v2_surface" app:cardElevation="0dp">
+  <TextView android:id="@+id/quizV2Prompt" style="@style/QuizV2Heading" android:padding="24dp" android:textSize="24sp" android:layout_marginBottom="0dp" android:gravity="center"/>
+ </com.google.android.material.card.MaterialCardView>
+ <TextView android:id="@+id/quizV2Instruction" style="@style/QuizV2Text" android:textColor="@color/quiz_v2_secondary" android:layout_marginTop="16dp" android:layout_marginBottom="12dp"/>
+ <include layout="@layout/view_quiz_answer_grid"/>
+ <LinearLayout android:id="@+id/quizV2Matching" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:baselineAligned="false" android:visibility="gone"/>
+ <TextView android:id="@+id/quizV2Feedback" style="@style/QuizV2Text" android:layout_marginTop="16dp" android:padding="16dp" android:accessibilityLiveRegion="polite" android:visibility="gone"/>
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:baselineAligned="false" android:layout_marginTop="12dp">
+  <com.google.android.material.button.MaterialButton android:id="@+id/quizV2Previous" style="@style/QuizV2Button" android:layout_width="0dp" android:layout_weight="1" android:layout_marginEnd="6dp" android:text="@string/quiz_v2_previous"/>
+  <com.google.android.material.button.MaterialButton android:id="@+id/quizV2Next" style="@style/QuizV2Button" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="6dp" android:text="@string/quiz_v2_next"/>
+ </LinearLayout>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2PartialResult" style="@style/QuizV2Button" android:text="Xem tiến độ bài làm"/>
+</LinearLayout>

@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import type {QuizSessionRepository} from './modules/quiz/quiz-session.repository.js';
+import {createQuizSessionRouter} from './modules/quiz/quiz-session.route.js';
 import { createTopicService } from './modules/topics/topic.service.js';
 import type { TopicRepository } from './modules/topics/topic.repository.js';
 import { createTopicRouter } from './modules/topics/topic.route.js';
@@ -35,6 +37,8 @@ export interface Repositories {
   database: HealthRepository;
   progress?: ProgressRepository;
   quiz?: QuizRepository;
+  quizSessions?: QuizSessionRepository;
+  quizSessionsReady?: () => Promise<void>;
   gamification?: GamificationRepository;
   admin?: AdminRepository;
   vocabularyReview?: VocabularyReviewRepository;
@@ -59,6 +63,10 @@ export function createRoutes(repositories: Repositories, auth?: AuthModule): Rou
   if (repositories.progress) {
     if (!auth) throw new Error('Progress routes require authentication');
     router.use('/progress', createProgressRouter(createProgressService(repositories.progress), auth.tokens));
+  }
+  if (repositories.quizSessions) {
+    if (!auth) throw new Error('Quiz session routes require authentication');
+    router.use('/quiz', createQuizSessionRouter(repositories.quizSessions, auth.tokens, repositories.quizSessionsReady));
   }
   if (repositories.quiz) {
     if (!auth) throw new Error('Quiz routes require authentication');

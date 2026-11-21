@@ -25,9 +25,9 @@ import com.example.bivoca.data.api.RetrofitClient;
 import com.example.bivoca.data.api.TopicApi;
 import com.example.bivoca.data.model.Topic;
 import com.example.bivoca.ui.topics.*;
-import com.example.bivoca.ui.home.HomeActivity;
-import com.example.bivoca.ui.topics.TopicDetailActivity;
-import com.example.bivoca.ui.flashcard.FlashcardActivity;
+import com.example.bivoca.ui.home.TrangChuActivity;
+import com.example.bivoca.ui.topics.ChiTietChuDeActivity;
+import com.example.bivoca.ui.flashcard.TheTuVungActivity;
 import com.example.bivoca.ui.flashcard.FlashcardViewModel;
 import com.example.bivoca.utils.SessionManager;
 import com.google.android.material.chip.Chip;
@@ -53,7 +53,7 @@ public class TopicsUiTest {
                 config.fontScale=font;config.screenWidthDp=size[0];config.screenHeightDp=size[1];
                 config.orientation=size[0]>size[1]?Configuration.ORIENTATION_LANDSCAPE:Configuration.ORIENTATION_PORTRAIT;
                 Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home);
-                View root=LayoutInflater.from(themed).inflate(R.layout.activity_topics,null,false);
+                View root=LayoutInflater.from(themed).inflate(R.layout.activity_chu_de,null,false);
                 ((TextView)root.findViewById(R.id.textTopicsSubtitle)).setText("29 chủ đề · 7 nhóm loại từ");
                 ChipGroup chips=root.findViewById(R.id.topicsFilterChips);
                 ((Chip)root.findViewById(R.id.chipTopicsAll)).setText("Tất cả (36)");
@@ -85,7 +85,7 @@ public class TopicsUiTest {
         assertTrue("Existing login required",new SessionManager(context).isLoggedIn());
         List<Topic> catalog=RetrofitClient.getInstance().create(TopicApi.class).getTopics().execute().body();
         assertNotNull(catalog);assertFalse(catalog.isEmpty());
-        try(ActivityScenario<TopicsActivity> scenario=ActivityScenario.launch(TopicsActivity.class)) {
+        try(ActivityScenario<ChuDeActivity> scenario=ActivityScenario.launch(ChuDeActivity.class)) {
             awaitTopics(scenario,catalog.size());
             scenario.onActivity(activity->{
                 RecyclerView list=activity.findViewById(R.id.recyclerTopics);
@@ -131,26 +131,26 @@ public class TopicsUiTest {
             onView(withId(R.id.inputTopicSearch)).perform(replaceText("Food"),closeSoftKeyboard());
             awaitTopics(scenario,TopicFilter.apply(catalog,"Food").size());screenshot("topics-search.png");
             scenario.onActivity(activity->((RecyclerView)activity.findViewById(R.id.recyclerTopics)).findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.cardTopic).performClick());
-            Activity detail=awaitActivity(TopicDetailActivity.class);
-            assertEquals("FOOD",detail.getIntent().getStringExtra(TopicDetailActivity.EXTRA_TOPIC_CODE));
-            awaitDetailMetadata((TopicDetailActivity)detail);
+            Activity detail=awaitActivity(ChiTietChuDeActivity.class);
+            assertEquals("FOOD",detail.getIntent().getStringExtra(ChiTietChuDeActivity.EXTRA_TOPIC_CODE));
+            awaitDetailMetadata((ChiTietChuDeActivity)detail);
             InstrumentationRegistry.getInstrumentation().runOnMainSync(()->detail.findViewById(R.id.buttonTopicFlashcards).performClick());
-            Activity flashcard=awaitActivity(FlashcardActivity.class);
-            assertEquals("FOOD",flashcard.getIntent().getStringExtra(FlashcardActivity.EXTRA_TOPIC_CODE));
-            assertFalse(flashcard.getIntent().getBooleanExtra(FlashcardActivity.EXTRA_NEW_TODAY,false));
-            assertFalse(flashcard.getIntent().getBooleanExtra(FlashcardActivity.EXTRA_REVIEW_TODAY,false));
+            Activity flashcard=awaitActivity(TheTuVungActivity.class);
+            assertEquals("FOOD",flashcard.getIntent().getStringExtra(TheTuVungActivity.EXTRA_TOPIC_CODE));
+            assertFalse(flashcard.getIntent().getBooleanExtra(TheTuVungActivity.EXTRA_NEW_TODAY,false));
+            assertFalse(flashcard.getIntent().getBooleanExtra(TheTuVungActivity.EXTRA_REVIEW_TODAY,false));
             long deadline=SystemClock.uptimeMillis()+12000;boolean[] cardsReady={false};
             while(!cardsReady[0]&&SystemClock.uptimeMillis()<deadline) {
                 InstrumentationRegistry.getInstrumentation().runOnMainSync(()->{
-                    FlashcardViewModel vm=((FlashcardActivity)flashcard).getLearningViewModel();
+                    FlashcardViewModel vm=((TheTuVungActivity)flashcard).getLearningViewModel();
                     if(vm.getFlashcards().getValue()!=null&&!vm.getFlashcards().getValue().isEmpty()) {
                         assertTrue(vm.getFlashcards().getValue().size()<=100);cardsReady[0]=true;
                     }
                 });SystemClock.sleep(100);
             }
             assertTrue("Existing paginated Food cards did not load",cardsReady[0]);
-            InstrumentationRegistry.getInstrumentation().runOnMainSync(flashcard::finish);awaitActivity(TopicDetailActivity.class);
-            InstrumentationRegistry.getInstrumentation().runOnMainSync(detail::finish);awaitActivity(TopicsActivity.class);
+            InstrumentationRegistry.getInstrumentation().runOnMainSync(flashcard::finish);awaitActivity(ChiTietChuDeActivity.class);
+            InstrumentationRegistry.getInstrumentation().runOnMainSync(detail::finish);awaitActivity(ChuDeActivity.class);
             scenario.recreate();awaitTopics(scenario,TopicFilter.apply(catalog,"Food").size());
             scenario.onActivity(activity->assertEquals("Food",((TextView)activity.findViewById(R.id.inputTopicSearch)).getText().toString()));
             onView(withId(R.id.inputTopicSearch)).perform(replaceText("zzzz_m16_4_nomatch"),closeSoftKeyboard());
@@ -172,11 +172,11 @@ public class TopicsUiTest {
                 select(scenario,TopicFilter.Group.ALL);awaitTopics(scenario,catalog.size());
             } finally {scenario.onActivity(activity->activity.setRequestedOrientation(originalOrientation[0]));}
             awaitTopics(scenario,catalog.size());SystemClock.sleep(700);
-            onView(withId(R.id.homeTabHome)).perform(click());awaitActivity(HomeActivity.class);
-            onView(withId(R.id.buttonTopics)).perform(click());awaitActivity(TopicsActivity.class);
+            onView(withId(R.id.homeTabHome)).perform(click());awaitActivity(TrangChuActivity.class);
+            onView(withId(R.id.buttonTopics)).perform(click());awaitActivity(ChuDeActivity.class);
         }
     }
-    private static void awaitDetailMetadata(TopicDetailActivity activity){
+    private static void awaitDetailMetadata(ChiTietChuDeActivity activity){
         boolean[] ready={false};long deadline=SystemClock.uptimeMillis()+15000;
         do{InstrumentationRegistry.getInstrumentation().runOnMainSync(()->{
             TopicDetailViewModel vm=new ViewModelProvider(activity).get(TopicDetailViewModel.class);
@@ -187,7 +187,7 @@ public class TopicsUiTest {
         });if(!ready[0])SystemClock.sleep(100);}while(!ready[0]&&SystemClock.uptimeMillis()<deadline);
         assertTrue("Detail metadata did not load",ready[0]);
     }
-    private static void select(ActivityScenario<TopicsActivity> scenario,TopicFilter.Group filter){
+    private static void select(ActivityScenario<ChuDeActivity> scenario,TopicFilter.Group filter){
         scenario.onActivity(activity->{
             ChipGroup chips=activity.findViewById(R.id.topicsFilterChips);
             if(filter==TopicFilter.Group.ALL)activity.findViewById(R.id.chipTopicsAll).performClick();
@@ -196,7 +196,7 @@ public class TopicsUiTest {
             ((RecyclerView)activity.findViewById(R.id.recyclerTopicPartsOfSpeech)).scrollToPosition(0);
         });
     }
-    private static void awaitTopics(ActivityScenario<TopicsActivity> scenario,int size){
+    private static void awaitTopics(ActivityScenario<ChuDeActivity> scenario,int size){
         boolean[] ready={false};long deadline=SystemClock.uptimeMillis()+15000;
         do{scenario.onActivity(activity->{
             TopicsViewModel vm=new ViewModelProvider(activity).get(TopicsViewModel.class);
@@ -209,7 +209,7 @@ public class TopicsUiTest {
         });if(!ready[0])SystemClock.sleep(100);}while(!ready[0]&&SystemClock.uptimeMillis()<deadline);
         assertTrue("Real catalog/filter did not settle",ready[0]);InstrumentationRegistry.getInstrumentation().waitForIdleSync();SystemClock.sleep(250);
     }
-    private static void assertExpandedFilter(TopicsActivity activity,boolean pos){
+    private static void assertExpandedFilter(ChuDeActivity activity,boolean pos){
         View viewport=activity.findViewById(R.id.topicsContentViewport);
         ViewGroup sections=activity.findViewById(R.id.topicsSectionsContent);
         View frame=activity.findViewById(pos?R.id.topicsPosFrame:R.id.topicsSemanticFrame);

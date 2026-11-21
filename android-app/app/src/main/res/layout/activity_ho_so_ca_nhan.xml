@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/profileRoot" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:paddingTop="64dp" android:background="@color/pm_canvas">
+    <!-- Shared Back/title/avatar toolbar is supplied by NavigationDrawerController. -->
+    <TextView android:id="@+id/buttonProfileBack" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:importantForAccessibility="no" />
+    <TextView android:id="@+id/textProfileTitle" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:importantForAccessibility="no" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <ProgressBar android:id="@+id/progressProfile" android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="center" android:indeterminateTint="@color/pm_cobalt" android:contentDescription="@string/pm_loading" android:visibility="gone" />
+        <LinearLayout android:id="@+id/errorContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:orientation="vertical" android:gravity="center" android:padding="24dp" android:visibility="gone">
+            <TextView android:id="@+id/textProfileError" style="@style/PmText" android:layout_width="match_parent" android:gravity="center" android:accessibilityLiveRegion="polite" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/buttonProfileRetry" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp" android:layout_marginTop="12dp" android:text="@string/pm_retry" android:textColor="@color/pm_surface" app:backgroundTint="@color/pm_cobalt" app:cornerRadius="12dp" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/profileEmpty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:padding="24dp" android:orientation="vertical" android:visibility="gone">
+            <TextView style="@style/PmTitle" android:layout_width="match_parent" android:gravity="center" android:text="@string/pm_empty" />
+            <TextView style="@style/PmText" android:layout_width="match_parent" android:gravity="center" android:layout_marginTop="8dp" android:text="@string/pm_empty_body" />
+        </LinearLayout>
+        <ScrollView android:id="@+id/scrollProfileContent" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:clipToPadding="false" android:visibility="gone">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="12dp" android:paddingEnd="16dp" android:paddingBottom="32dp">
+                <com.google.android.material.card.MaterialCardView android:id="@+id/profileHeaderCard" style="@style/PmCard" app:cardBackgroundColor="@color/pm_cobalt_soft" app:strokeColor="@color/pm_cobalt_soft">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal" android:padding="16dp">
+                        <FrameLayout android:layout_width="96dp" android:layout_height="96dp">
+                            <ImageView android:id="@+id/imageProfileAvatar" android:layout_width="80dp" android:layout_height="80dp" android:layout_gravity="top|center_horizontal" android:background="@drawable/pm_avatar" android:clipToOutline="true" android:scaleType="centerCrop" android:contentDescription="Ảnh đại diện" android:visibility="gone" />
+                            <TextView android:id="@+id/textAvatarLetter" style="@style/PmTitle" android:layout_width="80dp" android:layout_height="80dp" android:layout_gravity="top|center_horizontal" android:background="@drawable/pm_avatar" android:gravity="center" android:textColor="@color/pm_surface" android:textSize="30sp" android:importantForAccessibility="no" />
+                            <com.google.android.material.button.MaterialButton android:id="@+id/buttonChooseAvatar" android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="bottom|end" android:minHeight="0dp" android:minWidth="0dp" android:padding="0dp" android:insetTop="0dp" android:insetBottom="0dp" android:contentDescription="@string/pm_avatar_change" app:cornerRadius="24dp" app:icon="@drawable/pm_ic_camera" app:iconSize="20dp" app:iconPadding="0dp" app:iconGravity="textStart" app:iconTint="@color/pm_surface" app:backgroundTint="@color/pm_cobalt" app:strokeColor="@color/pm_cobalt_soft" app:strokeWidth="3dp" />
+                        </FrameLayout>
+                        <TextView android:id="@+id/textFullName" style="@style/PmTitle" android:layout_width="match_parent" android:layout_marginTop="8dp" android:gravity="center" android:textSize="21sp" android:breakStrategy="balanced" />
+                        <TextView android:id="@+id/textUsername" style="@style/PmText" android:layout_width="match_parent" android:layout_marginTop="4dp" android:gravity="center" />
+                        <LinearLayout android:id="@+id/profileLevelContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="16dp" android:visibility="gone">
+                            <LinearLayout android:id="@+id/profileLevelLabels" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+                                <TextView android:id="@+id/textLevelBadge" style="@style/PmText" android:layout_width="0dp" android:layout_weight="1" android:textColor="@color/pm_cobalt" android:fontFamily="@font/be_vietnam_pro_semibold" />
+                                <TextView android:id="@+id/textProfileLevelXp" style="@style/PmText" android:textSize="12sp" android:textColor="@color/pm_cobalt" />
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/profileLevelProgress" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="8dp" android:layout_marginTop="8dp" android:progressTint="@color/pm_cobalt" android:progressBackgroundTint="@color/pm_surface" android:importantForAccessibility="no" />
+                        </LinearLayout>
+                        <com.google.android.material.button.MaterialButton android:id="@+id/buttonResetAvatar" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/pm_avatar_reset" android:textColor="@color/pm_cobalt" android:visibility="gone" />
+                        <LinearLayout android:id="@+id/avatarPreviewContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:background="@drawable/pm_preview" android:gravity="center_horizontal" android:orientation="vertical" android:padding="12dp" android:visibility="gone">
+                            <ImageView android:id="@+id/imageAvatarPreview" android:layout_width="112dp" android:layout_height="112dp" android:background="@drawable/pm_avatar" android:clipToOutline="true" android:contentDescription="Xem trước ảnh đại diện" android:scaleType="centerCrop" />
+                            <TextView style="@style/PmText" android:layout_width="match_parent" android:gravity="center" android:layout_marginTop="8dp" android:textSize="12sp" android:text="@string/pm_avatar_local" />
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                                <com.google.android.material.button.MaterialButton android:id="@+id/buttonCancelAvatar" style="@style/Widget.Material3.Button.TextButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:minHeight="48dp" android:text="Hủy" android:textColor="@color/pm_cobalt" />
+                                <com.google.android.material.button.MaterialButton android:id="@+id/buttonConfirmAvatar" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:minHeight="48dp" android:text="Lưu ảnh" app:cornerRadius="12dp" app:backgroundTint="@color/pm_cobalt" android:textColor="@color/pm_surface" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout android:id="@+id/profilePartialError" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp" android:layout_marginTop="12dp" android:background="@drawable/pm_preview" android:visibility="gone">
+                    <TextView android:id="@+id/textProfilePartialError" style="@style/PmText" android:layout_width="match_parent" android:accessibilityLiveRegion="polite" />
+                    <com.google.android.material.button.MaterialButton android:id="@+id/buttonProfileRetrySections" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/pm_retry" android:textColor="@color/pm_cobalt" />
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:layout_marginBottom="12dp" android:gravity="center_vertical">
+                    <TextView style="@style/PmTitle" android:layout_width="0dp" android:layout_weight="1" android:text="@string/pm_stats" />
+                    <ProgressBar android:id="@+id/progressProfileStats" android:layout_width="24dp" android:layout_height="24dp" android:indeterminateTint="@color/pm_cobalt" android:contentDescription="@string/pm_stats_loading" android:visibility="gone" />
+                </LinearLayout>
+                <LinearLayout android:id="@+id/profileStatsGrid" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+                        <com.google.android.material.card.MaterialCardView style="@style/PmMetricCard" android:layout_marginEnd="4dp"><LinearLayout android:id="@+id/profileXpContent" style="@style/PmMetricContent"><ImageView style="@style/PmMetricIcon" android:background="@drawable/pm_icon_blue" android:src="@drawable/pm_ic_xp"/><LinearLayout style="@style/PmMetricCopy"><TextView android:id="@+id/textTotalXp" style="@style/PmMetricValue"/><TextView style="@style/PmMetricLabel" android:text="@string/pm_xp"/></LinearLayout></LinearLayout></com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.card.MaterialCardView style="@style/PmMetricCard" android:layout_marginStart="4dp"><LinearLayout android:id="@+id/profileStreakContent" style="@style/PmMetricContent"><ImageView style="@style/PmMetricIcon" android:background="@drawable/pm_icon_coral" android:src="@drawable/pm_ic_flame"/><LinearLayout style="@style/PmMetricCopy"><TextView android:id="@+id/textCurrentStreak" style="@style/PmMetricValue"/><TextView style="@style/PmMetricLabel" android:text="@string/pm_streak"/></LinearLayout></LinearLayout></com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:baselineAligned="false">
+                        <com.google.android.material.card.MaterialCardView style="@style/PmMetricCard" android:layout_marginEnd="4dp"><LinearLayout android:id="@+id/profileBestContent" style="@style/PmMetricContent"><ImageView style="@style/PmMetricIcon" android:background="@drawable/pm_icon_mint" android:src="@drawable/pm_ic_trophy"/><LinearLayout style="@style/PmMetricCopy"><TextView android:id="@+id/textLongestStreak" style="@style/PmMetricValue"/><TextView style="@style/PmMetricLabel" android:text="@string/pm_best"/></LinearLayout></LinearLayout></com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.card.MaterialCardView style="@style/PmMetricCard" android:layout_marginStart="4dp"><LinearLayout android:id="@+id/profileRankContent" style="@style/PmMetricContent"><ImageView style="@style/PmMetricIcon" android:background="@drawable/pm_icon_lavender" android:src="@drawable/pm_ic_rank"/><LinearLayout style="@style/PmMetricCopy"><TextView android:id="@+id/textProfileRank" style="@style/PmMetricValue" android:textColor="@color/pm_cobalt"/><TextView style="@style/PmMetricLabel" android:text="@string/pm_rank"/></LinearLayout></LinearLayout></com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView android:id="@+id/textProfileRankHint" style="@style/PmText" android:layout_width="match_parent" android:textSize="12sp" android:layout_marginTop="8dp" android:visibility="gone" />
+
+                <LinearLayout android:id="@+id/profileWeekSection" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="20dp" android:visibility="gone">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+                        <TextView style="@style/PmTitle" android:layout_width="0dp" android:layout_weight="1" android:text="@string/pm_week" />
+                        <ProgressBar android:id="@+id/progressProfileWeek" android:layout_width="24dp" android:layout_height="24dp" android:indeterminateTint="@color/pm_cobalt" android:contentDescription="@string/pm_week_loading" android:visibility="gone" />
+                    </LinearLayout>
+                    <TextView android:id="@+id/textProfileGoal" style="@style/PmText" android:layout_width="match_parent" android:layout_marginTop="4dp" android:layout_marginBottom="12dp" android:textSize="12sp" />
+                    <com.google.android.material.card.MaterialCardView android:id="@+id/profileWeekCard" style="@style/PmCard" android:visibility="gone"><LinearLayout android:id="@+id/profileWeekDays" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="12dp" /></com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+    <!-- Legacy binding hooks stay GONE; account actions are accessed through Drawer/Settings. -->
+    <TextView android:id="@+id/textEmail" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:importantForAccessibility="no" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/buttonLinkGoogle" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:importantForAccessibility="no" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/buttonProfileLogout" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" android:importantForAccessibility="no" />
+</LinearLayout>

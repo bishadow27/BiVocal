@@ -25,9 +25,9 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
-import com.example.bivoca.ui.auth.ForgotPasswordActivity;
-import com.example.bivoca.ui.auth.LoginActivity;
-import com.example.bivoca.ui.auth.RegisterActivity;
+import com.example.bivoca.ui.auth.QuenMatKhauActivity;
+import com.example.bivoca.ui.auth.DangNhapActivity;
+import com.example.bivoca.ui.auth.DangKyActivity;
 
 import org.junit.Assume;
 import org.junit.Test;
@@ -50,11 +50,11 @@ public class AuthScreensUiTest {
     @Test public void normalFontTallViewportShowsAuthWithoutScrolling() {
         Configuration config = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources().getConfiguration();
         Assume.assumeTrue(config.screenHeightDp >= 780 && config.fontScale <= 1.0f);
-        try (ActivityScenario<RegisterActivity> scenario = ActivityScenario.launch(RegisterActivity.class)) {
+        try (ActivityScenario<DangKyActivity> scenario = ActivityScenario.launch(DangKyActivity.class)) {
             awaitScreen(R.id.registerRoot);
             scenario.onActivity(activity -> assertFitsViewport((ScrollView) activity.findViewById(R.id.registerScroll)));
         }
-        try (ActivityScenario<ForgotPasswordActivity> scenario = ActivityScenario.launch(ForgotPasswordActivity.class)) {
+        try (ActivityScenario<QuenMatKhauActivity> scenario = ActivityScenario.launch(QuenMatKhauActivity.class)) {
             awaitScreen(R.id.forgotRoot);
             scenario.onActivity(activity -> assertFitsViewport((ScrollView) activity.findViewById(R.id.forgotScroll)));
         }
@@ -104,7 +104,7 @@ public class AuthScreensUiTest {
     }
 
     @Test public void registerValidationToggleAndRecreation() {
-        try (ActivityScenario<RegisterActivity> scenario = ActivityScenario.launch(RegisterActivity.class)) {
+        try (ActivityScenario<DangKyActivity> scenario = ActivityScenario.launch(DangKyActivity.class)) {
             scenario.onActivity(activity -> disableTestAutofill(activity.findViewById(R.id.registerRoot)));
             onView(withId(R.id.editFullName)).perform(scrollTo(), replaceText("UI Sample"));
             onView(withId(R.id.editUsername)).perform(scrollTo(), replaceText("?"));
@@ -151,7 +151,7 @@ public class AuthScreensUiTest {
     }
 
     @Test public void forgotRejectsEmptyAndMalformedEmailLocally() {
-        try (ActivityScenario<ForgotPasswordActivity> scenario = ActivityScenario.launch(ForgotPasswordActivity.class)) {
+        try (ActivityScenario<QuenMatKhauActivity> scenario = ActivityScenario.launch(QuenMatKhauActivity.class)) {
             scenario.onActivity(activity -> disableTestAutofill(activity.findViewById(R.id.forgotRoot)));
             onView(withId(R.id.forgotButtonSubmit)).perform(scrollTo(), click());
             onView(withId(R.id.forgotFeedback)).check(matches(withText(R.string.forgot_email_required)));
@@ -170,7 +170,7 @@ public class AuthScreensUiTest {
     }
 
     @Test public void loginNavigationUsesExistingActivities() {
-        try (ActivityScenario<LoginActivity> scenario = ActivityScenario.launch(LoginActivity.class)) {
+        try (ActivityScenario<DangNhapActivity> scenario = ActivityScenario.launch(DangNhapActivity.class)) {
             awaitScreen(R.id.loginRoot);
             onView(withId(R.id.textRegister)).perform(scrollTo(), click());
             awaitScreen(R.id.registerRoot);
@@ -199,10 +199,10 @@ public class AuthScreensUiTest {
                     configuration.screenHeightDp = size[1];
                     Context themed = new ContextThemeWrapper(base.createConfigurationContext(configuration),
                             R.style.Theme_BiVoca_Login_Reference);
-                    for (int layout : new int[]{R.layout.activity_register, R.layout.activity_forgot_password}) {
+                    for (int layout : new int[]{R.layout.activity_dang_ky, R.layout.activity_quen_mat_khau}) {
                         View root = LayoutInflater.from(themed).inflate(layout, null);
                         TextView title = root.findViewById(R.id.authScreenTitle);
-                        title.setText(layout == R.layout.activity_register
+                        title.setText(layout == R.layout.activity_dang_ky
                                 ? R.string.auth_register_title : R.string.auth_recovery_title);
                         float density = themed.getResources().getDisplayMetrics().density;
                         int width = Math.round(size[0] * density);
@@ -223,9 +223,9 @@ public class AuthScreensUiTest {
                         assertTrue(label + " slogan height clipped",
                                 slogan.getLayout().getHeight() <= slogan.getHeight()
                                         - slogan.getCompoundPaddingTop() - slogan.getCompoundPaddingBottom());
-                        ScrollView scroll = root.findViewById(layout == R.layout.activity_register
+                        ScrollView scroll = root.findViewById(layout == R.layout.activity_dang_ky
                                 ? R.id.registerScroll : R.id.forgotScroll);
-                        View footer = root.findViewById(layout == R.layout.activity_register
+                        View footer = root.findViewById(layout == R.layout.activity_dang_ky
                                 ? R.id.textLogin : R.id.forgotBackLogin);
                         scroll.scrollTo(0, scroll.getChildAt(0).getHeight());
                         assertTrue(label + " footer cannot be reached",
@@ -237,7 +237,7 @@ public class AuthScreensUiTest {
     }
 
     @Test public void registerCanScrollWithRealKeyboard() {
-        try (ActivityScenario<RegisterActivity> scenario = ActivityScenario.launch(RegisterActivity.class)) {
+        try (ActivityScenario<DangKyActivity> scenario = ActivityScenario.launch(DangKyActivity.class)) {
             scenario.onActivity(activity -> disableTestAutofill(activity.findViewById(R.id.registerRoot)));
             onView(withId(R.id.editEmail)).perform(scrollTo(), click());
             scenario.onActivity(activity -> ((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE))

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_canvas">#FFFBF5</color>
+    <color name="brand_surface">#FFFFFF</color>
+    <color name="brand_teal">#0F8B8D</color>
+    <color name="brand_teal_ink">#087477</color>
+    <color name="brand_teal_soft">#E6F3F1</color>
+    <color name="brand_cta">#C96A12</color>
+    <color name="brand_on_cta">#071A1B</color>
+    <color name="brand_logo_accent">#F59E0B</color>
+    <color name="brand_ink">#163B43</color>
+    <color name="brand_secondary">#50686D</color>
+    <color name="brand_border">#DCE7E4</color>
+    <color name="brand_on_teal">#FFFFFF</color>
+</resources>

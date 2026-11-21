@@ -9,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.bivoca.R;
-import com.example.bivoca.ui.home.HomeActivity;
-import com.example.bivoca.ui.topics.TopicsActivity;
-import com.example.bivoca.ui.flashcard.FlashcardActivity;
-import com.example.bivoca.ui.quiz.QuizActivity;
+import com.example.bivoca.ui.home.TrangChuActivity;
+import com.example.bivoca.ui.topics.ChuDeActivity;
+import com.example.bivoca.ui.flashcard.TheTuVungActivity;
+import com.example.bivoca.ui.quiz.TracNghiemActivity;
 
 /** One shared four-tab view and guarded, retained Activity routing. */
 public final class LearningBottomNavigation {
@@ -51,10 +51,10 @@ public final class LearningBottomNavigation {
     public static void navigate(AppCompatActivity activity, NavigationRoute destination) {
         Intent intent;
         switch(destination) {
-            case HOME: intent=new Intent(activity,HomeActivity.class);break;
-            case TOPICS: intent=new Intent(activity,TopicsActivity.class);break;
-            case REVIEW_TODAY: intent=new Intent(activity,FlashcardActivity.class).putExtra(FlashcardActivity.EXTRA_REVIEW_TODAY,true);break;
-            case QUIZ: intent=new Intent(activity,QuizActivity.class);break;
+            case HOME: intent=new Intent(activity,TrangChuActivity.class);break;
+            case TOPICS: intent=new Intent(activity,ChuDeActivity.class);break;
+            case REVIEW_TODAY: intent=new Intent(activity,TheTuVungActivity.class).putExtra(TheTuVungActivity.EXTRA_REVIEW_TODAY,true);break;
+            case QUIZ: intent=new Intent(activity,TracNghiemActivity.class);break;
             default: throw new IllegalArgumentException("Not a learning tab");
         }
         open(activity,intent);

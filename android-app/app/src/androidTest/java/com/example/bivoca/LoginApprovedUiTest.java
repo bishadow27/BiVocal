@@ -23,7 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
-import com.example.bivoca.ui.auth.LoginActivity;
+import com.example.bivoca.ui.auth.DangNhapActivity;
 import com.example.bivoca.utils.SessionManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +47,7 @@ public class LoginApprovedUiTest {
                 Configuration config=new Configuration(base.getResources().getConfiguration());
                 config.fontScale=scale;config.screenWidthDp=size[0];config.screenHeightDp=size[1];
                 Context context=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Login_Approved);
-                View root=LayoutInflater.from(context).inflate(R.layout.activity_login,null,false);
+                View root=LayoutInflater.from(context).inflate(R.layout.activity_dang_nhap,null,false);
                 if(error) {
                     TextView feedback=root.findViewById(R.id.textError);
                     feedback.setVisibility(View.VISIBLE);
@@ -78,7 +78,7 @@ public class LoginApprovedUiTest {
     @Test public void actualLoginValidationVisibilityRecreationAndKeyboard() throws Exception {
         Context context=InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertFalse("User must log out directly before Login runtime test",new SessionManager(context).isLoggedIn());
-        try(ActivityScenario<LoginActivity> scenario=ActivityScenario.launch(LoginActivity.class)) {
+        try(ActivityScenario<DangNhapActivity> scenario=ActivityScenario.launch(DangNhapActivity.class)) {
             awaitLayout(scenario);
             scenario.onActivity(activity -> {
                 if(Build.VERSION.SDK_INT>=26) {
@@ -141,7 +141,7 @@ public class LoginApprovedUiTest {
         }
     }
 
-    private static void awaitLayout(ActivityScenario<LoginActivity> scenario) {
+    private static void awaitLayout(ActivityScenario<DangNhapActivity> scenario) {
         boolean[] ready={false};long deadline=SystemClock.uptimeMillis()+7000;
         do {
             InstrumentationRegistry.getInstrumentation().waitForIdleSync();

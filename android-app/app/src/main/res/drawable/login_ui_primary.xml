@@ -10,7 +10,7 @@
             </item>
             <item>
                 <shape>
-                    <solid android:color="@color/bivocal_light_cobalt"/>
+                    <solid android:color="@color/brand_cta"/>
                     <corners android:radius="@dimen/bivocal_button_radius" />
                 </shape>
             </item>

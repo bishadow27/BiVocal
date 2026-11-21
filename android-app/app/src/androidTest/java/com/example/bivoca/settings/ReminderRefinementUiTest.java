@@ -27,10 +27,10 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 import com.example.bivoca.R;
-import com.example.bivoca.ui.settings.SettingsActivity;
-import com.example.bivoca.ui.settings.SettingsDetailActivity;
+import com.example.bivoca.ui.settings.CaiDatActivity;
+import com.example.bivoca.ui.settings.ChiTietCaiDatActivity;
 import com.example.bivoca.ui.settings.ReminderViewModel;
-import com.example.bivoca.ui.profile.ProfileActivity;
+import com.example.bivoca.ui.profile.HoSoCaNhanActivity;
 import com.example.bivoca.utils.SessionManager;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import org.junit.Test;
@@ -47,14 +47,14 @@ public class ReminderRefinementUiTest {
     private static Context context(){return InstrumentationRegistry.getInstrumentation().getTargetContext();}
     private static void main(Runnable work){InstrumentationRegistry.getInstrumentation().runOnMainSync(work);}
     private static void settle(){InstrumentationRegistry.getInstrumentation().waitForIdleSync();SystemClock.sleep(450);}
-    private static ActivityScenario<SettingsDetailActivity> reminder(){return ActivityScenario.launch(new Intent(context(),SettingsDetailActivity.class).putExtra(SettingsDetailActivity.EXTRA_SECTION,SettingsDetailActivity.SECTION_REMINDER));}
-    private static ReminderViewModel model(SettingsDetailActivity a){return new androidx.lifecycle.ViewModelProvider(a).get(ReminderViewModel.class);}
-    private static void draft(SettingsDetailActivity a,boolean enabled,int h,int m,int mask){
+    private static ActivityScenario<ChiTietCaiDatActivity> reminder(){return ActivityScenario.launch(new Intent(context(),ChiTietCaiDatActivity.class).putExtra(ChiTietCaiDatActivity.EXTRA_SECTION,ChiTietCaiDatActivity.SECTION_REMINDER));}
+    private static ReminderViewModel model(ChiTietCaiDatActivity a){return new androidx.lifecycle.ViewModelProvider(a).get(ReminderViewModel.class);}
+    private static void draft(ChiTietCaiDatActivity a,boolean enabled,int h,int m,int mask){
         ((MaterialSwitch)a.findViewById(R.id.switchReminder)).setChecked(enabled);
         TimePicker picker=a.findViewById(R.id.pickerReminderTime);picker.setHour(h);picker.setMinute(m);
         for(int i=0;i<IDS.length;i++)((CheckBox)a.findViewById(IDS[i])).setChecked(SettingsPreferenceManager.isDaySelected(mask,i+1));
     }
-    private static void awaitSaved(ActivityScenario<SettingsDetailActivity> scenario){
+    private static void awaitSaved(ActivityScenario<ChiTietCaiDatActivity> scenario){
         long until=SystemClock.uptimeMillis()+8000;boolean[] complete={false};
         do{scenario.onActivity(a->complete[0]=!model(a).current().saving);if(complete[0])break;SystemClock.sleep(50);}while(SystemClock.uptimeMillis()<until);
         scenario.onActivity(a->{assertEquals(ReminderViewModel.Feedback.SAVED,model(a).current().feedback);assertFalse(model(a).current().dirty());});
@@ -62,7 +62,7 @@ public class ReminderRefinementUiTest {
     @Test public void explicitSaveValidatesPersistsRecreatesAndRestoresAlarms() throws Exception {
         assertEquals("A user-selected signed-in account is required",true,new SessionManager(context()).getUserId()>0);
         assertEquals(PackageManager.PERMISSION_GRANTED,context().checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS));
-        try(ReminderBackup backup=new ReminderBackup();ActivityScenario<SettingsDetailActivity> scenario=reminder()) {
+        try(ReminderBackup backup=new ReminderBackup();ActivityScenario<ChiTietCaiDatActivity> scenario=reminder()) {
             ReminderSchedule before=new SettingsPreferenceManager(context()).readReminderSchedule();
             scenario.onActivity(a->{draft(a,true,21,37,42);assertEquals(before,new SettingsPreferenceManager(a).readReminderSchedule());assertTrue(model(a).current().dirty());});
             shot("reminder-before-save.png");
@@ -76,11 +76,11 @@ public class ReminderRefinementUiTest {
             scenario.onActivity(a->{model(a).discard();draft(a,false,21,38,0);a.findViewById(R.id.buttonSaveReminder).performClick();});
             awaitSaved(scenario);assertAlarms(0);
             scenario.close();
-            try(ActivityScenario<SettingsDetailActivity> reopened=reminder()) {reopened.onActivity(a->{assertEquals(new ReminderSchedule(false,21,38,0),model(a).current().draft);assertFalse(model(a).current().dirty());});}
+            try(ActivityScenario<ChiTietCaiDatActivity> reopened=reminder()) {reopened.onActivity(a->{assertEquals(new ReminderSchedule(false,21,38,0),model(a).current().draft);assertFalse(model(a).current().dirty());});}
         }
     }
     @Test public void unsavedBackAndLogoutCanBeCancelledAndPermissionDenialDoesNotPersist() {
-        try(ActivityScenario<SettingsDetailActivity> scenario=reminder()) {
+        try(ActivityScenario<ChiTietCaiDatActivity> scenario=reminder()) {
             ReminderSchedule before=new SettingsPreferenceManager(context()).readReminderSchedule();int owner=new SessionManager(context()).getUserId();
             scenario.onActivity(a->{draft(a,!before.enabled,(before.hour+1)%24,before.minute,127);a.getOnBackPressedDispatcher().onBackPressed();});settle();
             clickDialog("Ở lại");scenario.onActivity(a->assertTrue(model(a).current().dirty()));
@@ -96,7 +96,7 @@ public class ReminderRefinementUiTest {
         }
     }
     @Test public void drawerHasOnlyThreeRowsAndSettingsHasFourCardsWithWorkingRoutes() throws Exception {
-        try(ActivityScenario<SettingsActivity> scenario=ActivityScenario.launch(SettingsActivity.class)) {
+        try(ActivityScenario<CaiDatActivity> scenario=ActivityScenario.launch(CaiDatActivity.class)) {
             scenario.onActivity(a->{assertNotNull(a.findViewById(R.id.settingsStudy));assertNotNull(a.findViewById(R.id.settingsAudio));assertNotNull(a.findViewById(R.id.settingsReminder));assertNotNull(a.findViewById(R.id.settingsAbout));
                 assertEquals(0,countText(a.findViewById(android.R.id.content),"CÀI ĐẶT"));assertEquals(0,countText(a.findViewById(android.R.id.content),"Giao diện"));a.findViewById(R.id.buttonNavigationAvatar).performClick();});settle();
             scenario.onActivity(a->{View panel=a.findViewById(R.id.navigationDrawerPanel);assertNotNull(panel.findViewById(R.id.navProfile));assertNotNull(panel.findViewById(R.id.navSettings));assertNotNull(panel.findViewById(R.id.navLogout));
@@ -105,16 +105,16 @@ public class ReminderRefinementUiTest {
             shot("drawer.png");scenario.onActivity(a->a.findViewById(R.id.buttonNavClose).performClick());settle();
             scenario.onActivity(a->assertFalse(((DrawerLayout)a.findViewById(R.id.navigationDrawerLayout)).isDrawerOpen(GravityCompat.END)));shot("settings.png");
             scenario.onActivity(a->a.findViewById(R.id.buttonNavigationAvatar).performClick());settle();scenario.onActivity(a->a.findViewById(R.id.navProfile).performClick());
-            Activity profile=awaitActivity(ProfileActivity.class);main(()->profile.findViewById(R.id.buttonNavigationAvatar).performClick());settle();
-            main(()->profile.findViewById(R.id.navSettings).performClick());awaitActivity(SettingsActivity.class);
+            Activity profile=awaitActivity(HoSoCaNhanActivity.class);main(()->profile.findViewById(R.id.buttonNavigationAvatar).performClick());settle();
+            main(()->profile.findViewById(R.id.navSettings).performClick());awaitActivity(CaiDatActivity.class);
         }
     }
     @Test public void responsiveControlsScrollAndVietnameseGlyphsRemainReadable() throws Exception {
-        try(ActivityScenario<SettingsActivity> scenario=ActivityScenario.launch(SettingsActivity.class)) {
+        try(ActivityScenario<CaiDatActivity> scenario=ActivityScenario.launch(CaiDatActivity.class)) {
             orient(scenario);
             shot("settings-responsive.png");scenario.onActivity(a->a.findViewById(R.id.buttonNavigationAvatar).performClick());settle();shot("drawer-responsive.png");
         }
-        try(ActivityScenario<SettingsDetailActivity> scenario=reminder()) {
+        try(ActivityScenario<ChiTietCaiDatActivity> scenario=reminder()) {
             orient(scenario);
             shot("reminder-top.png");
             scenario.onActivity(a->{View root=a.findViewById(R.id.groupReminder);ScrollView scroll=scrollParent(root);scroll.fullScroll(View.FOCUS_DOWN);});settle();
@@ -123,7 +123,7 @@ public class ReminderRefinementUiTest {
             shot("reminder-days.png");
         }
         if(InstrumentationRegistry.getArguments().getString("glyphs","false").equals("true")) {
-            try(ActivityScenario<SettingsActivity> scenario=ActivityScenario.launch(SettingsActivity.class)) {
+            try(ActivityScenario<CaiDatActivity> scenario=ActivityScenario.launch(CaiDatActivity.class)) {
                 for(int font:new int[]{R.font.be_vietnam_pro_regular,R.font.be_vietnam_pro_medium,R.font.be_vietnam_pro_semibold,R.font.be_vietnam_pro_bold,R.font.be_vietnam_pro_extrabold}) {
                     scenario.onActivity(a->{ScrollView scroll=new ScrollView(a);LinearLayout list=new LinearLayout(a);list.setOrientation(LinearLayout.VERTICAL);int p=(int)(20*a.getResources().getDisplayMetrics().density);list.setPadding(p,p*3,p,p*2);list.setBackgroundColor(a.getColor(R.color.bivocal_light_surface));
                         for(String text:new String[]{"KIỂM TRA FONT • CHỈ DÙNG TRONG TEST • "+a.getResources().getResourceEntryName(font).replace("be_vietnam_pro_",""),"Xin chào, bishadow27","Hồ sơ cá nhân","Cài đặt","Đăng xuất","Nhắc tôi học từ vựng","Thời gian nhắc","Ngày nhắc","Lưu giờ nhắc","Trắc nghiệm","Thuần thục"}) {TextView v=new TextView(a);v.setText(text);v.setTextSize(16);v.setTextColor(a.getColor(R.color.bivocal_light_text));v.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(a,font));v.setPadding(0,8,0,8);list.addView(v);}scroll.addView(list);a.setContentView(scroll);});shot("glyphs-"+font+".png");
@@ -152,12 +152,12 @@ public class ReminderRefinementUiTest {
                 out.writeInt(owner);for(int i=0;i<keys.length;i++){out.writeBoolean(prefs.contains(keys[i]));out.writeInt(i==0?(prefs.getBoolean(keys[i],false)?1:0):prefs.getInt(keys[i],0));}
             }
             boolean passed=false;
-            try(ActivityScenario<SettingsDetailActivity> scenario=reminder()) {
+            try(ActivityScenario<ChiTietCaiDatActivity> scenario=reminder()) {
                 scenario.onActivity(a->{draft(a,false,22,41,42);a.findViewById(R.id.buttonSaveReminder).performClick();});awaitSaved(scenario);passed=true;
             } finally {if(!passed)restoreDurability(file,prefs,owner,keys);}
         } else if(stage.equals("read")) {
             assertTrue(file.isFile());
-            try(ActivityScenario<SettingsDetailActivity> scenario=reminder()) {
+            try(ActivityScenario<ChiTietCaiDatActivity> scenario=reminder()) {
                 scenario.onActivity(a->{assertEquals(new ReminderSchedule(false,22,41,42),new SettingsPreferenceManager(a).readReminderSchedule());assertEquals(new ReminderSchedule(false,22,41,42),model(a).current().draft);});
             } finally {restoreDurability(file,prefs,owner,keys);}
         } else throw new AssertionError("Unknown durability stage");

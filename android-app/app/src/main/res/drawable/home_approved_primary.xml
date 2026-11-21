@@ -1,4 +1,4 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/home_approved_blue_dark"/>
+    <solid android:color="@color/brand_cta"/>
     <corners android:radius="@dimen/bivocal_button_radius"/>
 </shape>

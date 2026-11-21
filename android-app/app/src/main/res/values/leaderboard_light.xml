@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lb_light_canvas">@color/brand_canvas</color>
+    <color name="lb_light_surface">#FFFFFF</color>
+    <color name="lb_light_text">@color/brand_ink</color>
+    <color name="lb_light_secondary">@color/brand_secondary</color>
+    <color name="lb_light_cobalt">@color/brand_teal_ink</color>
+    <color name="lb_light_cobalt_tint">#EDF2FF</color>
+    <color name="lb_light_border">#E3E7EC</color>
+    <color name="lb_light_gold">#F8E5AE</color>
+    <color name="lb_light_gold_ink">#7A5208</color>
+    <color name="lb_light_silver">#E9EEF4</color>
+    <color name="lb_light_silver_ink">#536277</color>
+    <color name="lb_light_bronze">#F4E2D4</color>
+    <color name="lb_light_bronze_ink">#8B5533</color>
+    <color name="lb_light_violet_ink">#7554AB</color>
+    <color name="lb_light_green_ink">#287454</color>
+    <color name="lb_light_coral_ink">#A15B3F</color>
+    <color name="lb_light_error">#AE3949</color>
+    <string name="lb_light_leaders">Dẫn đầu bảng</string>
+    <string name="lb_light_accumulated">Tổng XP tích lũy</string>
+    <string name="lb_light_all_rankings">Toàn bảng</string>
+    <string name="lb_light_total_xp">Tổng XP</string>
+    <string name="lb_light_all">Tổng</string>
+    <string name="lb_light_month">Tháng</string>
+    <string name="lb_light_test">Điểm K.Tra</string>
+    <string name="lb_light_history">Lịch sử điểm</string>
+    <string name="lb_light_help">Quy tắc xếp hạng</string>
+    <string name="lb_light_you">Tài khoản của bạn</string>
+    <string name="lb_light_xp">XP</string>
+    <string name="lb_light_loading">Đang tải bảng xếp hạng</string>
+    <string name="lb_light_empty_title">Chưa có bảng xếp hạng</string>
+    <string name="lb_light_empty_body">Danh sách sẽ xuất hiện khi có tài khoản đạt XP.</string>
+    <string name="lb_light_retry">Thử lại</string>
+    <style name="LbLightText">
+        <item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/lb_light_text</item><item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro_regular</item><item name="android:includeFontPadding">true</item>
+    </style>
+    <style name="LbLightSection" parent="LbLightText"><item name="android:textSize">17sp</item><item name="android:fontFamily">@font/be_vietnam_pro_bold</item></style>
+    <style name="LbLightCaption" parent="LbLightText"><item name="android:textSize">12sp</item><item name="android:textColor">@color/lb_light_secondary</item></style>
+    <style name="LbLightTab" parent="LbLightText">
+        <item name="android:layout_width">0dp</item><item name="android:layout_weight">1</item><item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center</item><item name="android:padding">6dp</item><item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/be_vietnam_pro_semibold</item><item name="android:textColor">@color/lb_light_secondary</item>
+        <item name="android:clickable">true</item><item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+    <style name="LbLightPodiumColumn"><item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item><item name="android:layout_weight">1</item><item name="android:layout_marginStart">4dp</item><item name="android:layout_marginEnd">4dp</item><item name="android:orientation">vertical</item><item name="android:gravity">center_horizontal</item></style>
+    <style name="LbLightPodiumAvatar" parent="LbLightText"><item name="android:layout_width">56dp</item><item name="android:layout_height">56dp</item><item name="android:gravity">center</item><item name="android:textSize">18sp</item><item name="android:fontFamily">@font/be_vietnam_pro_semibold</item><item name="android:importantForAccessibility">no</item></style>
+    <style name="LbLightPodiumName" parent="LbLightText"><item name="android:layout_width">match_parent</item><item name="android:layout_marginTop">8dp</item><item name="android:gravity">center</item><item name="android:textSize">14sp</item><item name="android:fontFamily">@font/be_vietnam_pro_semibold</item><item name="android:breakStrategy">balanced</item></style>
+    <style name="LbLightPodiumScore" parent="LbLightText"><item name="android:textSize">14sp</item><item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="android:gravity">center</item></style>
+    <style name="LbLightXpUnit" parent="LbLightCaption"><item name="android:textSize">10sp</item><item name="android:layout_marginStart">3dp</item><item name="android:text">@string/lb_light_xp</item></style>
+    <style name="LbLightPodiumBlock" parent="LbLightText"><item name="android:layout_width">match_parent</item><item name="android:gravity">center</item><item name="android:fontFamily">@font/be_vietnam_pro_bold</item><item name="android:textSize">25sp</item></style>
+    <style name="LbLightHistoryButton" parent="LbLightText"><item name="android:minHeight">48dp</item><item name="android:minWidth">48dp</item><item name="android:gravity">center</item><item name="android:paddingStart">12dp</item><item name="android:paddingEnd">12dp</item><item name="android:paddingTop">8dp</item><item name="android:paddingBottom">8dp</item><item name="android:textSize">12sp</item><item name="android:fontFamily">@font/be_vietnam_pro_semibold</item><item name="android:textColor">@color/lb_light_surface</item><item name="android:background">@drawable/lb_light_button_primary</item><item name="android:clickable">true</item><item name="android:focusable">true</item></style>
+</resources>

@@ -29,13 +29,13 @@ import com.example.bivoca.data.api.VocabularyApi;
 import com.example.bivoca.data.model.Flashcard;
 import com.example.bivoca.data.model.FlashcardPage;
 import com.example.bivoca.data.model.Topic;
-import com.example.bivoca.ui.flashcard.FlashcardActivity;
-import com.example.bivoca.ui.quiz.QuizActivity;
+import com.example.bivoca.ui.flashcard.TheTuVungActivity;
+import com.example.bivoca.ui.quiz.TracNghiemActivity;
 import com.example.bivoca.ui.quiz.QuizViewModel;
-import com.example.bivoca.ui.topics.TopicDetailActivity;
+import com.example.bivoca.ui.topics.ChiTietChuDeActivity;
 import com.example.bivoca.ui.topics.TopicDetailViewModel;
 import com.example.bivoca.ui.topics.TopicPreviewAdapter;
-import com.example.bivoca.ui.topics.TopicsActivity;
+import com.example.bivoca.ui.topics.ChuDeActivity;
 import com.example.bivoca.utils.SessionManager;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,13 +57,13 @@ public class TopicDetailUiTest {
                 .search(null,food.getCode(),null,1,20).execute().body();
         assertNotNull("GET preview page missing",page);assertEquals(1,page.getPage());assertEquals(20,page.getLimit());
         List<Flashcard> expected=firstValidThree(page.getItems());
-        try(ActivityScenario<TopicDetailActivity> scenario=launch(food)) {
+        try(ActivityScenario<ChiTietChuDeActivity> scenario=launch(food)) {
             awaitDetailReady(scenario);
             TopicDetailViewModel[] retained={null};
             List<Flashcard>[] retainedCards=new List[]{null};
             scenario.onActivity(activity->{
                 TopicDetailViewModel vm=model(activity);retained[0]=vm;retainedCards[0]=vm.getPreview().getValue();
-                assertEquals(food.getCode(),activity.getIntent().getStringExtra(TopicDetailActivity.EXTRA_TOPIC_CODE));
+                assertEquals(food.getCode(),activity.getIntent().getStringExtra(ChiTietChuDeActivity.EXTRA_TOPIC_CODE));
                 assertEquals(food.getName(),text(activity,R.id.textTopicDetailHeader));
                 assertEquals(food.getName(),text(activity,R.id.textTopicDetailName));
                 assertEquals(activity.getString(R.string.topics16_word_count,NumberFormat.getIntegerInstance().format(food.getFlashcardCount())),text(activity,R.id.textTopicDetailCount));
@@ -101,28 +101,28 @@ public class TopicDetailUiTest {
             } finally {scenario.onActivity(activity->activity.setRequestedOrientation(originalOrientation[0]));}
             awaitDetailReady(scenario);SystemClock.sleep(500);
             scenario.onActivity(activity->activity.findViewById(R.id.buttonTopicFlashcards).performClick());
-            Activity browse=awaitActivity(FlashcardActivity.class);
+            Activity browse=awaitActivity(TheTuVungActivity.class);
             try {
-                assertEquals(food.getCode(),browse.getIntent().getStringExtra(FlashcardActivity.EXTRA_TOPIC_CODE));
-                assertFalse(browse.getIntent().getBooleanExtra(FlashcardActivity.EXTRA_NEW_TODAY,false));
-                assertFalse(browse.getIntent().getBooleanExtra(FlashcardActivity.EXTRA_REVIEW_TODAY,false));
+                assertEquals(food.getCode(),browse.getIntent().getStringExtra(TheTuVungActivity.EXTRA_TOPIC_CODE));
+                assertFalse(browse.getIntent().getBooleanExtra(TheTuVungActivity.EXTRA_NEW_TODAY,false));
+                assertFalse(browse.getIntent().getBooleanExtra(TheTuVungActivity.EXTRA_REVIEW_TODAY,false));
             } finally {onMain(browse::finish);}
-            awaitActivity(TopicDetailActivity.class);
+            awaitActivity(ChiTietChuDeActivity.class);
             scenario.onActivity(activity->activity.findViewById(R.id.buttonTopicQuiz).performClick());
-            Activity quiz=awaitActivity(QuizActivity.class);
+            Activity quiz=awaitActivity(TracNghiemActivity.class);
             try {
-                assertEquals(food.getCode(),quiz.getIntent().getStringExtra(QuizActivity.EXTRA_TOPIC_CODE));
-                awaitQuizQuestions((QuizActivity)quiz);
+                assertEquals(food.getCode(),quiz.getIntent().getStringExtra(TracNghiemActivity.EXTRA_TOPIC_CODE));
+                awaitQuizQuestions((TracNghiemActivity)quiz);
                 // Deliberately do not touch any answer, Continue, submit or Favorite control.
             } finally {onMain(quiz::finish);}
-            awaitActivity(TopicDetailActivity.class);
+            awaitActivity(ChiTietChuDeActivity.class);
         }
     }
 
     @Test public void detailAvatarDrawerAndTopicsDestinationsReturnToList() throws Exception {
         Topic food=foodFromRealCatalog();
         for(int destination:new int[]{R.id.buttonTopics,R.id.buttonTopicDetailBack}) {
-            try(ActivityScenario<TopicDetailActivity> scenario=launch(food)) {
+            try(ActivityScenario<ChiTietChuDeActivity> scenario=launch(food)) {
                 awaitDetailReady(scenario);
                 scenario.onActivity(activity->activity.findViewById(R.id.buttonHomeMenu).performClick());
                 InstrumentationRegistry.getInstrumentation().waitForIdleSync();SystemClock.sleep(400);
@@ -132,7 +132,7 @@ public class TopicDetailUiTest {
                 InstrumentationRegistry.getInstrumentation().waitForIdleSync();SystemClock.sleep(350);
                 screenshot("detail-drawer-closed-"+destination+".png");
                 scenario.onActivity(activity->activity.findViewById(destination).performClick());
-                Activity list=awaitActivity(TopicsActivity.class);
+                Activity list=awaitActivity(ChuDeActivity.class);
                 try {onMain(()->{assertNotNull(list.findViewById(R.id.topicsRoot));assertNull(list.findViewById(R.id.topicDetailRoot));});}
                 finally {onMain(list::finish);}
             }
@@ -150,7 +150,7 @@ public class TopicDetailUiTest {
                 Configuration config=new Configuration(base.getResources().getConfiguration());
                 config.fontScale=font;config.screenWidthDp=size[0];config.screenHeightDp=size[1];
                 Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home);
-                View root=LayoutInflater.from(themed).inflate(R.layout.activity_topic_detail,null,false);
+                View root=LayoutInflater.from(themed).inflate(R.layout.activity_chi_tiet_chu_de,null,false);
                 assertFalse(root.isAttachedToWindow());
                 root.findViewById(R.id.topicMetadataContent).setVisibility(View.VISIBLE);
                 ((TextView)root.findViewById(R.id.textTopicDetailHeader)).setText("Communication & Media");
@@ -204,7 +204,7 @@ public class TopicDetailUiTest {
         });
     }
 
-    static void awaitDetailReady(ActivityScenario<TopicDetailActivity> scenario) {
+    static void awaitDetailReady(ActivityScenario<ChiTietChuDeActivity> scenario) {
         boolean[] ready={false};long deadline=SystemClock.uptimeMillis()+15000;
         do {
             scenario.onActivity(activity->{
@@ -220,7 +220,7 @@ public class TopicDetailUiTest {
         assertTrue("Detail real GETs did not settle",ready[0]);
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();SystemClock.sleep(250);
     }
-    private static void awaitQuizQuestions(QuizActivity activity) {
+    private static void awaitQuizQuestions(TracNghiemActivity activity) {
         boolean[] ready={false};long deadline=SystemClock.uptimeMillis()+15000;
         do {onMain(()->{
             QuizViewModel vm=activity.getLearningViewModel();
@@ -238,11 +238,11 @@ public class TopicDetailUiTest {
         assertNotNull(catalog);for(Topic topic:catalog)if("FOOD".equals(topic.getCode()))return topic;
         throw new AssertionError("FOOD missing from real catalog");
     }
-    private static ActivityScenario<TopicDetailActivity> launch(Topic topic) {
+    private static ActivityScenario<ChiTietChuDeActivity> launch(Topic topic) {
         Context context=InstrumentationRegistry.getInstrumentation().getTargetContext();
-        return ActivityScenario.launch(new Intent(context,TopicDetailActivity.class).putExtra(TopicDetailActivity.EXTRA_TOPIC_CODE,topic.getCode()));
+        return ActivityScenario.launch(new Intent(context,ChiTietChuDeActivity.class).putExtra(ChiTietChuDeActivity.EXTRA_TOPIC_CODE,topic.getCode()));
     }
-    private static TopicDetailViewModel model(TopicDetailActivity activity) {return new ViewModelProvider(activity).get(TopicDetailViewModel.class);}
+    private static TopicDetailViewModel model(ChiTietChuDeActivity activity) {return new ViewModelProvider(activity).get(TopicDetailViewModel.class);}
     private static String text(Activity activity,int id) {return ((TextView)activity.findViewById(id)).getText().toString();}
     private static List<Flashcard> firstValidThree(List<Flashcard> cards) {
         assertNotNull(cards);List<Flashcard> selected=new ArrayList<>();Set<Integer> ids=new HashSet<>();

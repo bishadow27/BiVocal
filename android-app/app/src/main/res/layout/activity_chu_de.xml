@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topicsRoot" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/bivocal_light_canvas">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="24dp" android:paddingEnd="24dp" android:paddingTop="8dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:orientation="horizontal" android:gravity="center_vertical">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:paddingEnd="8dp">
+                <TextView android:id="@+id/textTopicsSubtitle" style="@style/Home16Text" android:textColor="@color/bivocal_light_cobalt" android:textSize="11sp" android:textStyle="bold" android:text="@string/home16_loading"/>
+                <TextView android:id="@+id/textTopicsTitle" style="@style/Home16Title" android:textColor="@color/bivocal_light_text" android:text="@string/topics16_title" android:textSize="18sp" android:layout_marginTop="4dp"/>
+            </LinearLayout>
+            <include layout="@layout/view_navigation_avatar"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatEditText android:id="@+id/inputTopicSearch" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp" android:paddingTop="10dp" android:paddingBottom="10dp" android:layout_marginTop="10dp" android:layout_marginBottom="4dp" android:paddingStart="14dp" android:paddingEnd="14dp" android:background="@drawable/topics16_search_field" android:drawableStart="@drawable/topics16_search" android:drawablePadding="10dp" android:hint="@string/topics16_search_hint" android:textSize="14sp" android:textColor="@color/bivocal_light_text" android:textColorHint="@color/bivocal_light_small_text" android:inputType="text" android:singleLine="true" android:imeOptions="actionDone" android:importantForAutofill="no"/>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/topicsFilterFrame" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginTop="8dp" android:layout_marginBottom="12dp" android:padding="6dp" android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/topics16_filter_frame">
+        <com.google.android.material.chip.Chip android:id="@+id/chipTopicsAll" style="@style/Topics16Chip" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <HorizontalScrollView android:id="@+id/topicsFilterScroll" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:scrollbars="none">
+            <com.google.android.material.chip.ChipGroup android:id="@+id/topicsFilterChips" android:layout_width="wrap_content" android:layout_height="wrap_content" app:singleLine="true" app:singleSelection="true" app:selectionRequired="false" app:chipSpacingHorizontal="8dp"/>
+        </HorizontalScrollView>
+    </LinearLayout>
+    <FrameLayout android:id="@+id/topicsContentViewport" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <androidx.core.widget.NestedScrollView android:id="@+id/topicsSectionsScroll" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="false" android:clipToPadding="false" android:paddingStart="24dp" android:paddingEnd="24dp" android:paddingBottom="16dp">
+            <LinearLayout android:id="@+id/topicsSectionsContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <com.google.android.material.card.MaterialCardView android:id="@+id/topicsSemanticFrame" style="@style/Topics16SectionFrame">
+                    <LinearLayout android:id="@+id/topicsSemanticContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="10dp">
+                        <LinearLayout android:id="@+id/topicsSemanticHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="8dp" android:layout_marginBottom="8dp">
+                            <TextView style="@style/Home16Title" android:layout_width="0dp" android:layout_weight="1" android:textColor="@color/bivocal_light_cobalt" android:textSize="16sp" android:text="@string/topics16_semantic_heading"/>
+                            <TextView android:id="@+id/textSemanticGroupCount" style="@style/Topics16SectionCount"/>
+                        </LinearLayout>
+                        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerTopics" android:layout_width="match_parent" android:layout_height="384dp" android:scrollbars="vertical" android:fadeScrollbars="false" android:nestedScrollingEnabled="false"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView android:id="@+id/topicsPosFrame" style="@style/Topics16SectionFrame" android:layout_marginTop="16dp">
+                    <LinearLayout android:id="@+id/topicsPosContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="10dp">
+                        <LinearLayout android:id="@+id/topicsPosHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="8dp" android:layout_marginBottom="8dp">
+                            <TextView style="@style/Home16Title" android:layout_width="0dp" android:layout_weight="1" android:textColor="@color/bivocal_light_cobalt" android:textSize="16sp" android:text="@string/topics16_pos_heading"/>
+                            <TextView android:id="@+id/textPosGroupCount" style="@style/Topics16SectionCount"/>
+                        </LinearLayout>
+                        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerTopicPartsOfSpeech" android:layout_width="match_parent" android:layout_height="384dp" android:scrollbars="vertical" android:fadeScrollbars="false" android:nestedScrollingEnabled="false"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+        <ProgressBar android:id="@+id/progressBar" android:layout_width="32dp" android:layout_height="32dp" android:layout_gravity="center" android:indeterminateTint="@color/bivocal_light_cobalt" android:visibility="gone"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:padding="24dp" android:orientation="vertical" android:gravity="center">
+            <TextView android:id="@+id/textError" style="@style/Home16Text" android:layout_width="match_parent" android:gravity="center" android:textColor="@color/bivocal_light_coral_ink" android:visibility="gone"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/buttonRetryTopics" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/online_retry" android:backgroundTint="@color/brand_cta" android:textColor="@color/brand_on_cta" android:minHeight="48dp" android:visibility="gone"/>
+            <TextView android:id="@+id/textTopicsEmpty" style="@style/Home16Title" android:layout_width="match_parent" android:gravity="center" android:text="@string/topics16_empty_search" android:visibility="gone"/>
+        </LinearLayout>
+    </FrameLayout>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/bivocal_light_cobalt_soft"/>
+    <include layout="@layout/view_learning_bottom_navigation"/>
+</LinearLayout>

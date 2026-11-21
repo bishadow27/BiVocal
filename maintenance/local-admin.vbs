@@ -7,7 +7,7 @@ nodePath = shell.ExpandEnvironmentStrings("%ProgramFiles%") & "\nodejs\node.exe"
 action = "--run"
 If WScript.Arguments.Count > 0 Then action = WScript.Arguments(0)
 If WScript.Arguments.Count > 1 Then nodePath = WScript.Arguments(1)
-If action <> "--run" And action <> "--stop" Then WScript.Quit 1
+If action <> "--run" And action <> "--stop" And action <> "--backend-only" Then WScript.Quit 1
 If Not files.FileExists(nodePath) Then
   MsgBox "Node.js was not found. Reinstall the local Admin startup shortcut.", 16, "BIPASSION Admin"
   WScript.Quit 1

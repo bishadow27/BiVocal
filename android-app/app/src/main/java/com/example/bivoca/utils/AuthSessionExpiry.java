@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.bivoca.ui.auth.LoginActivity;
+import com.example.bivoca.ui.auth.DangNhapActivity;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -30,7 +30,7 @@ public final class AuthSessionExpiry {
                 REDIRECTING_TO_LOGIN.set(false);
                 return;
             }
-            Intent intent = new Intent(appContext, LoginActivity.class);
+            Intent intent = new Intent(appContext, DangNhapActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             appContext.startActivity(intent);
         });

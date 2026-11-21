@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bivocal_light_canvas">#F7F7F2</color>
+    <color name="bivocal_light_canvas">@color/brand_canvas</color>
     <color name="bivocal_light_surface">#FFFFFF</color>
-    <color name="bivocal_light_text">#212A37</color>
-    <color name="bivocal_light_secondary_text">#718090</color>
-    <color name="bivocal_light_small_text">#5E6B79</color>
-    <color name="bivocal_light_border">#E4E7E7</color>
-    <color name="bivocal_light_cobalt">#2855D5</color>
-    <color name="bivocal_light_cobalt_soft">#E7EDFF</color>
+    <color name="bivocal_light_text">@color/brand_ink</color>
+    <color name="bivocal_light_secondary_text">@color/brand_secondary</color>
+    <color name="bivocal_light_small_text">@color/brand_secondary</color>
+    <color name="bivocal_light_border">@color/brand_border</color>
+    <color name="bivocal_light_cobalt">@color/brand_teal_ink</color>
+    <color name="bivocal_light_cobalt_soft">@color/brand_teal_soft</color>
     <color name="bivocal_light_coral">#F29A7E</color>
     <color name="bivocal_light_coral_soft">#FCE7E0</color>
     <color name="bivocal_light_mint">#B9E5D3</color>

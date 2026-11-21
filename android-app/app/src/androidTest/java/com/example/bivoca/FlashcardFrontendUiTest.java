@@ -18,7 +18,7 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.example.bivoca.data.model.Flashcard;
-import com.example.bivoca.ui.flashcard.FlashcardActivity;
+import com.example.bivoca.ui.flashcard.TheTuVungActivity;
 import com.example.bivoca.ui.flashcard.FlashcardViewModel;
 import com.example.bivoca.settings.SettingsPreferenceManager;
 import com.example.bivoca.utils.SessionManager;
@@ -43,7 +43,7 @@ public class FlashcardFrontendUiTest {
                 Configuration config=new Configuration(base.getResources().getConfiguration());
                 config.fontScale=font;config.screenWidthDp=size[0];config.screenHeightDp=size[1];
                 Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home);
-                View root=LayoutInflater.from(themed).inflate(R.layout.activity_flashcard,null,false);
+                View root=LayoutInflater.from(themed).inflate(R.layout.activity_the_tu_vung,null,false);
                 // Layout-only fixture, never displayed as production data or submitted to any API.
                 text(root,R.id.textTopicTitle,"Học từ mới hôm nay");text(root,R.id.textPosition,"Thẻ 10 / 20");
                 text(root,R.id.textSessionMode,"HỌC TỪ MỚI");text(root,R.id.textSessionProgress,"10 / 20");
@@ -85,9 +85,9 @@ public class FlashcardFrontendUiTest {
 
     @Test public void realTopicFrontBackPagingRotationAndAudioControls() throws Exception {
         requireSession();
-        Intent intent=new Intent(context(),FlashcardActivity.class).putExtra(FlashcardActivity.EXTRA_TOPIC_CODE,"FOOD")
-                .putExtra(FlashcardActivity.EXTRA_TOPIC_NAME,"Food");
-        try(ActivityScenario<FlashcardActivity> scenario=ActivityScenario.launch(intent)) {
+        Intent intent=new Intent(context(),TheTuVungActivity.class).putExtra(TheTuVungActivity.EXTRA_TOPIC_CODE,"FOOD")
+                .putExtra(TheTuVungActivity.EXTRA_TOPIC_NAME,"Food");
+        try(ActivityScenario<TheTuVungActivity> scenario=ActivityScenario.launch(intent)) {
             awaitLoaded(scenario,true);
             int[] firstId={0};
             int[] frontFlipBounds=new int[4];
@@ -95,6 +95,9 @@ public class FlashcardFrontendUiTest {
                 FlashcardViewModel vm=model(activity);Flashcard current=vm.getFlashcards().getValue().get(0);firstId[0]=current.getId();
                 assertTrue(vm.getFlashcards().getValue().size()<=100);
                 assertRuntimeType(activity);
+                com.google.android.material.button.MaterialButton navyFlip=activity.findViewById(R.id.buttonFlipCard);
+                assertEquals(activity.getColor(R.color.fc16_flip_navy),navyFlip.getBackgroundTintList().getDefaultColor());
+                assertEquals(android.graphics.Color.WHITE,navyFlip.getCurrentTextColor());
                 assertEquals(Math.round(4*activity.getResources().getDisplayMetrics().density),activity.findViewById(R.id.progressSession).getHeight());
                 assertEquals(View.VISIBLE,activity.findViewById(R.id.layoutCardFront).getVisibility());
                 assertEquals(View.GONE,activity.findViewById(R.id.reviewSection).getVisibility());
@@ -191,9 +194,9 @@ public class FlashcardFrontendUiTest {
     @Test public void realNewAndDueQueuesCannotBeSkippedOrFalselyCompleted() throws Exception {
         requireSession();
         for(boolean due:new boolean[]{false,true}) {
-            Intent intent=new Intent(context(),FlashcardActivity.class)
-                    .putExtra(due?FlashcardActivity.EXTRA_REVIEW_TODAY:FlashcardActivity.EXTRA_NEW_TODAY,true);
-            try(ActivityScenario<FlashcardActivity> scenario=ActivityScenario.launch(intent)) {
+            Intent intent=new Intent(context(),TheTuVungActivity.class)
+                    .putExtra(due?TheTuVungActivity.EXTRA_REVIEW_TODAY:TheTuVungActivity.EXTRA_NEW_TODAY,true);
+            try(ActivityScenario<TheTuVungActivity> scenario=ActivityScenario.launch(intent)) {
                 awaitLoaded(scenario,false);
                 boolean[] populated={false};
                 scenario.onActivity(activity->{
@@ -224,16 +227,16 @@ public class FlashcardFrontendUiTest {
     @Test public void approvedPhaseDVisualContract() {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(()->{
             Context themed=new ContextThemeWrapper(context(),R.style.Theme_BiVoca_Home);
-            View root=LayoutInflater.from(themed).inflate(R.layout.activity_flashcard,null,false);
+            View root=LayoutInflater.from(themed).inflate(R.layout.activity_the_tu_vung,null,false);
             float density=themed.getResources().getDisplayMetrics().density;
             assertEquals("Phase D progress is 4dp",Math.round(4*density),root.findViewById(R.id.progressSession).getLayoutParams().height);
             int[] ids={R.id.textEnglish,R.id.textPronunciation,R.id.textBackWord,R.id.textVietnamese,R.id.textExample,R.id.textExampleVi};
             float[] sizes={36f,16f,30f,24f,16f,14f};
             for(int i=0;i<ids.length;i++)assertEquals("Approved Flashcard type size",android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_SP,sizes[i],themed.getResources().getDisplayMetrics()),((TextView)root.findViewById(ids[i])).getTextSize(),1f);
-            assertEquals(android.graphics.Color.parseColor("#F7F7F2"),((android.graphics.drawable.ColorDrawable)root.getBackground()).getColor());
+            assertEquals(android.graphics.Color.parseColor("#FFFBF5"),((android.graphics.drawable.ColorDrawable)root.getBackground()).getColor());
             com.google.android.material.card.MaterialCardView card=root.findViewById(R.id.flashcardContent);
             assertEquals(android.graphics.Color.parseColor("#FFFFFF"),card.getCardBackgroundColor().getDefaultColor());
-            assertEquals(android.graphics.Color.parseColor("#E4E7E7"),card.getStrokeColor());
+            assertEquals(android.graphics.Color.parseColor("#DCE7E4"),card.getStrokeColor());
             assertNull("No outer rating panel",root.findViewById(R.id.reviewSection).getBackground());
             assertNotNull("Editorial example uses a readable mint panel",((View)root.findViewById(R.id.textExample).getParent().getParent()).getBackground());
             assertEquals("Feedback must remain visible when the back/rating hides",root.findViewById(R.id.reviewSection).getParent(),root.findViewById(R.id.textReviewError).getParent());
@@ -241,7 +244,8 @@ public class FlashcardFrontendUiTest {
                 View audio=root.findViewById(id);assertTrue(audio.getLayoutParams().width>=Math.round(48*density));assertTrue(audio.getLayoutParams().height>=Math.round(48*density));
             }
             com.google.android.material.button.MaterialButton flip=root.findViewById(R.id.buttonFlipCard);
-            assertEquals(android.graphics.Color.parseColor("#2855D5"),flip.getBackgroundTintList().getDefaultColor());
+            assertEquals(android.graphics.Color.parseColor("#16324F"),flip.getBackgroundTintList().getDefaultColor());
+            assertEquals(android.graphics.Color.WHITE,flip.getCurrentTextColor());
         });
     }
 
@@ -249,10 +253,10 @@ public class FlashcardFrontendUiTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(()->{
             try {
                 Context themed=new ContextThemeWrapper(context(),R.style.Theme_BiVoca_Home);
-                View root=LayoutInflater.from(themed).inflate(R.layout.activity_flashcard,null,false);
+                View root=LayoutInflater.from(themed).inflate(R.layout.activity_the_tu_vung,null,false);
                 assertFalse(root.isAttachedToWindow());
                 TextView feedback=root.findViewById(R.id.textReviewError);
-                java.lang.reflect.Method bind=FlashcardActivity.class.getDeclaredMethod("bindReviewFeedback",TextView.class,boolean.class,boolean.class,String.class,boolean.class);
+                java.lang.reflect.Method bind=TheTuVungActivity.class.getDeclaredMethod("bindReviewFeedback",TextView.class,boolean.class,boolean.class,String.class,boolean.class);
                 bind.setAccessible(true);
                 bind.invoke(null,feedback,true,true,null,true);
                 assertEquals(View.VISIBLE,feedback.getVisibility());assertEquals(context().getString(R.string.fc16_pending),feedback.getText().toString());
@@ -270,8 +274,8 @@ public class FlashcardFrontendUiTest {
 
     @Test public void realBrowseCrossesHundredCardBoundaryWithoutWriting() throws Exception {
         requireSession();
-        Intent intent=new Intent(context(),FlashcardActivity.class).putExtra(FlashcardActivity.EXTRA_TOPIC_CODE,"FOOD").putExtra(FlashcardActivity.EXTRA_TOPIC_NAME,"Food");
-        try(ActivityScenario<FlashcardActivity> scenario=ActivityScenario.launch(intent)) {
+        Intent intent=new Intent(context(),TheTuVungActivity.class).putExtra(TheTuVungActivity.EXTRA_TOPIC_CODE,"FOOD").putExtra(TheTuVungActivity.EXTRA_TOPIC_NAME,"Food");
+        try(ActivityScenario<TheTuVungActivity> scenario=ActivityScenario.launch(intent)) {
             awaitLoaded(scenario,true);
             scenario.onActivity(activity->{
                 assertTrue("Real topic must have a second page",model(activity).getTopicTotal()>100);
@@ -293,8 +297,8 @@ public class FlashcardFrontendUiTest {
         String original=settings.getFlashcardFront();
         try {
             settings.setFlashcardFront(SettingsPreferenceManager.FRONT_VIETNAMESE);
-            Intent intent=new Intent(context(),FlashcardActivity.class).putExtra(FlashcardActivity.EXTRA_TOPIC_CODE,"FOOD").putExtra(FlashcardActivity.EXTRA_TOPIC_NAME,"Food");
-            try(ActivityScenario<FlashcardActivity> scenario=ActivityScenario.launch(intent)) {
+            Intent intent=new Intent(context(),TheTuVungActivity.class).putExtra(TheTuVungActivity.EXTRA_TOPIC_CODE,"FOOD").putExtra(TheTuVungActivity.EXTRA_TOPIC_NAME,"Food");
+            try(ActivityScenario<TheTuVungActivity> scenario=ActivityScenario.launch(intent)) {
                 awaitLoaded(scenario,true);
                 scenario.onActivity(activity->{
                     Flashcard card=model(activity).getFlashcards().getValue().get(0);
@@ -314,7 +318,7 @@ public class FlashcardFrontendUiTest {
         assertEquals(original,settings.getFlashcardFront());
     }
 
-    private static void assertRuntimeType(FlashcardActivity activity){
+    private static void assertRuntimeType(TheTuVungActivity activity){
         SettingsPreferenceManager settings=new SettingsPreferenceManager(activity);
         int[] ids={R.id.textEnglish,R.id.textPronunciation,R.id.textBackWord,R.id.textVietnamese,R.id.textExample,R.id.textExampleVi};
         float[] sizes={36f,16f,30f,24f,16f,14f};
@@ -323,8 +327,8 @@ public class FlashcardFrontendUiTest {
 
     private static Context context(){return InstrumentationRegistry.getInstrumentation().getTargetContext();}
     private static void requireSession(){assertTrue("Existing login required; test never creates a session",new SessionManager(context()).isLoggedIn());}
-    private static FlashcardViewModel model(FlashcardActivity activity){return activity.getLearningViewModel();}
-    private static void awaitLoaded(ActivityScenario<FlashcardActivity> scenario,boolean requireCards){
+    private static FlashcardViewModel model(TheTuVungActivity activity){return activity.getLearningViewModel();}
+    private static void awaitLoaded(ActivityScenario<TheTuVungActivity> scenario,boolean requireCards){
         boolean[] ready={false};long deadline=SystemClock.uptimeMillis()+15000;
         do{scenario.onActivity(activity->{FlashcardViewModel vm=model(activity);
             if(!Boolean.TRUE.equals(vm.getLoading().getValue())&&vm.getFlashcards().getValue()!=null){
@@ -368,3 +372,4 @@ public class FlashcardFrontendUiTest {
         try(FileOutputStream out=new FileOutputStream(new File(dir,name))){assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG,100,out));}bitmap.recycle();
     }
 }
+

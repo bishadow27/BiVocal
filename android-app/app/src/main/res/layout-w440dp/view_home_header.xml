@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/homeTopBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="24dp" android:paddingEnd="16dp" android:paddingTop="8dp" android:paddingBottom="8dp">
-<ImageView android:id="@+id/homeHeaderMascot" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone"/>
-<ImageView android:id="@+id/homeHeaderWordmark" android:layout_width="0dp" android:layout_weight="1" android:layout_height="56dp" android:layout_marginEnd="12dp" android:src="@drawable/bivocal_wordmark" android:scaleType="fitStart" android:contentDescription="@string/login_logo_description"/>
-<include layout="@layout/view_home_header_actions"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/homeTopBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="24dp" android:paddingEnd="16dp" android:paddingTop="8dp" android:paddingBottom="8dp" android:background="@color/brand_teal_ink">
+    <ImageView android:id="@+id/homeHeaderMascot" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone"/>
+    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginEnd="12dp" android:orientation="vertical">
+        <ImageView android:id="@+id/homeHeaderWordmark" android:layout_width="match_parent" android:layout_height="56dp" android:src="@drawable/bivocal_brand_inverse" android:scaleType="fitStart" android:contentDescription="@string/login_logo_description"/>
+        <TextView android:id="@+id/textHomeSlogan" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/home_approved_motivation" android:fontFamily="@font/be_vietnam_pro_extrabold" android:textSize="12sp" android:textColor="@color/brand_on_teal" android:includeFontPadding="true" android:lineSpacingExtra="1dp" app:fontFamily="@font/be_vietnam_pro_extrabold"/>
+    </LinearLayout>
+    <include layout="@layout/view_home_header_actions"/>
 </LinearLayout>

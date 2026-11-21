@@ -14,7 +14,7 @@ export default function QuizChartPlot({ data }: { data: QuizDay[] }) {
     <div className="quiz-chart" aria-label="Biểu đồ lượt trả lời Quiz đúng và sai">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 16, right: 14, left: -12, bottom: 4 }} barSize={16}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--brand-border)" />
           <XAxis
             dataKey="date"
             tickFormatter={(value) => String(value).slice(5).split('-').reverse().join('/')}
@@ -25,7 +25,7 @@ export default function QuizChartPlot({ data }: { data: QuizDay[] }) {
           />
           <YAxis allowDecimals={false} tickLine={false} axisLine={false} fontSize={12} />
           <Tooltip
-            cursor={{ fill: '#f1f5f9' }}
+            cursor={{ fill: 'var(--brand-teal-soft)' }}
             labelFormatter={(value) => `Ngày ${String(value)}`}
             contentStyle={{ borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13 }}
           />
@@ -33,7 +33,7 @@ export default function QuizChartPlot({ data }: { data: QuizDay[] }) {
           <Bar
             dataKey="correct"
             name="Đúng"
-            fill="#2563eb"
+            fill="var(--brand-teal)"
             radius={[2, 2, 0, 0]}
             isAnimationActive={false}
           />

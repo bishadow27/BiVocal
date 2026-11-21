@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+ <TextView android:id="@+id/quizV2MethodBanner" style="@style/QuizV2Heading"/>
+ <!-- Retain IDs for existing state/test callers; topic selection is not part of this screen. -->
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+ <TextView style="@style/QuizV2Heading" android:text="1. Chọn chủ đề"/>
+ <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/quiz_v2_search_label" app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp">
+  <com.google.android.material.textfield.TextInputEditText android:id="@+id/quizV2Search" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text" android:imeOptions="actionSearch" android:maxLines="1" android:minHeight="48dp" android:textSize="14sp"/>
+ </com.google.android.material.textfield.TextInputLayout>
+ <com.google.android.material.chip.ChipGroup android:id="@+id/quizV2TopicGroups" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" app:singleSelection="true" app:selectionRequired="true"/>
+ <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="240dp" android:layout_marginBottom="16dp">
+ <LinearLayout android:id="@+id/quizV2TopicList" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+ </androidx.core.widget.NestedScrollView>
+ </LinearLayout>
+ <TextView android:id="@+id/quizV2Capacity" style="@style/QuizV2Text" android:textSize="12sp" android:textColor="@color/quiz_v2_secondary" android:accessibilityLiveRegion="polite" android:layout_marginBottom="16dp"/>
+ <TextView android:id="@+id/quizV2CountHeading" style="@style/QuizV2Heading" android:text="Bạn muốn làm bao nhiêu câu?"/>
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="12dp">
+ <LinearLayout android:id="@+id/quizV2Counts" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal"/>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2Start" style="@style/QuizV2Button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:minWidth="0dp" android:minHeight="48dp" android:paddingStart="8dp" android:paddingEnd="8dp" android:insetTop="0dp" android:insetBottom="0dp" android:text="Bắt đầu"/>
+ </LinearLayout>
+ <TextView android:id="@+id/quizV2Fallback" style="@style/QuizV2Text" android:textColor="@color/quiz_v2_cobalt" android:layout_marginBottom="12dp"/>
+ <com.google.android.material.button.MaterialButton android:id="@+id/quizV2Refresh" style="@style/QuizV2Button" android:visibility="gone" android:importantForAccessibility="no"/>
+</LinearLayout>

@@ -26,16 +26,16 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.home.TrangChuActivity"
             android:theme="@style/Theme.BiVoca.Home.Approved"
             android:exported="false" />
 
         <activity
-            android:name=".ui.settings.SettingsActivity"
+            android:name=".ui.settings.CaiDatActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.settings.SettingsDetailActivity"
+            android:name=".ui.settings.ChiTietCaiDatActivity"
             android:exported="false" />
 
         <receiver
@@ -49,19 +49,19 @@
         </receiver>
 
         <activity
-            android:name=".ui.auth.RegisterActivity"
+            android:name=".ui.auth.DangKyActivity"
             android:exported="false"
             android:theme="@style/Theme.BiVoca.Login.Reference"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".ui.auth.ForgotPasswordActivity"
+            android:name=".ui.auth.QuenMatKhauActivity"
             android:exported="false"
             android:theme="@style/Theme.BiVoca.Login.Reference"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name=".ui.auth.DangNhapActivity"
             android:exported="true"
             android:theme="@style/Theme.BiVoca.Login.Approved"
             android:windowSoftInputMode="adjustResize">
@@ -79,39 +79,39 @@
         </activity>
 
         <activity
-            android:name=".ui.topics.TopicDetailActivity"
+            android:name=".ui.topics.ChiTietChuDeActivity"
             android:theme="@style/Theme.BiVoca.TopicDetail"
             android:exported="false" />
 
         <activity
-            android:name=".ui.topics.TopicsActivity"
+            android:name=".ui.topics.ChuDeActivity"
             android:theme="@style/Theme.BiVoca.Home"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
 
         <activity
-            android:name=".ui.search.VocabularySearchActivity"
+            android:name=".ui.search.TimKiemTuVungActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.flashcard.FlashcardActivity"
+            android:name=".ui.flashcard.TheTuVungActivity"
             android:theme="@style/Theme.BiVoca.Home"
             android:exported="false" />
 
         <activity
-            android:name=".ui.quiz.QuizActivity"
+            android:name=".ui.quiz.TracNghiemActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.profile.ProfileActivity"
+            android:name=".ui.profile.HoSoCaNhanActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.progress.ProgressActivity"
+            android:name=".ui.progress.TienDoHocTapActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.leaderboard.LeaderboardActivity"
+            android:name=".ui.leaderboard.BangXepHangActivity"
             android:exported="false" />
     </application>
 

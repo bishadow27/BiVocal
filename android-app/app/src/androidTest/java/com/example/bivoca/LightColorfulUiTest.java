@@ -12,7 +12,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
-import com.example.bivoca.ui.auth.RegisterActivity;
+import com.example.bivoca.ui.auth.DangKyActivity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class LightColorfulUiTest {
     @Test public void editorialHeadingsUseRealExtraBoldNotThemeFallback(){
         InstrumentationRegistry.getInstrumentation().runOnMainSync(()->{
             android.content.Context base=InstrumentationRegistry.getInstrumentation().getTargetContext();
-            int[] layouts={R.layout.activity_login,R.layout.view_auth_brand_header,R.layout.activity_home};
+            int[] layouts={R.layout.activity_dang_nhap,R.layout.view_auth_brand_header,R.layout.activity_trang_chu};
             int[] ids={R.id.loginHeaderTitle,R.id.authScreenTitle,R.id.textHomeSlogan};
             int[] themes={R.style.Theme_BiVoca_Login_Approved,R.style.Theme_BiVoca_Login_Reference,R.style.Theme_BiVoca_Home_Approved};
             for(int i=0;i<layouts.length;i++){
@@ -40,7 +40,7 @@ public class LightColorfulUiTest {
         });
     }
     @Test public void actualAuthHeadingUsesDeclaredExtraBold()throws Exception{
-        try(ActivityScenario<RegisterActivity> scenario=ActivityScenario.launch(RegisterActivity.class)){
+        try(ActivityScenario<DangKyActivity> scenario=ActivityScenario.launch(DangKyActivity.class)){
             settle();shot("register-font-diagnostic.png");
             scenario.onActivity(a->{TextView title=a.findViewById(R.id.authScreenTitle);
                 if(Build.VERSION.SDK_INT>=28)assertEquals("AppCompat actual Activity heading weight",800,title.getTypeface().getWeight());
@@ -49,7 +49,7 @@ public class LightColorfulUiTest {
         }
     }
     @Test public void vietnameseGlyphsUseFiveRealLocalWeightsWithoutClipping()throws Exception{
-        try(ActivityScenario<RegisterActivity> scenario=ActivityScenario.launch(RegisterActivity.class)){
+        try(ActivityScenario<DangKyActivity> scenario=ActivityScenario.launch(DangKyActivity.class)){
             final ScrollView[] scroll={null};List<TextView> samples=new ArrayList<>();
             scenario.onActivity(a->{
                 float d=a.getResources().getDisplayMetrics().density;

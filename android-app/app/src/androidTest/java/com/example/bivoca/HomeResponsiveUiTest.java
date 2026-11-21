@@ -24,8 +24,8 @@ public class HomeResponsiveUiTest {
                 config.fontScale=scale; config.screenWidthDp=size[0]; config.screenHeightDp=size[1];
                 config.orientation=size[0]>size[1]?Configuration.ORIENTATION_LANDSCAPE:Configuration.ORIENTATION_PORTRAIT;
                 Context themed=new ContextThemeWrapper(base.createConfigurationContext(config),R.style.Theme_BiVoca_Home_Approved);
-                View root=LayoutInflater.from(themed).inflate(R.layout.activity_home,null,false);
-                ((TextView)root.findViewById(R.id.textHomeStreakBadge)).setText("120 Day");
+                View root=LayoutInflater.from(themed).inflate(R.layout.activity_trang_chu,null,false);
+                ((TextView)root.findViewById(R.id.textHomeStreakBadge)).setText("120 day");
                 ((TextView)root.findViewById(R.id.textDailyGoal)).setText("10 / 10 từ mới");
                 ((TextView)root.findViewById(R.id.textDailyGoalPercent)).setText("100%");
                 float density=themed.getResources().getDisplayMetrics().density;
@@ -44,6 +44,13 @@ public class HomeResponsiveUiTest {
                 assertEquals(label+" slogan truncated",slogan.getText().length(),slogan.getLayout().getLineEnd(slogan.getLineCount()-1));
                 View info=root.findViewById(R.id.buttonHomeSrsInfo);
                 assertTrue(label+" info touch target",info.getWidth()>=Math.round(48*density)&&info.getHeight()>=Math.round(48*density));
+                TextView streak=root.findViewById(R.id.textHomeStreakBadge);
+                assertEquals("0 day",themed.getString(R.string.home_approved_streak,"0"));
+                assertEquals("120 day",themed.getString(R.string.home_approved_streak,"120"));
+                View pill=root.findViewById(R.id.homeStreakPill);
+                assertNotNull(label+" streak background",pill.getBackground());
+                assertTrue(label+" count must stay on one line",streak.getLineCount()==1);
+                assertTrue(label+" pill must fit header",pill.getWidth()+root.findViewById(R.id.buttonHomeMenu).getWidth()<w);
                 View avatar=root.findViewById(R.id.buttonHomeMenu);
                 assertTrue(label+" avatar outside header",avatar.getWidth()>=Math.round(48*density));
                 assertTextFits(root,label);
@@ -68,3 +75,4 @@ public class HomeResponsiveUiTest {
         if(view instanceof ViewGroup) for(int i=0;i<((ViewGroup)view).getChildCount();i++)assertTextFits(((ViewGroup)view).getChildAt(i),label);
     }
 }
+

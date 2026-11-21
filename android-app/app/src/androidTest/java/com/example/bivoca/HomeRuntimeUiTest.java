@@ -15,16 +15,16 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 import com.example.bivoca.data.model.*;
-import com.example.bivoca.ui.home.HomeActivity;
-import com.example.bivoca.ui.profile.ProfileActivity;
+import com.example.bivoca.ui.home.TrangChuActivity;
+import com.example.bivoca.ui.profile.HoSoCaNhanActivity;
 import com.example.bivoca.ui.profile.ProfileViewModel;
 import com.example.bivoca.ui.progress.ProgressViewModel;
-import com.example.bivoca.ui.progress.ProgressActivity;
-import com.example.bivoca.ui.leaderboard.LeaderboardActivity;
+import com.example.bivoca.ui.progress.TienDoHocTapActivity;
+import com.example.bivoca.ui.leaderboard.BangXepHangActivity;
 import com.example.bivoca.ui.leaderboard.LeaderboardViewModel;
-import com.example.bivoca.ui.topics.TopicsActivity;
-import com.example.bivoca.ui.flashcard.FlashcardActivity;
-import com.example.bivoca.ui.quiz.QuizActivity;
+import com.example.bivoca.ui.topics.ChuDeActivity;
+import com.example.bivoca.ui.flashcard.TheTuVungActivity;
+import com.example.bivoca.ui.quiz.TracNghiemActivity;
 import com.example.bivoca.utils.SessionManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,8 +40,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 public class HomeRuntimeUiTest {
     @Test public void realApisNavigationDrawerAndScreenshots() throws Exception {
         assertTrue("Existing user login required",new SessionManager(InstrumentationRegistry.getInstrumentation().getTargetContext()).isLoggedIn());
-        try(ActivityScenario<HomeActivity> scenario=ActivityScenario.launch(HomeActivity.class)) {
-            awaitActivity(HomeActivity.class);
+        try(ActivityScenario<TrangChuActivity> scenario=ActivityScenario.launch(TrangChuActivity.class)) {
+            awaitActivity(TrangChuActivity.class);
             final boolean[] ready={false};
             long deadline=SystemClock.uptimeMillis()+15000;
             do {
@@ -114,15 +114,15 @@ public class HomeRuntimeUiTest {
             scenario.onActivity(activity -> assertTrue(((DrawerLayout)activity.findViewById(R.id.navigationDrawerLayout)).isDrawerOpen(GravityCompat.END)));
             screenshot("home-drawer-open.png");
             onView(withId(R.id.buttonNavClose)).perform(click());
-            navigate(R.id.buttonTopics,TopicsActivity.class,false,null);
-            navigate(R.id.buttonReviewToday,FlashcardActivity.class,false,FlashcardActivity.EXTRA_REVIEW_TODAY);
-            navigate(R.id.buttonQuiz,QuizActivity.class,false,null);
+            navigate(R.id.buttonTopics,ChuDeActivity.class,false,null);
+            navigate(R.id.buttonReviewToday,TheTuVungActivity.class,false,TheTuVungActivity.EXTRA_REVIEW_TODAY);
+            navigate(R.id.buttonQuiz,TracNghiemActivity.class,false,null);
             onView(withId(R.id.buttonHomeMenu)).perform(click());
-            navigate(R.id.navProfile,ProfileActivity.class,true,null);
-            navigate(R.id.buttonProgress,ProgressActivity.class,true,null);
-            navigate(R.id.buttonLeaderboard,LeaderboardActivity.class,true,null);
+            navigate(R.id.navProfile,HoSoCaNhanActivity.class,true,null);
+            navigate(R.id.buttonProgress,TienDoHocTapActivity.class,true,null);
+            navigate(R.id.buttonLeaderboard,BangXepHangActivity.class,true,null);
             scenario.onActivity(activity -> ((ScrollView)activity.findViewById(R.id.homeScroll)).scrollTo(0,0));
-            navigate(R.id.buttonLearnNewToday,FlashcardActivity.class,false,FlashcardActivity.EXTRA_NEW_TODAY);
+            navigate(R.id.buttonLearnNewToday,TheTuVungActivity.class,false,TheTuVungActivity.EXTRA_NEW_TODAY);
             scenario.onActivity(activity -> ((ScrollView)activity.findViewById(R.id.homeScroll)).scrollTo(0,0));
         }
     }
@@ -134,7 +134,7 @@ public class HomeRuntimeUiTest {
             if(extra!=null)assertTrue(target.getIntent().getBooleanExtra(extra,false));
             target.finish();
         });
-        awaitActivity(HomeActivity.class);
+        awaitActivity(TrangChuActivity.class);
     }
     private static Activity awaitActivity(Class<? extends Activity> type) {
         Activity[] found={null};
@@ -143,7 +143,7 @@ public class HomeRuntimeUiTest {
             InstrumentationRegistry.getInstrumentation().waitForIdleSync();
             InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
                 for(Activity activity:ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED))
-                    if(type.isInstance(activity) && (type != HomeActivity.class || activity.hasWindowFocus())
+                    if(type.isInstance(activity) && (type != TrangChuActivity.class || activity.hasWindowFocus())
                             && !activity.findViewById(android.R.id.content).isLayoutRequested()) found[0]=activity;
             });
             if(found[0]!=null){SystemClock.sleep(600);return found[0];}

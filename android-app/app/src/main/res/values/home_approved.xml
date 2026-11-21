@@ -18,7 +18,7 @@
     <string name="home_approved_goal_title">Mục tiêu hôm nay</string>
     <string name="home_approved_goal_percent">%1$d%%</string>
     <string name="home_approved_goal_remaining">Còn %1$d từ để hoàn thành mục tiêu.</string>
-    <string name="home_approved_streak">%1$s ngày</string>
+    <string name="home_approved_streak">%1$s day</string>
     <string name="home_approved_srs_title">Độ thuộc từ vựng</string>
     <string name="home_approved_learned">từ đã học</string>
     <string name="home_approved_details">Chi tiết</string>

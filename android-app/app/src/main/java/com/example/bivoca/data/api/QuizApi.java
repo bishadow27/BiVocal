@@ -29,4 +29,21 @@ public interface QuizApi {
      */
     @POST("quiz/answer")
     Call<QuizAnswerResponse> submitAnswer(@Body QuizAnswerRequest request);
+
+    @GET("quiz/availability")
+    Call<com.example.bivoca.data.model.QuizSessionDtos.Availability> availability(
+            @Query("method") String method,@Query("topicCode") String topic,@Query("posCode") String pos);
+    @POST("quiz/sessions")
+    Call<com.example.bivoca.data.model.QuizSessionDtos.Creation> createSession(@Body com.example.bivoca.data.model.QuizSessionDtos.Create request);
+    @GET("quiz/sessions/{id}")
+    Call<com.example.bivoca.data.model.QuizSessionDtos.Session> resumeSession(@retrofit2.http.Path("id") String id);
+    @GET("quiz/sessions/{id}/questions")
+    Call<List<com.example.bivoca.data.model.QuizSessionDtos.Question>> sessionQuestions(@retrofit2.http.Path("id") String id,@Query("cursor") int cursor,@Query("limit") int limit);
+    @POST("quiz/sessions/{id}/answers")
+    Call<com.example.bivoca.data.model.QuizSessionDtos.Receipt> answerSession(@retrofit2.http.Path("id") String id,@Body com.example.bivoca.data.model.QuizSessionDtos.Answer request);
+    @POST("quiz/sessions/{id}/complete")
+    Call<com.example.bivoca.data.model.QuizSessionDtos.Receipt> completeSession(@retrofit2.http.Path("id") String id,@Body com.example.bivoca.data.model.QuizSessionDtos.Control request);
+    @POST("quiz/sessions/{id}/abandon")
+    Call<com.example.bivoca.data.model.QuizSessionDtos.Receipt> abandonSession(@retrofit2.http.Path("id") String id,@Body com.example.bivoca.data.model.QuizSessionDtos.Control request);
+
 }

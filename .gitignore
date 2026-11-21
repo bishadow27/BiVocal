@@ -1,5 +1,7 @@
 # Bộ nhập dự thảo, chưa lọc thông tin cá nhân; dùng bản đã ghép tại gốc.
 /_codex_import/
+/backend/.staging/
+/backend/.preserved-dist/
 
 # Xác thực và cấu hình riêng trên máy. Chỉ cho phép mẫu môi trường đã lọc.
 **/.env

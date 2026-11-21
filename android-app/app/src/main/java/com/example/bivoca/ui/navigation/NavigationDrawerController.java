@@ -22,15 +22,15 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.example.bivoca.R;
-import com.example.bivoca.ui.auth.LoginActivity;
-import com.example.bivoca.ui.flashcard.FlashcardActivity;
-import com.example.bivoca.ui.home.HomeActivity;
-import com.example.bivoca.ui.leaderboard.LeaderboardActivity;
-import com.example.bivoca.ui.profile.ProfileActivity;
-import com.example.bivoca.ui.progress.ProgressActivity;
-import com.example.bivoca.ui.quiz.QuizActivity;
-import com.example.bivoca.ui.settings.SettingsActivity;
-import com.example.bivoca.ui.topics.TopicsActivity;
+import com.example.bivoca.ui.auth.DangNhapActivity;
+import com.example.bivoca.ui.flashcard.TheTuVungActivity;
+import com.example.bivoca.ui.home.TrangChuActivity;
+import com.example.bivoca.ui.leaderboard.BangXepHangActivity;
+import com.example.bivoca.ui.profile.HoSoCaNhanActivity;
+import com.example.bivoca.ui.progress.TienDoHocTapActivity;
+import com.example.bivoca.ui.quiz.TracNghiemActivity;
+import com.example.bivoca.ui.settings.CaiDatActivity;
+import com.example.bivoca.ui.topics.ChuDeActivity;
 import com.example.bivoca.utils.SessionManager;
 import com.example.bivoca.utils.GoogleCredentialState;
 import com.example.bivoca.utils.LocalAvatarStore;
@@ -323,7 +323,7 @@ public final class NavigationDrawerController {
             ReminderScheduler.cancelForUser(activity, session.getUserId());
             session.logout();
             GoogleCredentialState.clearAfterLogout(activity);
-            Intent login = new Intent(activity, LoginActivity.class);
+            Intent login = new Intent(activity, DangNhapActivity.class);
             login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             activity.startActivity(login);
             activity.finish();
@@ -333,34 +333,34 @@ public final class NavigationDrawerController {
         Intent intent;
         switch (destination) {
             case HOME:
-                intent = new Intent(activity, HomeActivity.class);
+                intent = new Intent(activity, TrangChuActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 break;
             case TOPICS:
-                intent = new Intent(activity, TopicsActivity.class);
+                intent = new Intent(activity, ChuDeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 break;
             case REVIEW_TODAY:
-                intent = new Intent(activity, FlashcardActivity.class);
-                intent.putExtra(FlashcardActivity.EXTRA_REVIEW_TODAY, true);
+                intent = new Intent(activity, TheTuVungActivity.class);
+                intent.putExtra(TheTuVungActivity.EXTRA_REVIEW_TODAY, true);
                 break;
             case QUIZ:
-                intent = new Intent(activity, QuizActivity.class);
+                intent = new Intent(activity, TracNghiemActivity.class);
                 break;
             case PROGRESS:
-                intent = new Intent(activity, ProgressActivity.class);
+                intent = new Intent(activity, TienDoHocTapActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 break;
             case LEADERBOARD:
-                intent = new Intent(activity, LeaderboardActivity.class);
+                intent = new Intent(activity, BangXepHangActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 break;
             case PROFILE:
-                intent = new Intent(activity, ProfileActivity.class);
+                intent = new Intent(activity, HoSoCaNhanActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 break;
             case SETTINGS:
-                intent = new Intent(activity, SettingsActivity.class);
+                intent = new Intent(activity, CaiDatActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 break;
             default:
@@ -385,7 +385,7 @@ public final class NavigationDrawerController {
 
     public void performDefaultBack() {
         if (currentRoute != NavigationRoute.HOME && activity.isTaskRoot()) {
-            Intent home = new Intent(activity, HomeActivity.class);
+            Intent home = new Intent(activity, TrangChuActivity.class);
             home.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             activity.startActivity(home);
             activity.finish();

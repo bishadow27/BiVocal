@@ -30,9 +30,9 @@ const navigation = [
 export function Brand() {
   return (
     <div className="brand">
-      <span className="brand-mark">B</span>
+      <img className="brand-mark" src="/brand/bivocal-icon.svg" alt="" />
       <div>
-        <strong>BiVoca</strong>
+        <strong>BiVocal</strong>
         <span>Admin Panel</span>
       </div>
     </div>
@@ -153,7 +153,7 @@ export function AdminLayout() {
             >
               <Menu size={21} />
             </Button>
-            <span className="topbar-brand">BiVoca</span>
+            <span className="topbar-brand">BiVocal</span>
             <span className="breadcrumb-divider">/</span>
             <span>{section?.label ?? 'Chi tiết người dùng'}</span>
           </div>

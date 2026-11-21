@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bivoca.R;
 import com.example.bivoca.data.model.LeaderboardUser;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
 
     private final List<LeaderboardUser> users = new ArrayList<>();
     private final int currentUserId;
+    private final NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
 
     public LeaderboardAdapter(int currentUserId) {
         this.currentUserId = currentUserId;
@@ -42,49 +45,54 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LeaderboardUser user = users.get(position);
-        if (holder.itemView instanceof com.google.android.material.card.MaterialCardView) {
-            int color = holder.itemView.getContext().getColor(user.getUserId() == currentUserId ? com.example.bivoca.R.color.bivocal_light_cobalt_soft : com.example.bivoca.R.color.bivocal_light_surface);
-            ((com.google.android.material.card.MaterialCardView) holder.itemView).setCardBackgroundColor(color);
-        }
+        boolean isCurrentUser = (user.getUserId() == currentUserId);
 
-        // Rank representation
-        int rank = user.getRank();
-        if (rank == 1) {
-            holder.textRank.setText("1");
-            holder.textRank.setTextSize(22);
-        } else if (rank == 2) {
-            holder.textRank.setText("2");
-            holder.textRank.setTextSize(22);
-        } else if (rank == 3) {
-            holder.textRank.setText("3");
-            holder.textRank.setTextSize(22);
-        } else {
-            holder.textRank.setText("#" + rank);
-            holder.textRank.setTextSize(15);
-        }
+        // Background highlight for self
+        holder.itemView.setBackgroundResource(
+                isCurrentUser ? R.drawable.lb_light_row_self : R.drawable.lb_light_row
+        );
 
-        holder.textRank.setBackgroundResource(com.example.bivoca.R.drawable.light_rank_badge);
-        int rankInk=rank==1?com.example.bivoca.R.color.bivocal_light_honey_ink:rank==3?com.example.bivoca.R.color.bivocal_light_coral_ink:com.example.bivoca.R.color.bivocal_light_small_text;
-        holder.textRank.setTextColor(holder.itemView.getContext().getColor(rankInk));
-        holder.textRank.setBackgroundTintList(android.content.res.ColorStateList.valueOf(holder.itemView.getContext().getColor(rank==1?com.example.bivoca.R.color.bivocal_light_honey_soft:rank==3?com.example.bivoca.R.color.bivocal_light_coral_soft:com.example.bivoca.R.color.bivocal_light_cobalt_soft)));
-        // Avatar letter
+        // Rank number
+        holder.textRank.setText(String.valueOf(user.getRank()));
+
+        // Avatar letters (initials)
         String displayName = user.getDisplayName();
-        String letter = "U";
-        if (!displayName.trim().isEmpty()) {
-            letter = displayName.trim().substring(0, 1).toUpperCase();
-        }
-        holder.textUserAvatar.setText(letter);
+        String initials = getInitials(displayName);
+        holder.textUserAvatar.setText(initials);
+        int[] avatarBackgrounds = {R.drawable.lb_light_avatar_blue, R.drawable.lb_light_avatar_violet,
+                R.drawable.lb_light_avatar_green, R.drawable.lb_light_avatar_coral};
+        int[] avatarColors = {R.color.lb_light_cobalt, R.color.lb_light_violet_ink,
+                R.color.lb_light_green_ink, R.color.lb_light_coral_ink};
+        int palette = position % avatarBackgrounds.length;
+        holder.textUserAvatar.setBackgroundResource(isCurrentUser ? R.drawable.lb_light_avatar_self : avatarBackgrounds[palette]);
+        holder.textUserAvatar.setTextColor(holder.itemView.getContext().getColor(
+                isCurrentUser ? R.color.lb_light_surface : avatarColors[palette]));
+        holder.textRank.setTextColor(holder.itemView.getContext().getColor(
+                isCurrentUser ? R.color.lb_light_cobalt : R.color.lb_light_secondary));
+        holder.textUserXp.setTextColor(holder.itemView.getContext().getColor(
+                isCurrentUser ? R.color.lb_light_cobalt : R.color.lb_light_text));
 
-        // Display name & username
+        // Display name
         holder.textDisplayName.setText(displayName);
-        holder.textUsername.setText("@" + user.getUsername());
 
-        // Level & Streak
-        holder.textUserLevel.setText("Lv. " + user.getLevel());
-        holder.textUserStreak.setText(user.getCurrentStreak() + " ngày");
+        // Self badge
+        if (holder.textUserTagSelf != null) {
+            holder.textUserTagSelf.setVisibility(isCurrentUser ? View.VISIBLE : View.GONE);
+        }
 
-        // XP
-        holder.textUserXp.setText(user.getTotalXp() + " XP");
+        // Score with diamond format
+        holder.textUserXp.setText(numberFormat.format(user.getTotalXp()));
+    }
+
+    private String getInitials(String name) {
+        if (name == null || name.trim().isEmpty()) return "U";
+        String[] parts = name.trim().split("\\s+");
+        if (parts.length == 1) {
+            return parts[0].substring(0, Math.min(2, parts[0].length())).toUpperCase(Locale.ROOT);
+        }
+        String first = parts[0].substring(0, 1);
+        String last = parts[parts.length - 1].substring(0, 1);
+        return (first + last).toUpperCase(Locale.ROOT);
     }
 
     @Override
@@ -96,20 +104,22 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         final TextView textRank;
         final TextView textUserAvatar;
         final TextView textDisplayName;
+        final TextView textUserTagSelf;
+        final TextView textUserXp;
         final TextView textUsername;
         final TextView textUserLevel;
         final TextView textUserStreak;
-        final TextView textUserXp;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             textRank = itemView.findViewById(R.id.textRank);
             textUserAvatar = itemView.findViewById(R.id.textUserAvatar);
             textDisplayName = itemView.findViewById(R.id.textDisplayName);
+            textUserTagSelf = itemView.findViewById(R.id.textUserTagSelf);
+            textUserXp = itemView.findViewById(R.id.textUserXp);
             textUsername = itemView.findViewById(R.id.textUsername);
             textUserLevel = itemView.findViewById(R.id.textUserLevel);
             textUserStreak = itemView.findViewById(R.id.textUserStreak);
-            textUserXp = itemView.findViewById(R.id.textUserXp);
         }
     }
 }

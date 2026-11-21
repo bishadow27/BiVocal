@@ -26,7 +26,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
-import com.example.bivoca.ui.home.HomeActivity;
+import com.example.bivoca.ui.home.TrangChuActivity;
 import com.example.bivoca.ui.topics.*;
 import com.example.bivoca.ui.flashcard.*;
 import com.example.bivoca.ui.quiz.*;
@@ -51,7 +51,7 @@ public class LearningBottomNavigationUiTest {
     @Test public void approvedBarFitsFiveLayoutsAndFontSizeMatrix() {
         main(()->{
             Context base=context();
-            for(int layout:new int[]{R.layout.activity_home,R.layout.activity_topics,R.layout.activity_topic_detail,R.layout.activity_flashcard,R.layout.activity_quiz})
+            for(int layout:new int[]{R.layout.activity_trang_chu,R.layout.activity_chu_de,R.layout.activity_chi_tiet_chu_de,R.layout.activity_the_tu_vung,R.layout.activity_trac_nghiem})
                 for(int[] size:new int[][]{{320,640},{412,915},{731,411}})for(float font:new float[]{1f,1.3f}) {
                     Configuration config=new Configuration(base.getResources().getConfiguration());config.fontScale=font;
                     config.screenWidthDp=size[0];config.screenHeightDp=size[1];
@@ -84,95 +84,95 @@ public class LearningBottomNavigationUiTest {
 
     @Test public void realTabsKeepBrowseReviewNewAndQuizWithoutDuplicates() throws Exception {
         assertTrue("Existing user login required",new SessionManager(context()).isLoggedIn());
-        launch(new Intent(context(),HomeActivity.class));HomeActivity home=await(HomeActivity.class);
-        assertNav(home,NavigationRoute.HOME);tap(home,R.id.homeTabHome);assertSame(home,await(HomeActivity.class));
+        launch(new Intent(context(),TrangChuActivity.class));TrangChuActivity home=await(TrangChuActivity.class);
+        assertNav(home,NavigationRoute.HOME);tap(home,R.id.homeTabHome);assertSame(home,await(TrangChuActivity.class));
         waitHome(home);screenshot("home.png");drawerBack(home);
-        tap(home,R.id.buttonTopics);TopicsActivity topics=await(TopicsActivity.class);waitTopics(topics);
-        TopicsActivity initialTopics=topics;
+        tap(home,R.id.buttonTopics);ChuDeActivity topics=await(ChuDeActivity.class);waitTopics(topics);
+        ChuDeActivity initialTopics=topics;
         main(()->{
             ChipGroup chips=initialTopics.findViewById(R.id.topicsFilterChips);
             for(int i=0;i<chips.getChildCount();i++)if("SEMANTIC".equals(chips.getChildAt(i).getTag()))chips.getChildAt(i).performClick();
             ((TextView)initialTopics.findViewById(R.id.inputTopicSearch)).setText("Food");
         });waitTopics(topics);screenshot("topics.png");drawerBack(topics);
-        TopicDetailActivity detail=openFood(topics);screenshot("topic-detail.png");drawerBack(detail);
-        tap(detail,R.id.buttonTopicFlashcards);FlashcardActivity browse=awaitFlash(NavigationRoute.TOPICS);
-        while(browse.getLearningViewModel().getGlobalPosition()>1){FlashcardActivity current=browse;main(()->current.getLearningViewModel().previous());waitFlash(browse);}
+        ChiTietChuDeActivity detail=openFood(topics);screenshot("topic-detail.png");drawerBack(detail);
+        tap(detail,R.id.buttonTopicFlashcards);TheTuVungActivity browse=awaitFlash(NavigationRoute.TOPICS);
+        while(browse.getLearningViewModel().getGlobalPosition()>1){TheTuVungActivity current=browse;main(()->current.getLearningViewModel().previous());waitFlash(browse);}
         if(visible(browse,R.id.layoutCardBack))tap(browse,R.id.buttonFlipCard);
         screenshot("flashcard-front.png");
-        FlashcardActivity firstBrowse=browse;main(()->firstBrowse.getLearningViewModel().next());waitFlash(browse);tap(browse,R.id.buttonFlipCard);
+        TheTuVungActivity firstBrowse=browse;main(()->firstBrowse.getLearningViewModel().next());waitFlash(browse);tap(browse,R.id.buttonFlipCard);
         FlashcardViewModel browseVm=browse.getLearningViewModel();Object browseCards=browseVm.getFlashcards().getValue();
         int position=browseVm.getGlobalPosition();assertEquals(2,position);assertTrue(visible(browse,R.id.layoutCardBack));
         screenshot("flashcard.png");drawerBack(browse);
-        tap(browse,R.id.homeTabHome);home=await(HomeActivity.class);tap(home,R.id.buttonTopics);
-        topics=await(TopicsActivity.class);assertSearch(topics);detail=openFood(topics);
+        tap(browse,R.id.homeTabHome);home=await(TrangChuActivity.class);tap(home,R.id.buttonTopics);
+        topics=await(ChuDeActivity.class);assertSearch(topics);detail=openFood(topics);
         tap(detail,R.id.buttonTopicFlashcards);browse=awaitFlash(NavigationRoute.TOPICS);
         assertSame(browseVm,browse.getLearningViewModel());assertSame(browseCards,browseVm.getFlashcards().getValue());
         assertEquals(position,browseVm.getGlobalPosition());assertTrue(visible(browse,R.id.layoutCardBack));
-        tap(browse,R.id.buttonReviewToday);FlashcardActivity review=awaitFlash(NavigationRoute.REVIEW_TODAY);
+        tap(browse,R.id.buttonReviewToday);TheTuVungActivity review=awaitFlash(NavigationRoute.REVIEW_TODAY);
         FlashcardViewModel reviewVm=review.getLearningViewModel();Object queue=reviewVm.getFlashcards().getValue();
         int processed=reviewVm.getSessionProcessed().getValue(),total=reviewVm.getSessionTotal().getValue();
         assertFalse(reviewVm.getReviewCompleted().getValue());screenshot("review-today.png");
-        tap(review,R.id.buttonQuiz);QuizActivity quiz=await(QuizActivity.class);waitQuiz(quiz);
+        tap(review,R.id.buttonQuiz);TracNghiemActivity quiz=await(TracNghiemActivity.class);waitQuiz(quiz);
         QuizViewModel quizVm=quiz.getLearningViewModel();Object question=quizVm.getCurrentQuestion();
         assertEquals(0,quizVm.getAnsweredCount());screenshot("quiz.png");drawerBack(quiz);
-        tap(quiz,R.id.homeTabHome);home=await(HomeActivity.class);tap(home,R.id.buttonQuiz);quiz=await(QuizActivity.class);
+        tap(quiz,R.id.homeTabHome);home=await(TrangChuActivity.class);tap(home,R.id.buttonQuiz);quiz=await(TracNghiemActivity.class);
         assertSame(quizVm,quiz.getLearningViewModel());assertSame(question,quizVm.getCurrentQuestion());assertEquals(0,quizVm.getAnsweredCount());
         tap(quiz,R.id.buttonReviewToday);review=awaitFlash(NavigationRoute.REVIEW_TODAY);
         assertSame(reviewVm,review.getLearningViewModel());assertSame(queue,reviewVm.getFlashcards().getValue());
         assertEquals(processed,(int)reviewVm.getSessionProcessed().getValue());assertEquals(total,(int)reviewVm.getSessionTotal().getValue());
-        tap(review,R.id.homeTabHome);home=await(HomeActivity.class);openNew(home);
-        FlashcardActivity fresh=awaitFlash(NavigationRoute.HOME);FlashcardViewModel newVm=fresh.getLearningViewModel();Object newQueue=newVm.getFlashcards().getValue();
+        tap(review,R.id.homeTabHome);home=await(TrangChuActivity.class);openNew(home);
+        TheTuVungActivity fresh=awaitFlash(NavigationRoute.HOME);FlashcardViewModel newVm=fresh.getLearningViewModel();Object newQueue=newVm.getFlashcards().getValue();
         if(!newVm.getFlashcards().getValue().isEmpty()&&!visible(fresh,R.id.layoutCardBack))tap(fresh,R.id.buttonFlipCard);
         boolean newBack=visible(fresh,R.id.layoutCardBack);screenshot("new-today.png");
         tap(fresh,R.id.buttonReviewToday);review=awaitFlash(NavigationRoute.REVIEW_TODAY);assertSame(reviewVm,review.getLearningViewModel());
-        tap(review,R.id.homeTabHome);home=await(HomeActivity.class);openNew(home);fresh=awaitFlash(NavigationRoute.HOME);
+        tap(review,R.id.homeTabHome);home=await(TrangChuActivity.class);openNew(home);fresh=awaitFlash(NavigationRoute.HOME);
         assertSame(newVm,fresh.getLearningViewModel());assertSame(newQueue,newVm.getFlashcards().getValue());assertEquals(newBack,visible(fresh,R.id.layoutCardBack));
-        tap(fresh,R.id.buttonTopics);topics=await(TopicsActivity.class);assertSearch(topics);detail=openFood(topics);
+        tap(fresh,R.id.buttonTopics);topics=await(ChuDeActivity.class);assertSearch(topics);detail=openFood(topics);
         tap(detail,R.id.buttonTopicFlashcards);browse=awaitFlash(NavigationRoute.TOPICS);
         assertSame(browseVm,browse.getLearningViewModel());assertEquals(position,browseVm.getGlobalPosition());assertTrue(visible(browse,R.id.layoutCardBack));
         assertNoDuplicates();
-        tap(browse,R.id.homeTabHome);home=(HomeActivity)rotate(await(HomeActivity.class),NavigationRoute.HOME);waitHome(home);screenshot("home-rotated.png");
-        tap(home,R.id.buttonTopics);topics=(TopicsActivity)rotate(await(TopicsActivity.class),NavigationRoute.TOPICS);assertSearch(topics);
-        detail=(TopicDetailActivity)rotate(openFood(topics),NavigationRoute.TOPICS);
-        tap(detail,R.id.buttonTopicFlashcards);browse=(FlashcardActivity)rotate(awaitFlash(NavigationRoute.TOPICS),NavigationRoute.TOPICS);
+        tap(browse,R.id.homeTabHome);home=(TrangChuActivity)rotate(await(TrangChuActivity.class),NavigationRoute.HOME);waitHome(home);screenshot("home-rotated.png");
+        tap(home,R.id.buttonTopics);topics=(ChuDeActivity)rotate(await(ChuDeActivity.class),NavigationRoute.TOPICS);assertSearch(topics);
+        detail=(ChiTietChuDeActivity)rotate(openFood(topics),NavigationRoute.TOPICS);
+        tap(detail,R.id.buttonTopicFlashcards);browse=(TheTuVungActivity)rotate(awaitFlash(NavigationRoute.TOPICS),NavigationRoute.TOPICS);
         assertSame(browseVm,browse.getLearningViewModel());assertEquals(position,browseVm.getGlobalPosition());assertTrue(visible(browse,R.id.layoutCardBack));
         tap(browse,R.id.buttonReviewToday);review=awaitFlash(NavigationRoute.REVIEW_TODAY);assertSame(reviewVm,review.getLearningViewModel());
-        tap(review,R.id.buttonQuiz);quiz=(QuizActivity)rotate(await(QuizActivity.class),NavigationRoute.QUIZ);
+        tap(review,R.id.buttonQuiz);quiz=(TracNghiemActivity)rotate(await(TracNghiemActivity.class),NavigationRoute.QUIZ);
         assertSame(quizVm,quiz.getLearningViewModel());assertSame(question,quizVm.getCurrentQuestion());
         assertNoDuplicates();drawerBack(quiz);
-        QuizActivity leaving=quiz;main(()->leaving.getOnBackPressedDispatcher().onBackPressed());settle();
+        TracNghiemActivity leaving=quiz;main(()->leaving.getOnBackPressedDispatcher().onBackPressed());settle();
         assertTrue("Zero-answer Back follows existing LEAVE policy",leaving.isFinishing()||leaving.isDestroyed());
-        launch(new Intent(context(),HomeActivity.class));await(HomeActivity.class);assertNoDuplicates();
+        launch(new Intent(context(),TrangChuActivity.class));await(TrangChuActivity.class);assertNoDuplicates();
     }
 
     @Test public void actualInsetsFitFiveScreensWithoutWaitingForQuizResponses()throws Exception{
-        Class<?>[] types={HomeActivity.class,TopicsActivity.class,TopicDetailActivity.class,FlashcardActivity.class,QuizActivity.class};
+        Class<?>[] types={TrangChuActivity.class,ChuDeActivity.class,ChiTietChuDeActivity.class,TheTuVungActivity.class,TracNghiemActivity.class};
         for(Class<?> type:types){
             Intent intent=new Intent(context(),type);
-            if(type==TopicDetailActivity.class)intent.putExtra(TopicDetailActivity.EXTRA_TOPIC_CODE,"FOOD");
-            if(type==FlashcardActivity.class)intent.putExtra(FlashcardActivity.EXTRA_TOPIC_CODE,"FOOD");
+            if(type==ChiTietChuDeActivity.class)intent.putExtra(ChiTietChuDeActivity.EXTRA_TOPIC_CODE,"FOOD");
+            if(type==TheTuVungActivity.class)intent.putExtra(TheTuVungActivity.EXTRA_TOPIC_CODE,"FOOD");
             launch(intent);AppCompatActivity a=await(type.asSubclass(AppCompatActivity.class));
-            NavigationRoute route=type==HomeActivity.class?NavigationRoute.HOME:type==QuizActivity.class?NavigationRoute.QUIZ:NavigationRoute.TOPICS;
+            NavigationRoute route=type==TrangChuActivity.class?NavigationRoute.HOME:type==TracNghiemActivity.class?NavigationRoute.QUIZ:NavigationRoute.TOPICS;
             screenshot("insets-"+type.getSimpleName()+"-portrait.png");assertNav(a,route);rotate(a,route);
         }
-        launch(new Intent(context(),HomeActivity.class));await(HomeActivity.class);
+        launch(new Intent(context(),TrangChuActivity.class));await(TrangChuActivity.class);
     }
-    private static void openNew(HomeActivity home){waitUntil(()->home.findViewById(R.id.buttonLearnNewToday).isEnabled());tap(home,R.id.buttonLearnNewToday);}
-    private static TopicDetailActivity openFood(TopicsActivity activity){
+    private static void openNew(TrangChuActivity home){waitUntil(()->home.findViewById(R.id.buttonLearnNewToday).isEnabled());tap(home,R.id.buttonLearnNewToday);}
+    private static ChiTietChuDeActivity openFood(ChuDeActivity activity){
         waitTopics(activity);
         main(()->{RecyclerView list=activity.findViewById(R.id.recyclerTopics);assertEquals(1,list.getAdapter().getItemCount());list.scrollToPosition(0);});settle();
         main(()->{RecyclerView list=activity.findViewById(R.id.recyclerTopics);assertNotNull(list.findViewHolderForAdapterPosition(0));list.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.cardTopic).performClick();});
-        TopicDetailActivity detail=await(TopicDetailActivity.class);
+        ChiTietChuDeActivity detail=await(ChiTietChuDeActivity.class);
         waitUntil(()->{TopicDetailViewModel vm=new ViewModelProvider(detail).get(TopicDetailViewModel.class);return vm.getTopic().getValue()!=null&&!Boolean.TRUE.equals(vm.getPreviewLoading().getValue());});
         assertNav(detail,NavigationRoute.TOPICS);return detail;
     }
-    private static void assertSearch(TopicsActivity a){main(()->{assertEquals("Food",((TextView)a.findViewById(R.id.inputTopicSearch)).getText().toString());ChipGroup chips=a.findViewById(R.id.topicsFilterChips);boolean selected=false;for(int i=0;i<chips.getChildCount();i++)if("SEMANTIC".equals(chips.getChildAt(i).getTag()))selected=((Chip)chips.getChildAt(i)).isChecked();assertTrue(selected);});}
-    private static void waitHome(HomeActivity a){waitUntil(()->a.findViewById(R.id.progressHomeLoading).getVisibility()!=View.VISIBLE);}
-    private static void waitTopics(TopicsActivity a){waitUntil(()->{TopicsViewModel vm=new ViewModelProvider(a).get(TopicsViewModel.class);return vm.getTopics().getValue()!=null&&!Boolean.TRUE.equals(vm.getLoading().getValue());});settle();}
-    private static void waitFlash(FlashcardActivity a){waitUntil(()->a.getLearningViewModel()!=null&&a.getLearningViewModel().getFlashcards().getValue()!=null&&!Boolean.TRUE.equals(a.getLearningViewModel().getLoading().getValue()));settle();}
-    private static void waitQuiz(QuizActivity a){waitUntil(()->a.getLearningViewModel()!=null&&a.getLearningViewModel().getState().getValue()!=QuizViewModel.QuizState.LOADING_QUESTIONS);assertEquals("Quiz GET error: "+a.getLearningViewModel().getErrorMessage().getValue(),QuizViewModel.QuizState.QUESTION,a.getLearningViewModel().getState().getValue());}
-    private static FlashcardActivity awaitFlash(NavigationRoute selected){
-        final FlashcardActivity[] result={null};waitUntil(()->{Activity a=resumed();if(!(a instanceof FlashcardActivity))return false;FlashcardActivity f=(FlashcardActivity)a;View tab=f.findViewById(tabId(selected));if(tab==null||!tab.isSelected()||f.getLearningViewModel()==null)return false;result[0]=f;return f.getLearningViewModel().getFlashcards().getValue()!=null&&!Boolean.TRUE.equals(f.getLearningViewModel().getLoading().getValue());});
+    private static void assertSearch(ChuDeActivity a){main(()->{assertEquals("Food",((TextView)a.findViewById(R.id.inputTopicSearch)).getText().toString());ChipGroup chips=a.findViewById(R.id.topicsFilterChips);boolean selected=false;for(int i=0;i<chips.getChildCount();i++)if("SEMANTIC".equals(chips.getChildAt(i).getTag()))selected=((Chip)chips.getChildAt(i)).isChecked();assertTrue(selected);});}
+    private static void waitHome(TrangChuActivity a){waitUntil(()->a.findViewById(R.id.progressHomeLoading).getVisibility()!=View.VISIBLE);}
+    private static void waitTopics(ChuDeActivity a){waitUntil(()->{TopicsViewModel vm=new ViewModelProvider(a).get(TopicsViewModel.class);return vm.getTopics().getValue()!=null&&!Boolean.TRUE.equals(vm.getLoading().getValue());});settle();}
+    private static void waitFlash(TheTuVungActivity a){waitUntil(()->a.getLearningViewModel()!=null&&a.getLearningViewModel().getFlashcards().getValue()!=null&&!Boolean.TRUE.equals(a.getLearningViewModel().getLoading().getValue()));settle();}
+    private static void waitQuiz(TracNghiemActivity a){waitUntil(()->a.getLearningViewModel()!=null&&a.getLearningViewModel().getState().getValue()!=QuizViewModel.QuizState.LOADING_QUESTIONS);assertEquals("Quiz GET error: "+a.getLearningViewModel().getErrorMessage().getValue(),QuizViewModel.QuizState.QUESTION,a.getLearningViewModel().getState().getValue());}
+    private static TheTuVungActivity awaitFlash(NavigationRoute selected){
+        final TheTuVungActivity[] result={null};waitUntil(()->{Activity a=resumed();if(!(a instanceof TheTuVungActivity))return false;TheTuVungActivity f=(TheTuVungActivity)a;View tab=f.findViewById(tabId(selected));if(tab==null||!tab.isSelected()||f.getLearningViewModel()==null)return false;result[0]=f;return f.getLearningViewModel().getFlashcards().getValue()!=null&&!Boolean.TRUE.equals(f.getLearningViewModel().getLoading().getValue());});
         assertNav(result[0],selected);settle();return result[0];
     }
     private static AppCompatActivity rotate(AppCompatActivity activity,NavigationRoute selected)throws Exception{
@@ -184,10 +184,10 @@ public class LearningBottomNavigationUiTest {
         final AppCompatActivity[] portrait={null};try{waitUntil(()->{Activity a=resumed();if(type.isInstance(a)&&a.getResources().getConfiguration().orientation==Configuration.ORIENTATION_PORTRAIT){portrait[0]=(AppCompatActivity)a;return true;}return false;});}catch(AssertionError e){throw new AssertionError("Portrait/focus did not settle: "+type.getSimpleName(),e);}settle();
         assertSame(vm,ownerVm(portrait[0]));assertNav(portrait[0],selected);return portrait[0];
     }
-    private static Object ownerVm(AppCompatActivity a){final Object[] vm={null};main(()->{if(a instanceof FlashcardActivity)vm[0]=((FlashcardActivity)a).getLearningViewModel();else if(a instanceof QuizActivity)vm[0]=((QuizActivity)a).getLearningViewModel();else if(a instanceof TopicsActivity)vm[0]=new ViewModelProvider(a).get(TopicsViewModel.class);else if(a instanceof TopicDetailActivity)vm[0]=new ViewModelProvider(a).get(TopicDetailViewModel.class);else vm[0]=new ViewModelProvider(a).get(com.example.bivoca.ui.profile.ProfileViewModel.class);});return vm[0];}
+    private static Object ownerVm(AppCompatActivity a){final Object[] vm={null};main(()->{if(a instanceof TheTuVungActivity)vm[0]=((TheTuVungActivity)a).getLearningViewModel();else if(a instanceof TracNghiemActivity)vm[0]=((TracNghiemActivity)a).getLearningViewModel();else if(a instanceof ChuDeActivity)vm[0]=new ViewModelProvider(a).get(TopicsViewModel.class);else if(a instanceof ChiTietChuDeActivity)vm[0]=new ViewModelProvider(a).get(TopicDetailViewModel.class);else vm[0]=new ViewModelProvider(a).get(com.example.bivoca.ui.profile.ProfileViewModel.class);});return vm[0];}
     private static void drawerBack(AppCompatActivity a){
-        if(a instanceof FlashcardActivity){main(()->((androidx.core.widget.NestedScrollView)a.findViewById(R.id.flashcardPageScroll)).scrollTo(0,0));settle();tap(a,R.id.buttonFlashcardMenu);onView(withText(R.string.nav_open_description)).perform(click());}
-        else if(a instanceof QuizActivity)tap(a,R.id.buttonNavigationAvatar);else tap(a,R.id.buttonHomeMenu);
+        if(a instanceof TheTuVungActivity){main(()->((androidx.core.widget.NestedScrollView)a.findViewById(R.id.flashcardPageScroll)).scrollTo(0,0));settle();tap(a,R.id.buttonFlashcardMenu);onView(withText(R.string.nav_open_description)).perform(click());}
+        else if(a instanceof TracNghiemActivity)tap(a,R.id.buttonNavigationAvatar);else tap(a,R.id.buttonHomeMenu);
         settle();main(()->assertTrue(((DrawerLayout)a.findViewById(R.id.navigationDrawerLayout)).isDrawerOpen(GravityCompat.END)));
         main(()->a.getOnBackPressedDispatcher().onBackPressed());settle();main(()->{assertFalse(((DrawerLayout)a.findViewById(R.id.navigationDrawerLayout)).isDrawerOpen(GravityCompat.END));assertFalse(a.isFinishing());});
     }
@@ -198,7 +198,7 @@ public class LearningBottomNavigationUiTest {
         Rect visible=new Rect();assertTrue(bar.getGlobalVisibleRect(visible));assertEquals(a.getClass().getSimpleName()+" orientation="+a.getResources().getConfiguration().orientation+" bar="+bar.getHeight()+" visible="+visible,bar.getHeight(),visible.height());
         WindowInsetsCompat insets=ViewCompat.getRootWindowInsets(a.getWindow().getDecorView());if(insets!=null){int[] xy=new int[2];bar.getLocationOnScreen(xy);assertTrue(xy[1]+bar.getHeight()<=a.getWindow().getDecorView().getHeight()-insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom+1);}
     });}
-    private static void assertNoDuplicates(){main(()->{Set<Activity> all=new HashSet<>();for(Stage s:new Stage[]{Stage.CREATED,Stage.STARTED,Stage.RESUMED,Stage.PAUSED,Stage.STOPPED})all.addAll(ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(s));for(Class<?> type:new Class[]{HomeActivity.class,TopicsActivity.class,TopicDetailActivity.class,FlashcardActivity.class,QuizActivity.class}){int count=0;for(Activity a:all)if(type.isInstance(a)&&!a.isFinishing()&&!a.isDestroyed())count++;assertTrue("Duplicate "+type.getSimpleName()+": "+count,count<=1);}});}
+    private static void assertNoDuplicates(){main(()->{Set<Activity> all=new HashSet<>();for(Stage s:new Stage[]{Stage.CREATED,Stage.STARTED,Stage.RESUMED,Stage.PAUSED,Stage.STOPPED})all.addAll(ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(s));for(Class<?> type:new Class[]{TrangChuActivity.class,ChuDeActivity.class,ChiTietChuDeActivity.class,TheTuVungActivity.class,TracNghiemActivity.class}){int count=0;for(Activity a:all)if(type.isInstance(a)&&!a.isFinishing()&&!a.isDestroyed())count++;assertTrue("Duplicate "+type.getSimpleName()+": "+count,count<=1);}});}
     private interface Condition {boolean ready();}
     private static void waitUntil(Condition c){boolean[] ok={false};long deadline=SystemClock.uptimeMillis()+20000;do{main(()->ok[0]=c.ready());if(ok[0])return;SystemClock.sleep(100);}while(SystemClock.uptimeMillis()<deadline);fail("Navigation/API did not settle");}
     private static Activity resumed(){for(Activity a:ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED))if(a.getClass().getName().startsWith("com.example.bivoca.")&&!a.isFinishing()&&!a.isDestroyed()&&a.hasWindowFocus())return a;return null;}
